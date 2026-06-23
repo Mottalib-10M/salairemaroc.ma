@@ -1,0 +1,99 @@
+---
+import CalculateurLayout from '../layouts/CalculateurLayout.astro';
+import NetVersBrut from '../components/calculateurs/NetVersBrut';
+import { CURRENT_FISCAL_YEAR } from '../config';
+import { calculerBrutDepuisNet } from '../lib/salaire-engine';
+import { formatDH, formatDHArrondi } from '../lib/format';
+
+const title = `Calculateur Net vers Brut Maroc ${CURRENT_FISCAL_YEAR} - Salaire`;
+const description = `Trouvez le salaire brut necessaire pour obtenir le net souhaite au Maroc. Calcul inverse avec CNSS et IR inclus. Bareme ${CURRENT_FISCAL_YEAR}.`;
+
+const faqs = [
+  {
+    question: 'Comment trouver le brut a partir du net au Maroc ?',
+    answer: 'Le calcul inverse (net vers brut) est plus complexe car les deductions dependent du brut lui-meme. Notre calculateur utilise un algorithme de recherche dichotomique pour trouver le brut exact qui produit le net souhaite, en tenant compte de la CNSS, des frais professionnels et de l\'IR progressif.',
+  },
+  {
+    question: 'Pourquoi ai-je besoin de ce calculateur ?',
+    answer: 'Ce calculateur est utile lors de negotiations salariales quand vous savez combien vous voulez gagner en net et devez connaitre le brut correspondant. Il est aussi utile pour les employeurs qui souhaitent proposer un salaire net garanti a un candidat.',
+  },
+  {
+    question: 'Le resultat est-il exact ?',
+    answer: 'Oui, le resultat est precis a 1 DH pres. L\'algorithme effectue une convergence iterative jusqu\'a trouver le brut qui produit exactement le net souhaite, en respectant toutes les regles fiscales marocaines en vigueur.',
+  },
+];
+
+const exemplesNet = [4000, 6000, 8000, 10000, 15000];
+const exemplesResultats = exemplesNet.map(net => ({
+  net,
+  resultat: calculerBrutDepuisNet(net, 0),
+}));
+---
+
+<CalculateurLayout
+  title={title}
+  description={description}
+  h1={`Calculateur Net vers Brut Maroc ${CURRENT_FISCAL_YEAR}`}
+  calculatorName="Calculateur Net vers Brut"
+  path="/calculateur-net-vers-brut/"
+  faqs={faqs}
+>
+  <div class="mb-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+    <NetVersBrut client:idle />
+  </div>
+
+  <div class="prose max-w-none text-dark-gray leading-relaxed">
+    <h2 class="text-2xl font-bold text-charcoal">Pourquoi calculer le brut a partir du net ?</h2>
+    <p>
+      Dans le monde professionnel marocain, il est courant de raisonner en salaire net, car c'est ce montant qui determine veritablement votre niveau de vie. Cependant, les contrats de travail mentionnent le salaire brut. Connaitre le brut correspondant a un net souhaite est donc essentiel dans plusieurs situations : negociation d'embauche, changement de poste, comparaison d'offres, ou simplement pour fixer ses pretentions salariales.
+    </p>
+    <p>
+      Le calcul inverse est plus complexe qu'un simple pourcentage, car les deductions (CNSS et IR) ne sont pas lineaires. Le plafond CNSS de 6 000 DH/mois cree un premier palier, et la progressivite de l'IR signifie que le taux effectif varie en fonction du niveau de salaire. Notre algorithme tient compte de toutes ces subtilites pour vous fournir un resultat exact.
+    </p>
+
+    <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Tableau de correspondance net vers brut</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border-collapse my-4">
+        <thead>
+          <tr class="border-b-2 border-gray-300">
+            <th class="px-3 py-2 text-left">Net souhaite</th>
+            <th class="px-3 py-2 text-right">Brut necessaire</th>
+            <th class="px-3 py-2 text-right">CNSS/mois</th>
+            <th class="px-3 py-2 text-right">IR/mois</th>
+            <th class="px-3 py-2 text-right">Cout employeur</th>
+          </tr>
+        </thead>
+        <tbody class="tabular-nums">
+          {exemplesResultats.map(({ net, resultat }) => (
+            <tr class="border-b border-gray-100">
+              <td class="px-3 py-1 font-medium">{formatDHArrondi(net)}</td>
+              <td class="px-3 py-1 text-right font-bold text-brand">{formatDHArrondi(resultat.brutMensuel)}</td>
+              <td class="px-3 py-1 text-right">{formatDH(resultat.cnssMensuel)}</td>
+              <td class="px-3 py-1 text-right">{formatDH(resultat.irMensuel)}</td>
+              <td class="px-3 py-1 text-right">{formatDHArrondi(resultat.coutEmployeurMensuel)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Conseils pour la negociation salariale</h3>
+    <p>
+      Lorsque vous negociez votre salaire au Maroc, voici quelques points a garder a l'esprit :
+    </p>
+    <ul class="list-disc ml-4 space-y-2">
+      <li><strong>Parlez toujours en brut</strong> avec l'employeur, car c'est la reference legale et contractuelle. Utilisez ce calculateur pour connaitre le brut correspondant a vos attentes nettes.</li>
+      <li><strong>Tenez compte du cout employeur :</strong> votre employeur considere le cout total, pas seulement le brut. Un salarie a 10 000 DH brut coute environ {formatDHArrondi(calculerBrutDepuisNet(10000, 0).coutEmployeurMensuel)} a l'employeur.</li>
+      <li><strong>Les avantages en nature</strong> (voiture de fonction, logement, assurance complementaire) ne sont pas soumis aux memes regles fiscales. Ils peuvent etre un levier de negociation supplementaire.</li>
+      <li><strong>N'oubliez pas les primes</strong> : prime d'anciennete, 13e mois, primes de performance. Ces elements augmentent votre remuneration globale.</li>
+    </ul>
+
+    <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Methodologie de calcul inverse</h3>
+    <p>
+      Le calcul net vers brut ne peut pas se faire par simple formule algebrique a cause de la non-linearite des deductions. Notre calculateur utilise un algorithme de recherche dichotomique (binary search) qui teste iterativement des valeurs de brut jusqu'a trouver celle qui produit exactement le net cible. Le processus converge en quelques millisecondes avec une precision inferieure a 1 DH.
+    </p>
+    <p>
+      Concretement, l'algorithme part d'une estimation initiale (le net multiplie par un facteur d'ajustement), puis affine progressivement en divisant l'intervalle de recherche par deux a chaque iteration. Si le net calcule est trop bas, on augmente le brut ; s'il est trop haut, on le diminue. Cette methode garantit un resultat exact dans tous les cas, y compris pour les salaires tres eleves ou tres bas.
+    </p>
+  </div>
+</CalculateurLayout>

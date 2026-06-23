@@ -1,0 +1,109 @@
+---
+import { SITE_NAME, CURRENT_FISCAL_YEAR, TAGLINE } from '../../config';
+
+const calculateurs = [
+  { href: '/calculateur-salaire-net/', label: 'Brut vers Net' },
+  { href: '/calculateur-net-vers-brut/', label: 'Net vers Brut' },
+  { href: '/calculateur-cout-employeur/', label: 'Cout Employeur' },
+  { href: '/simulateur-ir/', label: 'Simulateur IR' },
+];
+
+const guidesLinks = [
+  { href: '/guides/smig-maroc/', label: 'SMIG au Maroc' },
+  { href: '/guides/comprendre-bulletin-paie/', label: 'Bulletin de paie' },
+  { href: '/guides/bareme-ir-maroc/', label: 'Bareme IR' },
+];
+
+const liensUtiles = [
+  { href: 'https://www.tax.gov.ma', label: 'DGI Maroc' },
+  { href: 'https://www.cnss.ma', label: 'CNSS' },
+  { href: 'https://www.emploi.gov.ma', label: 'Ministere de l\'Emploi' },
+];
+
+const legal = [
+  { href: '/a-propos/', label: 'A propos' },
+  { href: '/mentions-legales/', label: 'Mentions legales' },
+];
+---
+
+<footer class="border-t border-gray-200 bg-light-gray">
+  <div class="mx-auto max-w-6xl px-4 py-12">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+      <div class="lg:col-span-2">
+        <a href="/" class="mb-4 inline-block text-lg font-bold">
+          <span class="text-charcoal">Salaire </span>
+          <span class="text-brand">Maroc</span>
+        </a>
+        <p class="text-sm text-medium-gray">
+          {TAGLINE} Donnees mises a jour pour {CURRENT_FISCAL_YEAR}.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-charcoal">
+          Calculateurs
+        </h3>
+        <ul class="space-y-2">
+          {calculateurs.map(({ href, label }) => (
+            <li>
+              <a href={href} class="text-sm text-medium-gray transition-colors hover:text-brand">
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-charcoal">
+          Guides
+        </h3>
+        <ul class="space-y-2">
+          {guidesLinks.map(({ href, label }) => (
+            <li>
+              <a href={href} class="text-sm text-medium-gray transition-colors hover:text-brand">
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-charcoal">
+          Liens utiles
+        </h3>
+        <ul class="space-y-2">
+          {liensUtiles.map(({ href, label }) => (
+            <li>
+              <a href={href} class="text-sm text-medium-gray transition-colors hover:text-brand" target="_blank" rel="noopener">
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <h3 class="mb-3 mt-6 text-sm font-semibold uppercase tracking-wider text-charcoal">
+          Legal
+        </h3>
+        <ul class="space-y-2">
+          {legal.map(({ href, label }) => (
+            <li>
+              <a href={href} class="text-sm text-medium-gray transition-colors hover:text-brand">
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-10 border-t border-gray-300 pt-6">
+      <p class="text-center text-xs text-medium-gray">
+        &copy; {new Date().getFullYear()} {SITE_NAME}. Les informations fournies le sont a titre indicatif et ne constituent pas un conseil fiscal.
+        {' '}Sources : <a href="https://www.tax.gov.ma" class="underline hover:text-brand" target="_blank" rel="noopener">DGI</a>,
+        <a href="https://www.cnss.ma" class="underline hover:text-brand" target="_blank" rel="noopener">CNSS</a>,
+        <a href="https://www.emploi.gov.ma" class="underline hover:text-brand" target="_blank" rel="noopener">Code du Travail</a>.
+      </p>
+    </div>
+  </div>
+</footer>

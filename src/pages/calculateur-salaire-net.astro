@@ -1,0 +1,137 @@
+---
+import CalculateurLayout from '../layouts/CalculateurLayout.astro';
+import SalaireNet from '../components/calculateurs/SalaireNet';
+import { CURRENT_FISCAL_YEAR } from '../config';
+import { calculerSalaireNet, CNSS_SALARIE_TOTAL, TRANCHES_IR, SMIG_MENSUEL } from '../lib/salaire-engine';
+import { formatDH, formatDHArrondi } from '../lib/format';
+
+const title = `Calculateur Salaire Brut Net Maroc ${CURRENT_FISCAL_YEAR} - CNSS & IR`;
+const description = `Convertissez votre salaire brut en net au Maroc. Cotisations CNSS, IR progressif, frais professionnels. Calcul instantane et gratuit ${CURRENT_FISCAL_YEAR}.`;
+
+const faqs = [
+  {
+    question: 'Comment fonctionne le calculateur brut vers net ?',
+    answer: `Notre calculateur prend votre salaire brut mensuel, deduit les cotisations CNSS (6,74%), puis calcule l'IR progressif apres deduction des frais professionnels (20%, plafonnés a 30 000 DH/an). Le resultat est votre salaire net mensuel, la somme que vous recevez sur votre compte.`,
+  },
+  {
+    question: 'Les cotisations CNSS sont-elles les memes pour tous les salaires ?',
+    answer: 'Le taux total de 6,74% est le meme, mais certaines composantes sont plafonnees a 6 000 DH/mois (prestations sociales et retraite). L\'AMO (2,26%) est deplafonnnee. Ainsi, au-dela de 6 000 DH/mois, seule l\'AMO continue a augmenter proportionnellement.',
+  },
+  {
+    question: 'Qu\'est-ce que le plafond CNSS de 6 000 DH ?',
+    answer: 'Le plafond de 6 000 DH/mois signifie que les cotisations pour les prestations sociales (0,52%) et la retraite (3,96%) sont calculees sur un maximum de 6 000 DH, meme si votre salaire est superieur. Seule l\'AMO (2,26%) s\'applique sur la totalite du salaire sans plafond.',
+  },
+  {
+    question: 'Le calculateur tient-il compte des personnes a charge ?',
+    answer: 'Oui, vous pouvez indiquer le nombre de personnes a charge (de 0 a 6). Chaque personne a charge donne droit a une deduction de 360 DH/an sur l\'IR, soit un maximum de 2 160 DH/an pour 6 personnes a charge.',
+  },
+];
+
+const exemples = [5000, 8000, 12000, 20000].map(brut => ({
+  brut,
+  resultat: calculerSalaireNet(brut, 0),
+}));
+---
+
+<CalculateurLayout
+  title={title}
+  description={description}
+  h1={`Calculateur Salaire Brut en Net ${CURRENT_FISCAL_YEAR}`}
+  calculatorName="Calculateur Brut vers Net"
+  path="/calculateur-salaire-net/"
+  faqs={faqs}
+>
+  <div class="mb-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+    <SalaireNet client:idle />
+  </div>
+
+  <div class="prose max-w-none text-dark-gray leading-relaxed">
+    <h2 class="text-2xl font-bold text-charcoal">Comprendre le passage du brut au net au Maroc</h2>
+    <p>
+      Lorsque vous signez un contrat de travail au Maroc, le salaire mentionne est generalement le salaire brut. Ce montant ne correspond pas a ce que vous recevrez reellement sur votre compte bancaire chaque mois. Pour obtenir votre salaire net, il faut deduire les cotisations sociales et l'impot sur le revenu.
+    </p>
+    <p>
+      Le processus de calcul suit une logique precise en plusieurs etapes. D'abord, les cotisations CNSS du salarie (6,74% du brut) sont deduites. Ce taux se decompose en trois volets : les prestations sociales a court terme (indemnites journalieres de maladie, maternite) taxees a 0,52%, l'Assurance Maladie Obligatoire (AMO) a 2,26%, et les prestations a long terme (pension de retraite) a 3,96%.
+    </p>
+    <p>
+      Un element important a comprendre est le <strong>plafond CNSS de 6 000 DH/mois</strong>. Les cotisations pour prestations sociales et retraite sont calculees sur un salaire plafonné a 6 000 DH mensuels. Si vous gagnez plus, ces deux cotisations cessent d'augmenter. En revanche, l'AMO est deplafonnnee : elle s'applique sur l'integralite de votre salaire, quel qu'en soit le montant.
+    </p>
+    <p>
+      Apres deduction de la CNSS, on obtient le <strong>revenu brut imposable</strong>. Sur ce montant, on applique une deduction forfaitaire de 20% pour frais professionnels, plafonnee a 30 000 DH par an. Le resultat est le <strong>revenu net imposable</strong>, sur lequel les tranches progressives de l'IR sont appliquees.
+    </p>
+
+    <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Le bareme de l'IR au Maroc</h3>
+    <p>
+      L'Impot sur le Revenu (IR) au Maroc est un impot progressif applique par tranches annuelles :
+    </p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border-collapse my-4">
+        <thead>
+          <tr class="border-b-2 border-gray-300">
+            <th class="px-3 py-2 text-left">Tranche annuelle</th>
+            <th class="px-3 py-2 text-right">Taux</th>
+          </tr>
+        </thead>
+        <tbody class="tabular-nums">
+          {TRANCHES_IR.map(t => (
+            <tr class="border-b border-gray-100">
+              <td class="px-3 py-1">
+                {t.max === Infinity
+                  ? `Au-dela de ${t.min.toLocaleString('fr-FR')} DH`
+                  : `${t.min.toLocaleString('fr-FR')} - ${t.max.toLocaleString('fr-FR')} DH`}
+              </td>
+              <td class="px-3 py-1 text-right font-medium">{(t.taux * 100).toFixed(0)}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Exemples de calcul pour differents salaires</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border-collapse my-4">
+        <thead>
+          <tr class="border-b-2 border-gray-300">
+            <th class="px-3 py-2 text-left">Brut mensuel</th>
+            <th class="px-3 py-2 text-right">CNSS/mois</th>
+            <th class="px-3 py-2 text-right">IR/mois</th>
+            <th class="px-3 py-2 text-right">Net/mois</th>
+            <th class="px-3 py-2 text-right">Taux retenue</th>
+          </tr>
+        </thead>
+        <tbody class="tabular-nums">
+          {exemples.map(({ brut, resultat }) => (
+            <tr class="border-b border-gray-100">
+              <td class="px-3 py-1 font-medium">{formatDHArrondi(brut)}</td>
+              <td class="px-3 py-1 text-right">{formatDH(resultat.cnssMensuel)}</td>
+              <td class="px-3 py-1 text-right">{formatDH(resultat.irMensuel)}</td>
+              <td class="px-3 py-1 text-right font-bold text-brand">{formatDH(resultat.netMensuel)}</td>
+              <td class="px-3 py-1 text-right">{(resultat.tauxEffectifTotal * 100).toFixed(1)}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Les deductions pour charges de famille</h3>
+    <p>
+      Le legislateur marocain prevoit une deduction forfaitaire pour les personnes a charge du contribuable. Cette deduction est de 360 DH par an et par personne a charge, dans la limite de 6 personnes, soit un maximum de 2 160 DH par an. Les personnes a charge comprennent le conjoint et les enfants. Cette deduction est appliquee directement sur le montant de l'IR calcule.
+    </p>
+
+    <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">L'employeur paie aussi des cotisations</h3>
+    <p>
+      En plus du salaire brut, l'employeur doit payer ses propres cotisations CNSS, environ 21% du brut. Celles-ci comprennent les allocations familiales (6,40%), les prestations sociales patronales (1,05%), l'AMO patronale (4,11%), la retraite patronale (7,93%) et la taxe de formation professionnelle (1,60%). Le cout total pour l'employeur est donc significativement superieur au salaire brut du salarie.
+    </p>
+    <p>
+      Pour un salaire brut de 8 000 DH, le cout total employeur s'eleve a environ {formatDH(calculerSalaireNet(8000, 0).coutEmployeurMensuel)} par mois, soit un surcout d'environ {formatDH(calculerSalaireNet(8000, 0).coutEmployeurMensuel - 8000)} au-dessus du brut. Utilisez notre <a href="/calculateur-cout-employeur/" class="text-brand hover:underline">calculateur du cout employeur</a> pour simuler votre cas.
+    </p>
+
+    <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Questions a se poser lors de la negociation salariale</h3>
+    <p>
+      Lors d'un entretien d'embauche ou d'une negociation de salaire au Maroc, il est essentiel de bien comprendre la difference entre brut et net. Un salaire annonce de 10 000 DH brut correspond a environ {formatDH(calculerSalaireNet(10000, 0).netMensuel)} net. Assurez-vous toujours de clarifier si l'offre est en brut ou en net, et utilisez notre calculateur pour evaluer l'impact reel sur votre pouvoir d'achat.
+    </p>
+    <p>
+      N'hesitez pas a consulter egalement notre <a href="/guides/smig-maroc/" class="text-brand hover:underline">guide sur le SMIG</a> pour connaitre le plancher legal, ou notre <a href="/guides/bareme-ir-maroc/" class="text-brand hover:underline">guide sur le bareme IR</a> pour comprendre en detail comment l'impot est calcule.
+    </p>
+  </div>
+</CalculateurLayout>

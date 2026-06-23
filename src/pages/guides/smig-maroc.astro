@@ -1,0 +1,143 @@
+---
+import CalculateurLayout from '../../layouts/CalculateurLayout.astro';
+import { CURRENT_FISCAL_YEAR } from '../../config';
+import { calculerSalaireNet, SMIG_MENSUEL, SMIG_HORAIRE } from '../../lib/salaire-engine';
+import { formatDH, formatDHArrondi } from '../../lib/format';
+
+const title = `SMIG Maroc ${CURRENT_FISCAL_YEAR} : Montant, Calcul Brut Net, CNSS`;
+const description = `Le SMIG au Maroc en ${CURRENT_FISCAL_YEAR} est de 3 111,39 DH/mois (15,55 DH/h). Decouvrez le net, les cotisations et l'historique du salaire minimum.`;
+
+const smigResult = calculerSalaireNet(SMIG_MENSUEL, 0);
+
+const faqs = [
+  {
+    question: `Quel est le SMIG au Maroc en ${CURRENT_FISCAL_YEAR} ?`,
+    answer: `Le SMIG (Salaire Minimum Interprofessionnel Garanti) au Maroc en ${CURRENT_FISCAL_YEAR} est de ${formatDH(SMIG_MENSUEL)} par mois, soit ${SMIG_HORAIRE} DH par heure pour 191 heures mensuelles de travail.`,
+  },
+  {
+    question: 'Quel est le SMIG net au Maroc ?',
+    answer: `Avec un SMIG de ${formatDH(SMIG_MENSUEL)} brut, le salaire net est d'environ ${formatDH(smigResult.netMensuel)} par mois, apres deduction des cotisations CNSS et de l'IR (tres faible a ce niveau de salaire).`,
+  },
+  {
+    question: 'Le SMIG est-il le meme dans le secteur agricole ?',
+    answer: 'Non, le secteur agricole dispose de son propre salaire minimum appele SMAG (Salaire Minimum Agricole Garanti), qui est generalement inferieur au SMIG industriel et commercial.',
+  },
+  {
+    question: 'Un employeur peut-il payer en dessous du SMIG ?',
+    answer: 'Non, le SMIG est un minimum legal obligatoire. Tout employeur qui remunere un salarie en dessous du SMIG s\'expose a des sanctions prevues par le Code du Travail marocain. Le salarie peut reclamer la difference devant les juridictions competentes.',
+  },
+];
+---
+
+<CalculateurLayout
+  title={title}
+  description={description}
+  h1={`SMIG au Maroc ${CURRENT_FISCAL_YEAR} : Guide Complet`}
+  calculatorName="Guide SMIG Maroc"
+  path="/guides/smig-maroc/"
+  faqs={faqs}
+  breadcrumbs={[
+    { name: 'Accueil', url: '/' },
+    { name: 'Guides', url: '/guides/smig-maroc/' },
+    { name: 'SMIG Maroc', url: '/guides/smig-maroc/' },
+  ]}
+>
+  <div class="prose max-w-none text-dark-gray leading-relaxed">
+    <div class="not-prose mb-8 rounded-xl bg-gradient-to-br from-brand/5 to-brand/10 p-6">
+      <div class="grid gap-4 sm:grid-cols-3 text-center">
+        <div>
+          <p class="text-sm text-gray-500">SMIG mensuel brut</p>
+          <p class="text-2xl font-bold text-brand">{formatDH(SMIG_MENSUEL)}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">SMIG horaire</p>
+          <p class="text-2xl font-bold text-brand">{SMIG_HORAIRE} DH/h</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">SMIG net mensuel</p>
+          <p class="text-2xl font-bold text-emerald-600">{formatDH(smigResult.netMensuel)}</p>
+        </div>
+      </div>
+    </div>
+
+    <h2>Qu'est-ce que le SMIG ?</h2>
+    <p>
+      Le SMIG (Salaire Minimum Interprofessionnel Garanti) est le salaire minimum legal au Maroc pour les secteurs de l'industrie, du commerce et des services. Il est fixe par decret et constitue le plancher en dessous duquel aucun employeur ne peut remunerer un salarie a temps plein. En {CURRENT_FISCAL_YEAR}, le SMIG est de <strong>{formatDH(SMIG_MENSUEL)} brut par mois</strong>, calcule sur la base de {SMIG_HORAIRE} DH par heure et 191 heures mensuelles de travail.
+    </p>
+    <p>
+      Le SMIG est regi par le Code du Travail marocain (Dahir n 1-03-194 du 11 septembre 2003). Son montant est revise periodiquement par le gouvernement, generalement dans le cadre du dialogue social tripartite entre l'Etat, les syndicats et le patronat. Les revisions tiennent compte de l'evolution du cout de la vie, de la productivite et de la conjoncture economique.
+    </p>
+
+    <h2>SMIG brut vs net : decomposition complete</h2>
+    <p>
+      Un salarie au SMIG ne recoit pas l'integralite des {formatDH(SMIG_MENSUEL)} brut sur son compte bancaire. Voici la decomposition detaillee :
+    </p>
+    <div class="not-prose overflow-hidden rounded-lg border border-gray-200 my-4">
+      <table class="w-full text-sm">
+        <tbody>
+          <tr class="border-b border-gray-100"><td class="px-4 py-2 font-medium">SMIG brut mensuel</td><td class="px-4 py-2 text-right tabular-nums font-medium">{formatDH(SMIG_MENSUEL)}</td></tr>
+          <tr class="border-b border-gray-100"><td class="px-4 py-2 text-gray-600">CNSS salarie (6,74%)</td><td class="px-4 py-2 text-right tabular-nums text-red-600">-{formatDH(smigResult.cnssMensuel)}</td></tr>
+          <tr class="border-b border-gray-100"><td class="px-4 py-2 text-gray-600">IR mensuel</td><td class="px-4 py-2 text-right tabular-nums text-red-600">-{formatDH(smigResult.irMensuel)}</td></tr>
+          <tr class="bg-emerald-50"><td class="px-4 py-2 font-bold">SMIG net mensuel</td><td class="px-4 py-2 text-right tabular-nums font-bold text-emerald-700">{formatDH(smigResult.netMensuel)}</td></tr>
+          <tr class="bg-emerald-50"><td class="px-4 py-2 font-bold">SMIG net annuel</td><td class="px-4 py-2 text-right tabular-nums font-bold text-emerald-700">{formatDH(smigResult.netAnnuel)}</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      A ce niveau de salaire, l'IR est tres faible car le revenu net imposable annuel tombe dans les premieres tranches du bareme (0% jusqu'a 30 000 DH/an). Les cotisations CNSS restent cependant applicables et representent la principale retenue.
+    </p>
+
+    <h2>Historique des revisions du SMIG</h2>
+    <p>
+      Le SMIG au Maroc a connu plusieurs revisions au fil des annees, refletant l'evolution economique et les accords du dialogue social. Le gouvernement procede generalement a des augmentations progressives pour ne pas destabiliser le marche de l'emploi tout en ameliorant le pouvoir d'achat des salaries les moins remuneres.
+    </p>
+    <p>
+      Les dernieres augmentations ont ete realisees dans le cadre d'accords tripartites qui prevoient des revalorisations echelonnees. Le taux horaire est passe de 13,46 DH en 2019 a {SMIG_HORAIRE} DH en {CURRENT_FISCAL_YEAR}, soit une augmentation d'environ 15% sur cette periode.
+    </p>
+
+    <h2>Le SMIG et le cout de la vie</h2>
+    <p>
+      Le pouvoir d'achat d'un salarie au SMIG varie considerablement selon la ville de residence. A Casablanca, ou le loyer moyen d'un studio en peripherie avoisine 2 000 a 3 000 DH/mois, le SMIG net de {formatDH(smigResult.netMensuel)} laisse peu de marge pour les autres depenses. En revanche, dans des villes plus petites comme Oujda, Beni Mellal ou Taza, ou les loyers sont nettement inferieurs (800 a 1 500 DH), le SMIG permet de couvrir les besoins essentiels.
+    </p>
+    <p>
+      Selon les donnees du HCP (Haut-Commissariat au Plan), le panier alimentaire moyen d'un menage marocain represente environ 40% des depenses totales. Pour un salarie au SMIG vivant seul, les postes de depenses principaux sont :
+    </p>
+    <ul>
+      <li><strong>Logement :</strong> 1 000 a 2 500 DH (chambre ou studio selon la ville)</li>
+      <li><strong>Alimentation :</strong> 800 a 1 200 DH</li>
+      <li><strong>Transport :</strong> 200 a 500 DH</li>
+      <li><strong>Telecoms :</strong> 100 a 200 DH</li>
+    </ul>
+
+    <h2>SMIG vs SMAG : deux salaires minimums</h2>
+    <p>
+      Le Maroc dispose de deux salaires minimums distincts. Le <strong>SMIG</strong> s'applique aux secteurs de l'industrie, du commerce et des services. Le <strong>SMAG</strong> (Salaire Minimum Agricole Garanti) s'applique au secteur agricole et est traditionnellement inferieur au SMIG, refletant les specificites du travail agricole (saisonnalite, conditions de travail, structures economiques rurales).
+    </p>
+
+    <h2>Droits du salarie au SMIG</h2>
+    <p>
+      Un salarie au SMIG beneficie des memes droits que tout salarie marocain, conformement au Code du Travail :
+    </p>
+    <ul>
+      <li><strong>Conges payes :</strong> 18 jours ouvrables par an minimum, plus 1,5 jour par annee d'anciennete supplementaire.</li>
+      <li><strong>Prime d'anciennete :</strong> 5% apres 2 ans, 10% apres 5 ans, 15% apres 12 ans, 20% apres 20 ans, 25% apres 25 ans.</li>
+      <li><strong>Prestations CNSS :</strong> allocations familiales, indemnites de maladie et maternite, pension de retraite.</li>
+      <li><strong>AMO :</strong> couverture medicale obligatoire pour le salarie et ses ayants droit.</li>
+      <li><strong>Protection contre le licenciement abusif :</strong> indemnites et procedures prevues par la loi.</li>
+    </ul>
+
+    <h2>Obligations de l'employeur</h2>
+    <p>
+      L'employeur est tenu de respecter le SMIG sous peine de sanctions. Le non-respect du salaire minimum constitue une infraction punie d'une amende de 25 000 a 30 000 DH, doublée en cas de recidive. L'employeur doit egalement :
+    </p>
+    <ul>
+      <li>Affilier le salarie a la CNSS des le premier jour de travail</li>
+      <li>Prelever et reverser les cotisations CNSS (part salarie et part patronale)</li>
+      <li>Effectuer la retenue a la source de l'IR</li>
+      <li>Delivrer un bulletin de paie mensuel detaillant toutes les composantes du salaire</li>
+    </ul>
+    <p>
+      Pour calculer le net exact correspondant a n'importe quel salaire, utilisez notre <a href="/" class="text-brand hover:underline">calculateur de salaire brut/net</a>.
+    </p>
+  </div>
+</CalculateurLayout>

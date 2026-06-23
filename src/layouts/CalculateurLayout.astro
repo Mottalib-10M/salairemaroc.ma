@@ -1,0 +1,121 @@
+---
+import Layout from '../components/layout/Layout.astro';
+import { CURRENT_FISCAL_YEAR } from '../config';
+import { buildWebApplicationSchema, buildBreadcrumbSchema, buildFAQSchema, type FAQItem } from '../lib/seo';
+
+interface Props {
+  title: string;
+  description: string;
+  h1: string;
+  calculatorName: string;
+  path: string;
+  ogImage?: string;
+  faqs?: FAQItem[];
+  breadcrumbs?: { name: string; url: string }[];
+  updatedDate?: string;
+  sources?: { label: string; url: string }[];
+}
+
+const {
+  title,
+  description,
+  h1,
+  calculatorName,
+  path,
+  ogImage,
+  faqs = [],
+  updatedDate = new Date().toISOString().split('T')[0],
+  sources = [
+    { label: 'DGI Maroc', url: 'https://www.tax.gov.ma' },
+    { label: 'CNSS', url: 'https://www.cnss.ma' },
+  ],
+} = Astro.props;
+
+const breadcrumbs = Astro.props.breadcrumbs || [
+  { name: 'Accueil', url: '/' },
+  { name: calculatorName, url: path },
+];
+
+const schemas = [
+  buildWebApplicationSchema(calculatorName, path),
+  buildBreadcrumbSchema(breadcrumbs),
+  ...(faqs.length > 0 ? [buildFAQSchema(faqs)] : []),
+];
+---
+
+<Layout title={title} description={description} ogImage={ogImage} schema={schemas}>
+  <div class="mx-auto max-w-4xl px-4 py-8">
+    <nav class="mb-6 text-sm text-medium-gray" aria-label="Fil d'Ariane">
+      <ol class="flex items-center gap-1">
+        {breadcrumbs.map((crumb, i) => (
+          <>
+            {i > 0 && <li class="text-medium-gray">/</li>}
+            <li>
+              {i < breadcrumbs.length - 1 ? (
+                <a href={crumb.url} class="hover:text-brand">{crumb.name}</a>
+              ) : (
+                <span class="text-charcoal">{crumb.name}</span>
+              )}
+            </li>
+          </>
+        ))}
+      </ol>
+    </nav>
+
+    <h1 class="mb-6 text-3xl font-bold text-charcoal md:text-4xl">
+      {h1}
+    </h1>
+
+    <slot />
+
+    {faqs.length > 0 && (
+      <section class="mt-12">
+        <h2 class="mb-6 text-2xl font-bold text-charcoal">
+          Questions frequemment posees
+        </h2>
+        <div class="space-y-4">
+          {faqs.map((faq) => (
+            <details class="group rounded-lg border border-gray-200">
+              <summary class="cursor-pointer px-4 py-3 font-medium text-charcoal">
+                {faq.question}
+              </summary>
+              <div class="border-t border-gray-200 px-4 py-3 text-sm text-dark-gray">
+                <p>{faq.answer}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <div class="mt-10 flex items-center gap-4 rounded-lg border border-gray-200 px-5 py-4">
+      <img src="/team/mottalib-radif.jpg" alt="Mottalib Radif" class="h-12 w-12 rounded-full object-cover bg-gray-200" width="48" height="48" loading="lazy" />
+      <div class="text-sm">
+        <p class="font-semibold text-charcoal">
+          Redige par <a href="/a-propos/" class="text-brand hover:underline">Mottalib Radif</a>
+        </p>
+        <p class="text-medium-gray">MBA INSEAD &middot; Expert en finances personnelles</p>
+      </div>
+    </div>
+
+    <div class="mt-4 flex flex-wrap items-center gap-4 text-xs text-medium-gray">
+      <span>Mis a jour pour l'annee fiscale {CURRENT_FISCAL_YEAR}</span>
+      <span>&middot;</span>
+      <span>Derniere modification : {updatedDate}</span>
+    </div>
+
+    {sources.length > 0 && (
+      <div class="mt-4 text-xs text-medium-gray">
+        <span class="font-medium">Sources :</span>
+        {sources.map((source, i) => (
+          <>
+            {i > 0 && ', '}
+            <a href={source.url} class="underline hover:text-brand" target="_blank" rel="noopener">
+              {source.label}
+            </a>
+          </>
+        ))}
+      </div>
+    )}
+  </div>
+</Layout>

@@ -1,0 +1,27 @@
+---
+import Layout from '../components/layout/Layout.astro';
+
+const title = 'Page introuvable - Salaire Maroc';
+const description = 'La page que vous recherchez n\'existe pas ou a ete deplacee.';
+---
+
+<Layout title={title} description={description} noindex={true}>
+  <div class="mx-auto flex max-w-4xl flex-col items-center justify-center px-4 py-24 text-center">
+    <p class="text-8xl font-bold text-brand md:text-9xl">404</p>
+    <h1 class="mt-4 text-2xl font-bold text-charcoal md:text-3xl">Page introuvable</h1>
+    <p class="mt-2 text-dark-gray">
+      La page que vous recherchez n'existe pas ou a ete deplacee.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <a href="/" class="rounded-lg bg-brand px-6 py-3 font-medium text-white transition-colors hover:bg-brand-dark">
+        Calculateur de salaire
+      </a>
+      <a href="/guides/smig-maroc/" class="rounded-lg border border-gray-300 px-6 py-3 font-medium text-dark-gray transition-colors hover:border-brand hover:text-brand">
+        Guide SMIG
+      </a>
+      <a href="/simulateur-ir/" class="rounded-lg border border-gray-300 px-6 py-3 font-medium text-dark-gray transition-colors hover:border-brand hover:text-brand">
+        Simulateur IR
+      </a>
+    </div>
+  </div>
+</Layout>

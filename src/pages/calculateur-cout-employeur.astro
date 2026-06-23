@@ -1,0 +1,100 @@
+---
+import CalculateurLayout from '../layouts/CalculateurLayout.astro';
+import CoutEmployeur from '../components/calculateurs/CoutEmployeur';
+import { CURRENT_FISCAL_YEAR } from '../config';
+import { calculerCoutEmployeur } from '../lib/salaire-engine';
+import { formatDH, formatDHArrondi } from '../lib/format';
+
+const title = `Calculateur Cout Employeur Maroc ${CURRENT_FISCAL_YEAR} - Charges`;
+const description = `Calculez le cout total d'un salarie pour l'employeur au Maroc. Charges patronales CNSS detaillees, allocations familiales, AMO. Bareme ${CURRENT_FISCAL_YEAR}.`;
+
+const faqs = [
+  {
+    question: 'Quel est le cout total d\'un salarie pour l\'employeur au Maroc ?',
+    answer: `Le cout total employeur comprend le salaire brut plus les charges patronales CNSS (environ 21% du brut pour les salaires inferieurs a 6 000 DH). Les charges se composent des allocations familiales (6,40%), prestations sociales (1,05%), AMO patronale (4,11%), retraite patronale (7,93%) et formation professionnelle (1,60%).`,
+  },
+  {
+    question: 'Quelles cotisations patronales sont plafonnees ?',
+    answer: 'Comme pour le salarie, les prestations sociales (1,05%) et la retraite (7,93%) sont plafonnees a 6 000 DH/mois. Les allocations familiales (6,40%), l\'AMO (4,11%) et la formation professionnelle (1,60%) sont deplafonnnees et s\'appliquent sur la totalite du salaire brut.',
+  },
+  {
+    question: 'Comment reduire le cout employeur ?',
+    answer: 'Les employeurs peuvent beneficier d\'exonerations temporaires lors de l\'embauche de certains profils (premiers employes, jeunes diplomes). La CNSS propose aussi des programmes d\'accompagnement. Il est conseille de se rapprocher de la CNSS et de l\'ANAPEC pour connaitre les dispositifs en vigueur.',
+  },
+];
+
+const exemples = [3000, 5000, 8000, 10000, 15000, 20000].map(brut => ({
+  brut,
+  cout: calculerCoutEmployeur(brut),
+}));
+---
+
+<CalculateurLayout
+  title={title}
+  description={description}
+  h1={`Calculateur du Cout Employeur ${CURRENT_FISCAL_YEAR}`}
+  calculatorName="Calculateur Cout Employeur"
+  path="/calculateur-cout-employeur/"
+  faqs={faqs}
+>
+  <div class="mb-8 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+    <CoutEmployeur client:idle />
+  </div>
+
+  <div class="prose max-w-none text-dark-gray leading-relaxed">
+    <h2 class="text-2xl font-bold text-charcoal">Le cout reel d'un salarie au Maroc</h2>
+    <p>
+      Pour un employeur marocain, le salaire brut ne represente qu'une partie du cout total d'un salarie. Les cotisations patronales CNSS s'ajoutent au brut et representent un surcout significatif qui doit etre pris en compte dans le budget de l'entreprise, la tarification des services ou la negociation salariale.
+    </p>
+    <p>
+      Le systeme de cotisations patronales au Maroc se compose de cinq elements distincts. Les <strong>allocations familiales</strong> (6,40% du brut, deplafonné) financent les prestations familiales versees par la CNSS aux salaries ayant des enfants. Les <strong>prestations sociales patronales</strong> (1,05%, plafonnees a 6 000 DH/mois) couvrent les indemnites journalieres de maladie et de maternite. L'<strong>AMO patronale</strong> (4,11%, deplafonné) finance l'assurance maladie. La <strong>retraite patronale</strong> (7,93%, plafonnee a 6 000 DH/mois) alimente le regime de pension de la CNSS. Enfin, la <strong>taxe de formation professionnelle</strong> (1,60%, deplafonné) contribue au financement de la formation continue.
+    </p>
+
+    <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Tableau comparatif du cout employeur</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border-collapse my-4">
+        <thead>
+          <tr class="border-b-2 border-gray-300">
+            <th class="px-3 py-2 text-left">Brut mensuel</th>
+            <th class="px-3 py-2 text-right">Charges patronales</th>
+            <th class="px-3 py-2 text-right">Cout total</th>
+            <th class="px-3 py-2 text-right">Surcout (%)</th>
+          </tr>
+        </thead>
+        <tbody class="tabular-nums">
+          {exemples.map(({ brut, cout }) => (
+            <tr class="border-b border-gray-100">
+              <td class="px-3 py-1 font-medium">{formatDHArrondi(brut)}</td>
+              <td class="px-3 py-1 text-right">{formatDH(cout.cnssEmployeurMensuel)}</td>
+              <td class="px-3 py-1 text-right font-bold text-brand">{formatDH(cout.coutTotalMensuel)}</td>
+              <td class="px-3 py-1 text-right">{((cout.cnssEmployeurMensuel / brut) * 100).toFixed(1)}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-gray-400 mt-2">
+      Note : le surcout patronal en pourcentage diminue pour les salaires superieurs a 6 000 DH/mois car les cotisations plafonnees cessent d'augmenter.
+    </p>
+
+    <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Impact du plafond CNSS sur le cout employeur</h3>
+    <p>
+      Le plafond de 6 000 DH/mois a un impact significatif sur le cout employeur. Pour un salaire de 6 000 DH brut, les charges patronales representent environ {((calculerCoutEmployeur(6000).cnssEmployeurMensuel / 6000) * 100).toFixed(1)}% du brut. Mais pour un salaire de 20 000 DH, ce pourcentage descend a environ {((calculerCoutEmployeur(20000).cnssEmployeurMensuel / 20000) * 100).toFixed(1)}%, car les cotisations plafonnees (prestations sociales et retraite) ne sont calculees que sur 6 000 DH.
+    </p>
+    <p>
+      Cette structure degresssive fait que le cout marginal d'une augmentation de salaire au-dela du plafond est moindre pour l'employeur que pour les salaires en dessous du plafond. C'est un element a prendre en compte dans les strategies de remuneration.
+    </p>
+
+    <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Au-dela du cout CNSS : autres couts employeur</h3>
+    <p>
+      Le cout reel d'un salarie pour l'employeur va au-dela des seules cotisations CNSS. Il faut egalement prendre en compte :
+    </p>
+    <ul class="list-disc ml-4 space-y-2">
+      <li><strong>La prime d'anciennete :</strong> obligatoire apres 2 ans d'anciennete, elle va de 5% a 25% du salaire selon l'anciennete.</li>
+      <li><strong>Les conges payes :</strong> 18 jours ouvrables par an minimum, representant environ 7% du salaire.</li>
+      <li><strong>Les jours feries :</strong> le Maroc compte environ 13 jours feries payes par an.</li>
+      <li><strong>Les equipements et fournitures :</strong> poste de travail, materiel informatique, etc.</li>
+      <li><strong>La mutuelle complementaire :</strong> beaucoup d'entreprises offrent une couverture sante complementaire a l'AMO.</li>
+    </ul>
+  </div>
+</CalculateurLayout>
