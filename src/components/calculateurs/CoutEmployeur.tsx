@@ -79,7 +79,7 @@ export default function CoutEmployeur() {
       {/* Hero result */}
       <div className="rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 p-6 text-center">
         <p className="text-sm font-medium text-gray-500">
-          Cout total employeur mensuel
+          Coût total employeur mensuel
         </p>
         <p className="mt-1 text-4xl font-bold text-brand md:text-5xl">
           {fmtDH(cout.coutTotalMensuel)}
@@ -168,7 +168,7 @@ export default function CoutEmployeur() {
               <td className="px-4 py-2 text-right tabular-nums font-semibold">{fmtDH(cout.cnssEmployeurAnnuel)}</td>
             </tr>
             <tr className="bg-emerald-50">
-              <td className="px-4 py-2 font-bold text-charcoal" colSpan={2}>Cout total employeur</td>
+              <td className="px-4 py-2 font-bold text-charcoal" colSpan={2}>Coût total employeur</td>
               <td className="px-4 py-2 text-right tabular-nums font-bold text-emerald-700">{fmtDH(cout.coutTotalMensuel)}</td>
               <td className="px-4 py-2 text-right tabular-nums font-bold text-emerald-700">{fmtDH(cout.coutTotalAnnuel)}</td>
             </tr>
@@ -178,7 +178,7 @@ export default function CoutEmployeur() {
 
       {/* What employee actually receives */}
       <div className="rounded-lg border border-gray-200 p-4">
-        <h3 className="mb-2 font-semibold text-charcoal">Ce que le salarie recoit</h3>
+        <h3 className="mb-2 font-semibold text-charcoal">Ce que le salarié reçoit</h3>
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
             <p className="text-gray-500">Salaire net mensuel</p>

@@ -1,12 +1,12 @@
 /**
- * Moroccan Salary Calculation Engine (2025)
+ * Moroccan Salary Calculation Engine (2026)
  *
  * Pure functions, no side effects. All amounts in MAD (Dirhams).
- * Implements CNSS contributions (employee + employer), IR (Impot sur le Revenu),
+ * Implements CNSS contributions (employee + employer), IR (Impôt sur le Revenu),
  * professional expenses deduction, and family deductions.
  *
  * Sources:
- * - Direction Generale des Impots (DGI): bareme IR
+ * - Direction Générale des Impôts (DGI): barème IR
  * - CNSS: taux de cotisation
  * - Code du Travail marocain: SMIG
  */
@@ -17,7 +17,7 @@
 export const CNSS_PLAFOND_MENSUEL = 6_000;
 export const CNSS_PLAFOND_ANNUEL = CNSS_PLAFOND_MENSUEL * 12;
 
-/** SMIG 2025 */
+/** SMIG 2026 */
 export const SMIG_MENSUEL = 3_111.39;
 export const SMIG_HORAIRE = 15.55;
 

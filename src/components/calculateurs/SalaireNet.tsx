@@ -60,7 +60,7 @@ export default function SalaireNet({ initialBrut = 8000 }: SalaireNetProps) {
 
       <div>
         <label htmlFor="dependants" className="block text-sm font-medium text-gray-700">
-          Nombre de personnes a charge
+          Nombre de personnes à charge
         </label>
         <div className="mt-1 flex gap-2">
           {[0, 1, 2, 3, 4, 5, 6].map((n) => (
@@ -79,7 +79,7 @@ export default function SalaireNet({ initialBrut = 8000 }: SalaireNetProps) {
           ))}
         </div>
         <p className="mt-1 text-xs text-gray-500">
-          Deduction de {dependants * 360} DH/an ({dependants} x 360 DH)
+          Déduction de {dependants * 360} DH/an ({dependants} x 360 DH)
         </p>
       </div>
 

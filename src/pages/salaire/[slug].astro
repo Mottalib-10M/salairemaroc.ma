@@ -25,11 +25,11 @@ const amountFormatted = formatAmountTitle(page.amount);
 
 // Family scenarios
 const familyScenarios = [
-  { label: 'Celibataire, sans charge', dep: 0 },
-  { label: 'Marie(e), 0 enfant', dep: 1 },
-  { label: 'Marie(e), 1 enfant', dep: 2 },
-  { label: 'Marie(e), 2 enfants', dep: 3 },
-  { label: 'Marie(e), 3 enfants', dep: 4 },
+  { label: 'Célibataire, sans charge', dep: 0 },
+  { label: 'Marié(e), 0 enfant', dep: 1 },
+  { label: 'Marié(e), 1 enfant', dep: 2 },
+  { label: 'Marié(e), 2 enfants', dep: 3 },
+  { label: 'Marié(e), 3 enfants', dep: 4 },
 ].map(s => ({
   ...s,
   result: calculerSalaireNet(page.amount, s.dep),
@@ -41,53 +41,53 @@ const adjacent = allPages.filter((_, i) => Math.abs(i - currentIndex) > 0 && Mat
 
 // SEO
 const title = `${amountFormatted} DH Brut en Net ${CURRENT_FISCAL_YEAR} : Salaire Maroc`;
-const description = `Avec ${amountFormatted} DH brut/mois, votre salaire net est d'environ ${formatDHArrondi(result.netMensuel)}. Calcul detaille CNSS + IR, Maroc ${CURRENT_FISCAL_YEAR}.`;
+const description = `Avec ${amountFormatted} DH brut/mois, votre salaire net est d'environ ${formatDHArrondi(result.netMensuel)}. Calcul détaillé CNSS + IR, Maroc ${CURRENT_FISCAL_YEAR}.`;
 
 // FAQs
 const faqs: FAQItem[] = [
   {
     question: `Combien font ${amountFormatted} DH brut en net au Maroc ?`,
-    answer: `Avec un salaire brut de ${amountFormatted} DH/mois, le salaire net mensuel est d'environ ${formatDH(result.netMensuel)} (celibataire, sans charge). Apres deduction de ${formatDH(result.cnssMensuel)} de CNSS et ${formatDH(result.irMensuel)} d'IR.`,
+    answer: `Avec un salaire brut de ${amountFormatted} DH/mois, le salaire net mensuel est d'environ ${formatDH(result.netMensuel)} (célibataire, sans charge). Après déduction de ${formatDH(result.cnssMensuel)} de CNSS et ${formatDH(result.irMensuel)} d'IR.`,
   },
   {
     question: `Quel IR paye-t-on avec ${amountFormatted} DH brut ?`,
-    answer: `Avec ${amountFormatted} DH brut/mois, l'IR annuel est d'environ ${formatDH(result.irAnnuel)}, soit un taux effectif de ${(result.tauxEffectifIR * 100).toFixed(1)}%. Les cotisations CNSS s'elevent a ${formatDH(result.cnssAnnuel)}/an.`,
+    answer: `Avec ${amountFormatted} DH brut/mois, l'IR annuel est d'environ ${formatDH(result.irAnnuel)}, soit un taux effectif de ${(result.tauxEffectifIR * 100).toFixed(1)}%. Les cotisations CNSS s'élèvent à ${formatDH(result.cnssAnnuel)}/an.`,
   },
   {
     question: `${amountFormatted} DH est-il un bon salaire au Maroc ?`,
     answer: getContextAnswer(page),
   },
   {
-    question: `Quel est le cout employeur pour ${amountFormatted} DH brut ?`,
-    answer: `Le cout total pour l'employeur est d'environ ${formatDH(result.coutEmployeurMensuel)}/mois, soit ${formatDH(result.coutEmployeurAnnuel)}/an. Les charges patronales representent ${formatDH(result.cnssEmployeurDetail.total)}/mois en plus du brut.`,
+    question: `Quel est le coût employeur pour ${amountFormatted} DH brut ?`,
+    answer: `Le coût total pour l'employeur est d'environ ${formatDH(result.coutEmployeurMensuel)}/mois, soit ${formatDH(result.coutEmployeurAnnuel)}/an. Les charges patronales représentent ${formatDH(result.cnssEmployeurDetail.total)}/mois en plus du brut.`,
   },
 ];
 
 function getContextAnswer(p: SalaryPageConfig): string {
   switch (p.rangeCategory) {
     case 'smig':
-      return `Un salaire de ${formatAmountTitle(p.amount)} DH brut est proche du SMIG (${formatDH(SMIG_MENSUEL)}). C'est un salaire d'entree de gamme, courant pour les postes non qualifies. Il peut etre suffisant dans les petites villes mais reste serré dans les grandes agglomerations comme Casablanca ou Rabat.`;
+      return `Un salaire de ${formatAmountTitle(p.amount)} DH brut est proche du SMIG (${formatDH(SMIG_MENSUEL)}). C'est un salaire d'entrée de gamme, courant pour les postes non qualifiés. Il peut être suffisant dans les petites villes mais reste serré dans les grandes agglomérations comme Casablanca ou Rabat.`;
     case 'bas':
-      return `Un salaire de ${formatAmountTitle(p.amount)} DH brut est legerement au-dessus du SMIG. C'est un salaire courant pour les employes qualifies debutants, les assistants administratifs ou les techniciens juniors. Il permet de vivre correctement dans la plupart des villes marocaines.`;
+      return `Un salaire de ${formatAmountTitle(p.amount)} DH brut est légèrement au-dessus du SMIG. C'est un salaire courant pour les employés qualifiés débutants, les assistants administratifs ou les techniciens juniors. Il permet de vivre correctement dans la plupart des villes marocaines.`;
     case 'moyen':
-      return `Un salaire de ${formatAmountTitle(p.amount)} DH brut se situe dans la fourchette moyenne au Maroc. C'est un salaire typique pour les techniciens experimentes, les employes qualifies avec plusieurs annees d'experience, ou les cadres debutants. Il offre un bon niveau de vie dans la majorite des villes.`;
+      return `Un salaire de ${formatAmountTitle(p.amount)} DH brut se situe dans la fourchette moyenne au Maroc. C'est un salaire typique pour les techniciens expérimentés, les employés qualifiés avec plusieurs années d'expérience, ou les cadres débutants. Il offre un bon niveau de vie dans la majorité des villes.`;
     case 'cadre':
-      return `Un salaire de ${formatAmountTitle(p.amount)} DH brut est un salaire de cadre au Maroc. C'est un niveau courant pour les cadres moyens, les ingenieurs, les comptables et les gestionnaires avec experience. Il permet un niveau de vie confortable, y compris dans les grandes villes.`;
+      return `Un salaire de ${formatAmountTitle(p.amount)} DH brut est un salaire de cadre au Maroc. C'est un niveau courant pour les cadres moyens, les ingénieurs, les comptables et les gestionnaires avec expérience. Il permet un niveau de vie confortable, y compris dans les grandes villes.`;
     case 'superieur':
-      return `Un salaire de ${formatAmountTitle(p.amount)} DH brut est un salaire de cadre superieur au Maroc. C'est un niveau de remuneration associe aux managers, directeurs de departement, ingenieurs seniors et experts specialises. Il place son beneficiaire parmi les salaires les plus eleves du pays.`;
+      return `Un salaire de ${formatAmountTitle(p.amount)} DH brut est un salaire de cadre supérieur au Maroc. C'est un niveau de rémunération associé aux managers, directeurs de département, ingénieurs seniors et experts spécialisés. Il place son bénéficiaire parmi les salaires les plus élevés du pays.`;
     case 'direction':
-      return `Un salaire de ${formatAmountTitle(p.amount)} DH brut est un salaire de direction au Maroc. C'est un niveau reserve aux directeurs generaux, directeurs financiers, associes de cabinets et cadres dirigeants des grandes entreprises. Il represente le top de la grille salariale marocaine.`;
+      return `Un salaire de ${formatAmountTitle(p.amount)} DH brut est un salaire de direction au Maroc. C'est un niveau réservé aux directeurs généraux, directeurs financiers, associés de cabinets et cadres dirigeants des grandes entreprises. Il représente le top de la grille salariale marocaine.`;
   }
 }
 
 function getCareerContext(cat: string): string {
   switch (cat) {
-    case 'smig': return 'les postes d\'entree, ouvriers, agents de securite, employes de commerce et de restauration';
-    case 'bas': return 'les assistants administratifs, techniciens debutants, employes de banque juniors et secretaires';
-    case 'moyen': return 'les techniciens qualifies, comptables, commerciaux, infirmiers et employes experimentes';
-    case 'cadre': return 'les cadres moyens, ingenieurs, chefs de projet, comptables confirmes et responsables d\'equipe';
-    case 'superieur': return 'les cadres superieurs, directeurs de departement, managers seniors et experts specialises';
-    case 'direction': return 'les directeurs generaux, directeurs financiers, directeurs des ressources humaines et cadres dirigeants';
+    case 'smig': return 'les postes d\'entrée, ouvriers, agents de sécurité, employés de commerce et de restauration';
+    case 'bas': return 'les assistants administratifs, techniciens débutants, employés de banque juniors et secrétaires';
+    case 'moyen': return 'les techniciens qualifiés, comptables, commerciaux, infirmiers et employés expérimentés';
+    case 'cadre': return 'les cadres moyens, ingénieurs, chefs de projet, comptables confirmés et responsables d\'équipe';
+    case 'superieur': return 'les cadres supérieurs, directeurs de département, managers seniors et experts spécialisés';
+    case 'direction': return 'les directeurs généraux, directeurs financiers, directeurs des ressources humaines et cadres dirigeants';
     default: return 'divers profils professionnels';
   }
 }
@@ -128,7 +128,7 @@ const schemas = [
     <div class="mb-8 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 p-6 text-center">
       <p class="text-sm text-gray-500">Avec un salaire brut de {amountFormatted} DH/mois, vous recevrez environ</p>
       <p class="mt-2 text-5xl font-bold text-brand">{formatDH(result.netMensuel)}</p>
-      <p class="mt-1 text-lg text-gray-600">net par mois (celibataire, sans charge)</p>
+      <p class="mt-1 text-lg text-gray-600">net par mois (célibataire, sans charge)</p>
       <a href={`/#brut=${page.amount}`} class="mt-4 inline-block rounded-lg bg-brand px-6 py-3 font-medium text-white transition-colors hover:bg-brand-dark">
         Calculer mon cas exact
       </a>
@@ -144,7 +144,7 @@ const schemas = [
     <!-- Detailed breakdown -->
     <section class="mb-8">
       <h2 class="mb-4 text-2xl font-bold text-charcoal">
-        Decomposition du salaire de {amountFormatted} DH brut
+        Décomposition du salaire de {amountFormatted} DH brut
       </h2>
       <div class="overflow-hidden rounded-lg border border-gray-200">
         <table class="w-full text-sm">
@@ -153,7 +153,7 @@ const schemas = [
             <tr class="border-b border-gray-100"><td class="px-4 py-2 text-gray-600">CNSS - Prestations sociales (0,52%)</td><td class="px-4 py-2 text-right tabular-nums text-red-600">-{formatDH(result.cnssDetail.prestationsSociales)}</td></tr>
             <tr class="border-b border-gray-100"><td class="px-4 py-2 text-gray-600">CNSS - AMO (2,26%)</td><td class="px-4 py-2 text-right tabular-nums text-red-600">-{formatDH(result.cnssDetail.amo)}</td></tr>
             <tr class="border-b border-gray-100"><td class="px-4 py-2 text-gray-600">CNSS - Retraite (3,96%)</td><td class="px-4 py-2 text-right tabular-nums text-red-600">-{formatDH(result.cnssDetail.retraite)}</td></tr>
-            <tr class="border-b border-gray-100 bg-gray-50"><td class="px-4 py-2 font-medium text-charcoal">Total CNSS salarie</td><td class="px-4 py-2 text-right tabular-nums font-medium text-red-600">-{formatDH(result.cnssMensuel)}</td></tr>
+            <tr class="border-b border-gray-100 bg-gray-50"><td class="px-4 py-2 font-medium text-charcoal">Total CNSS salarié</td><td class="px-4 py-2 text-right tabular-nums font-medium text-red-600">-{formatDH(result.cnssMensuel)}</td></tr>
             <tr class="border-b border-gray-100"><td class="px-4 py-2 text-gray-600">IR mensuel ({(result.tauxEffectifIR * 100).toFixed(1)}%)</td><td class="px-4 py-2 text-right tabular-nums text-red-600">-{formatDH(result.irMensuel)}</td></tr>
             <tr class="bg-emerald-50"><td class="px-4 py-2 font-bold text-charcoal">Salaire net mensuel</td><td class="px-4 py-2 text-right tabular-nums font-bold text-emerald-700">{formatDH(result.netMensuel)}</td></tr>
             <tr class="bg-emerald-50"><td class="px-4 py-2 font-bold text-charcoal">Salaire net annuel</td><td class="px-4 py-2 text-right tabular-nums font-bold text-emerald-700">{formatDH(result.netAnnuel)}</td></tr>
@@ -194,29 +194,29 @@ const schemas = [
     <!-- Context section -->
     <section class="mb-8">
       <h2 class="mb-4 text-2xl font-bold text-charcoal">
-        Que represente un salaire de {amountFormatted} DH brut au Maroc ?
+        Que représente un salaire de {amountFormatted} DH brut au Maroc ?
       </h2>
       <div class="prose prose-gray max-w-none">
         <p>
-          Un salaire brut de {amountFormatted} DH par mois equivaut a {formatDHArrondi(result.brutAnnuel)} brut par an.
-          Apres deduction des cotisations CNSS ({(result.tauxEffectifCNSS * 100).toFixed(1)}%) et de l'IR (taux effectif de {(result.tauxEffectifIR * 100).toFixed(1)}%),
-          le salarie recoit <strong>{formatDH(result.netMensuel)} net par mois</strong>.
-          Le taux de retenue total est de {pctDeduction}%, ce qui signifie que sur chaque 100 DH bruts, le salarie recoit environ {(100 - parseFloat(pctDeduction)).toFixed(0)} DH nets.
+          Un salaire brut de {amountFormatted} DH par mois équivaut à {formatDHArrondi(result.brutAnnuel)} brut par an.
+          Après déduction des cotisations CNSS ({(result.tauxEffectifCNSS * 100).toFixed(1)}%) et de l'IR (taux effectif de {(result.tauxEffectifIR * 100).toFixed(1)}%),
+          le salarié reçoit <strong>{formatDH(result.netMensuel)} net par mois</strong>.
+          Le taux de retenue total est de {pctDeduction}%, ce qui signifie que sur chaque 100 DH bruts, le salarié reçoit environ {(100 - parseFloat(pctDeduction)).toFixed(0)} DH nets.
         </p>
         <p>
-          En termes de revenu quotidien, cela represente {formatDH(netJour)} net par jour (jours calendaires) ou {formatDH(netSemaine)} net par semaine.
-          Ce niveau de salaire est generalement associe a {careerContext}.
+          En termes de revenu quotidien, cela représente {formatDH(netJour)} net par jour (jours calendaires) ou {formatDH(netSemaine)} net par semaine.
+          Ce niveau de salaire est généralement associé à {careerContext}.
         </p>
         <p>
-          Le cout total pour l'employeur s'eleve a {formatDH(result.coutEmployeurMensuel)} par mois, soit un surcout de {formatDH(result.cnssEmployeurDetail.total)} en charges patronales.
-          Cela signifie que pour chaque dirham de salaire brut verse, l'employeur paie environ {(result.cnssEmployeurDetail.total / page.amount * 100).toFixed(0)} centimes supplementaires en charges.
+          Le coût total pour l'employeur s'élève à {formatDH(result.coutEmployeurMensuel)} par mois, soit un surcoût de {formatDH(result.cnssEmployeurDetail.total)} en charges patronales.
+          Cela signifie que pour chaque dirham de salaire brut versé, l'employeur paie environ {(result.cnssEmployeurDetail.total / page.amount * 100).toFixed(0)} centimes supplémentaires en charges.
         </p>
       </div>
     </section>
 
     <!-- FAQs -->
     <section class="mb-8">
-      <h2 class="mb-4 text-2xl font-bold text-charcoal">Questions frequentes</h2>
+      <h2 class="mb-4 text-2xl font-bold text-charcoal">Questions fréquentes</h2>
       <div class="space-y-3">
         {faqs.map(faq => (
           <details class="group rounded-lg border border-gray-200">
@@ -231,10 +231,10 @@ const schemas = [
 
     <!-- CTA -->
     <div class="mb-8 rounded-xl bg-brand/5 p-6 text-center">
-      <p class="text-lg font-medium text-charcoal">Vous souhaitez un calcul plus precis ?</p>
-      <p class="mt-1 text-sm text-gray-600">Ajustez le nombre de personnes a charge dans le calculateur ci-dessus</p>
+      <p class="text-lg font-medium text-charcoal">Vous souhaitez un calcul plus précis ?</p>
+      <p class="mt-1 text-sm text-gray-600">Ajustez le nombre de personnes à charge dans le calculateur ci-dessus</p>
       <a href={`/#brut=${page.amount}`} class="mt-4 inline-block rounded-lg bg-brand px-6 py-3 font-medium text-white hover:bg-brand-dark">
-        Simulation detaillee
+        Simulation détaillée
       </a>
     </div>
 
@@ -255,14 +255,14 @@ const schemas = [
       <img src="/team/mottalib-radif.jpg" alt="Mottalib Radif" class="h-12 w-12 rounded-full object-cover bg-gray-200" width="48" height="48" loading="lazy" />
       <div class="text-sm">
         <p class="font-semibold text-charcoal">
-          Redige par <a href="/a-propos/" class="text-brand hover:underline">Mottalib Radif</a>
+          Rédigé par <a href="/a-propos/" class="text-brand hover:underline">Mottalib Radif</a>
         </p>
         <p class="text-medium-gray">MBA INSEAD &middot; Expert en finances personnelles</p>
       </div>
     </div>
 
     <div class="mt-4 text-xs text-medium-gray">
-      <p>Mis a jour pour l'annee fiscale {CURRENT_FISCAL_YEAR}.</p>
+      <p>Mis à jour pour l'année fiscale {CURRENT_FISCAL_YEAR}.</p>
       <p class="mt-1">Sources : <a href="https://www.tax.gov.ma" class="underline hover:text-brand" target="_blank" rel="noopener">DGI</a>, <a href="https://www.cnss.ma" class="underline hover:text-brand" target="_blank" rel="noopener">CNSS</a>.</p>
     </div>
   </div>

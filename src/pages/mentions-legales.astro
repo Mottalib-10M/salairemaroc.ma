@@ -3,13 +3,13 @@ import Layout from '../components/layout/Layout.astro';
 import { SITE_NAME, SITE_URL, CONTACT_EMAIL, AUTHOR_NAME } from '../config';
 import { buildBreadcrumbSchema } from '../lib/seo';
 
-const title = `Mentions Legales - ${SITE_NAME}`;
-const description = `Mentions legales du site ${SITE_NAME}. Editeur, hebergement, propriete intellectuelle et responsabilite.`;
+const title = `Mentions Légales - ${SITE_NAME}`;
+const description = `Mentions légales du site ${SITE_NAME}. Éditeur, hébergement, propriété intellectuelle et responsabilité.`;
 
 const schemas = [
   buildBreadcrumbSchema([
     { name: 'Accueil', url: '/' },
-    { name: 'Mentions legales', url: '/mentions-legales/' },
+    { name: 'Mentions légales', url: '/mentions-legales/' },
   ]),
 ];
 ---
@@ -20,61 +20,61 @@ const schemas = [
       <ol class="flex items-center gap-1">
         <li><a href="/" class="hover:text-brand">Accueil</a></li>
         <li>/</li>
-        <li class="text-charcoal">Mentions legales</li>
+        <li class="text-charcoal">Mentions légales</li>
       </ol>
     </nav>
 
-    <h1 class="mb-8 text-3xl font-bold text-charcoal">Mentions legales</h1>
+    <h1 class="mb-8 text-3xl font-bold text-charcoal">Mentions légales</h1>
 
     <div class="prose max-w-none text-dark-gray leading-relaxed">
-      <h2>Editeur du site</h2>
+      <h2>Éditeur du site</h2>
       <p>
-        Le site <strong>{SITE_NAME}</strong> ({SITE_URL}) est edite par {AUTHOR_NAME}.
+        Le site <strong>{SITE_NAME}</strong> ({SITE_URL}) est édité par {AUTHOR_NAME}.
       </p>
       <ul>
         <li><strong>Responsable de la publication :</strong> {AUTHOR_NAME}</li>
         <li><strong>Adresse e-mail :</strong> <a href={`mailto:${CONTACT_EMAIL}`} class="text-brand hover:underline">{CONTACT_EMAIL}</a></li>
       </ul>
 
-      <h2>Hebergement</h2>
+      <h2>Hébergement</h2>
       <p>
-        Le site est heberge par GitHub Pages (GitHub, Inc.), 88 Colin P Kelly Jr Street, San Francisco, CA 94107, United States. Site web : <a href="https://pages.github.com" class="text-brand hover:underline" target="_blank" rel="noopener">pages.github.com</a>.
+        Le site est hébergé par GitHub Pages (GitHub, Inc.), 88 Colin P Kelly Jr Street, San Francisco, CA 94107, United States. Site web : <a href="https://pages.github.com" class="text-brand hover:underline" target="_blank" rel="noopener">pages.github.com</a>.
       </p>
 
-      <h2>Propriete intellectuelle</h2>
+      <h2>Propriété intellectuelle</h2>
       <p>
-        L'ensemble du contenu du site {SITE_NAME} (textes, graphismes, images, logos, icones, logiciels, bases de donnees) est protege par le droit d'auteur et le droit de la propriete intellectuelle. Toute reproduction, representation, modification, publication, adaptation de tout ou partie des elements du site, quel que soit le moyen ou le procede utilise, est interdite, sauf autorisation ecrite prealable de {AUTHOR_NAME}.
+        L'ensemble du contenu du site {SITE_NAME} (textes, graphismes, images, logos, icônes, logiciels, bases de données) est protégé par le droit d'auteur et le droit de la propriété intellectuelle. Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de {AUTHOR_NAME}.
       </p>
 
-      <h2>Donnees personnelles</h2>
+      <h2>Données personnelles</h2>
       <p>
-        {SITE_NAME} ne collecte aucune donnee personnelle. Les calculs sont effectues entierement cote client (dans votre navigateur). Aucun salaire, situation familiale ou autre information saisie dans les calculateurs n'est transmise a nos serveurs ou a des tiers.
+        {SITE_NAME} ne collecte aucune donnée personnelle. Les calculs sont effectués entièrement côté client (dans votre navigateur). Aucun salaire, situation familiale ou autre information saisie dans les calculateurs n'est transmise à nos serveurs ou à des tiers.
       </p>
       <p>
-        Le site peut utiliser des outils d'analyse anonymes (type Microsoft Clarity) pour comprendre l'utilisation du site et ameliorer l'experience utilisateur. Ces outils ne collectent pas de donnees personnelles identifiables.
+        Le site peut utiliser des outils d'analyse anonymes (type Microsoft Clarity) pour comprendre l'utilisation du site et améliorer l'expérience utilisateur. Ces outils ne collectent pas de données personnelles identifiables.
       </p>
 
       <h2>Cookies</h2>
       <p>
-        Le site {SITE_NAME} peut deposer des cookies techniques necessaires au bon fonctionnement du site. Aucun cookie publicitaire ou de tracking commercial n'est utilise.
+        Le site {SITE_NAME} peut déposer des cookies techniques nécessaires au bon fonctionnement du site. Aucun cookie publicitaire ou de tracking commercial n'est utilisé.
       </p>
 
-      <h2>Responsabilite</h2>
+      <h2>Responsabilité</h2>
       <p>
-        Les informations et resultats de calcul fournis par {SITE_NAME} le sont a titre purement indicatif. Ils ne sauraient en aucun cas constituer un conseil fiscal, juridique ou comptable. Malgre tout le soin apporte a la fiabilite des calculs, {AUTHOR_NAME} ne peut garantir l'exactitude absolue des resultats et decline toute responsabilite en cas d'erreur ou d'omission.
+        Les informations et résultats de calcul fournis par {SITE_NAME} le sont à titre purement indicatif. Ils ne sauraient en aucun cas constituer un conseil fiscal, juridique ou comptable. Malgré tout le soin apporté à la fiabilité des calculs, {AUTHOR_NAME} ne peut garantir l'exactitude absolue des résultats et décline toute responsabilité en cas d'erreur ou d'omission.
       </p>
       <p>
-        Pour toute question relative a votre situation fiscale ou salariale personnelle, il est recommande de consulter un professionnel competent (expert-comptable, conseiller fiscal ou inspecteur du travail).
+        Pour toute question relative à votre situation fiscale ou salariale personnelle, il est recommandé de consulter un professionnel compétent (expert-comptable, conseiller fiscal ou inspecteur du travail).
       </p>
 
       <h2>Liens hypertextes</h2>
       <p>
-        Le site {SITE_NAME} contient des liens vers des sites externes (DGI, CNSS, etc.). Ces liens sont fournis a titre informatif. {AUTHOR_NAME} n'exerce aucun controle sur le contenu de ces sites et ne saurait etre tenu responsable de leur contenu.
+        Le site {SITE_NAME} contient des liens vers des sites externes (DGI, CNSS, etc.). Ces liens sont fournis à titre informatif. {AUTHOR_NAME} n'exerce aucun contrôle sur le contenu de ces sites et ne saurait être tenu responsable de leur contenu.
       </p>
 
       <h2>Droit applicable</h2>
       <p>
-        Les presentes mentions legales sont soumises au droit marocain. En cas de litige, les tribunaux marocains seront seuls competents.
+        Les présentes mentions légales sont soumises au droit marocain. En cas de litige, les tribunaux marocains seront seuls compétents.
       </p>
     </div>
   </div>

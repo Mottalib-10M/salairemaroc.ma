@@ -5,22 +5,22 @@ import { calculerSalaireNet } from '../../lib/salaire-engine';
 import { formatDH } from '../../lib/format';
 
 const title = `Comprendre Son Bulletin de Paie Maroc ${CURRENT_FISCAL_YEAR}`;
-const description = `Guide complet pour lire et comprendre chaque ligne de votre bulletin de paie au Maroc. CNSS, IR, frais professionnels expliques. ${CURRENT_FISCAL_YEAR}.`;
+const description = `Guide complet pour lire et comprendre chaque ligne de votre bulletin de paie au Maroc. CNSS, IR, frais professionnels expliqués. ${CURRENT_FISCAL_YEAR}.`;
 
 const exemple = calculerSalaireNet(8000, 0);
 
 const faqs = [
   {
     question: 'Quelles sont les mentions obligatoires d\'un bulletin de paie au Maroc ?',
-    answer: 'Le bulletin de paie doit mentionner : identite de l\'employeur et du salarie, emploi et categorie, periode de paie, nombre d\'heures, salaire brut, detours des cotisations CNSS et IR, avantages en nature le cas echeant, retenues eventuelles, et le net a payer.',
+    answer: 'Le bulletin de paie doit mentionner : identité de l\'employeur et du salarié, emploi et catégorie, période de paie, nombre d\'heures, salaire brut, détails des cotisations CNSS et IR, avantages en nature le cas échéant, retenues éventuelles, et le net à payer.',
   },
   {
-    question: 'Mon employeur est-il oblige de me donner un bulletin de paie ?',
-    answer: 'Oui, le Code du Travail marocain (article 370) oblige l\'employeur a remettre un bulletin de paie a chaque salarie a chaque echeance de paiement. Ce document a valeur de preuve en cas de litige.',
+    question: 'Mon employeur est-il obligé de me donner un bulletin de paie ?',
+    answer: 'Oui, le Code du Travail marocain (article 370) oblige l\'employeur à remettre un bulletin de paie à chaque salarié à chaque échéance de paiement. Ce document a valeur de preuve en cas de litige.',
   },
   {
     question: 'Que faire si mon bulletin de paie comporte des erreurs ?',
-    answer: 'Signalez immediatement l\'erreur a votre service des ressources humaines ou a votre employeur. Si l\'erreur n\'est pas corrigee, vous pouvez saisir l\'inspecteur du travail de votre prefecture. Conservez toujours vos bulletins de paie comme preuves.',
+    answer: 'Signalez immédiatement l\'erreur à votre service des ressources humaines ou à votre employeur. Si l\'erreur n\'est pas corrigée, vous pouvez saisir l\'inspecteur du travail de votre préfecture. Conservez toujours vos bulletins de paie comme preuves.',
   },
 ];
 ---
@@ -40,42 +40,42 @@ const faqs = [
 >
   <div class="prose max-w-none text-dark-gray leading-relaxed">
     <p>
-      Le bulletin de paie est le document que votre employeur vous remet chaque mois. Il detaille l'ensemble des elements composant votre remuneration et les retenues effectuees. Comprendre votre bulletin de paie est essentiel pour verifier que vos droits sont respectes et que les calculs sont corrects.
+      Le bulletin de paie est le document que votre employeur vous remet chaque mois. Il détaille l'ensemble des éléments composant votre rémunération et les retenues effectuées. Comprendre votre bulletin de paie est essentiel pour vérifier que vos droits sont respectés et que les calculs sont corrects.
     </p>
 
     <h2>Structure d'un bulletin de paie marocain</h2>
     <p>
-      Un bulletin de paie marocain type se compose de plusieurs zones distinctes. En tete, les informations d'identification (employeur et salarie). Au centre, le detail du calcul du brut au net. En pied, le cumul annuel et le net a payer. Analysons chaque section en detail.
+      Un bulletin de paie marocain type se compose de plusieurs zones distinctes. En tête, les informations d'identification (employeur et salarié). Au centre, le détail du calcul du brut au net. En pied, le cumul annuel et le net à payer. Analysons chaque section en détail.
     </p>
 
-    <h3>1. En-tete : informations d'identification</h3>
+    <h3>1. En-tête : informations d'identification</h3>
     <p>
-      L'en-tete du bulletin contient les informations obligatoires suivantes :
+      L'en-tête du bulletin contient les informations obligatoires suivantes :
     </p>
     <ul>
-      <li><strong>Identite de l'employeur :</strong> raison sociale, adresse, numero d'affiliation CNSS, ICE (Identifiant Commun de l'Entreprise).</li>
-      <li><strong>Identite du salarie :</strong> nom complet, numero CNSS (matricule), CIN, date d'embauche, emploi/fonction, categorie professionnelle.</li>
-      <li><strong>Periode de paie :</strong> mois et annee concernes.</li>
+      <li><strong>Identité de l'employeur :</strong> raison sociale, adresse, numéro d'affiliation CNSS, ICE (Identifiant Commun de l'Entreprise).</li>
+      <li><strong>Identité du salarié :</strong> nom complet, numéro CNSS (matricule), CIN, date d'embauche, emploi/fonction, catégorie professionnelle.</li>
+      <li><strong>Période de paie :</strong> mois et année concernés.</li>
     </ul>
 
-    <h3>2. Elements de remuneration (le brut)</h3>
+    <h3>2. Éléments de rémunération (le brut)</h3>
     <p>
-      Cette section recapitule tout ce qui compose votre salaire brut :
+      Cette section récapitule tout ce qui compose votre salaire brut :
     </p>
     <ul>
-      <li><strong>Salaire de base :</strong> le montant contractuel correspondant a votre temps de travail normal (generalement 191 heures/mois au Maroc).</li>
-      <li><strong>Prime d'anciennete :</strong> obligatoire apres 2 ans d'anciennete. Elle va de 5% (2-5 ans) a 25% (plus de 25 ans) du salaire de base.</li>
-      <li><strong>Heures supplementaires :</strong> majorees de 25% (jour ouvrable) ou 50% (nuit/jour ferie) voire 100% (nuit + jour ferie).</li>
-      <li><strong>Primes et indemnites :</strong> prime de rendement, prime de transport, indemnite de panier, 13e mois, etc. selon les conventions collectives ou le contrat.</li>
-      <li><strong>Avantages en nature :</strong> logement, voiture de fonction, telephone, etc. evalues et inclus dans le brut fiscal.</li>
+      <li><strong>Salaire de base :</strong> le montant contractuel correspondant à votre temps de travail normal (généralement 191 heures/mois au Maroc).</li>
+      <li><strong>Prime d'ancienneté :</strong> obligatoire après 2 ans d'ancienneté. Elle va de 5% (2-5 ans) à 25% (plus de 25 ans) du salaire de base.</li>
+      <li><strong>Heures supplémentaires :</strong> majorées de 25% (jour ouvrable) ou 50% (nuit/jour férié) voire 100% (nuit + jour férié).</li>
+      <li><strong>Primes et indemnités :</strong> prime de rendement, prime de transport, indemnité de panier, 13e mois, etc. selon les conventions collectives ou le contrat.</li>
+      <li><strong>Avantages en nature :</strong> logement, voiture de fonction, téléphone, etc. évalués et inclus dans le brut fiscal.</li>
     </ul>
     <p>
-      La somme de tous ces elements donne le <strong>salaire brut</strong>, qui est la base de calcul des cotisations et de l'impot.
+      La somme de tous ces éléments donne le <strong>salaire brut</strong>, qui est la base de calcul des cotisations et de l'impôt.
     </p>
 
-    <h3>3. Cotisations CNSS salarie</h3>
+    <h3>3. Cotisations CNSS salarié</h3>
     <p>
-      Les cotisations CNSS du salarie sont prelevees directement sur le brut. Pour un salaire de 8 000 DH brut, voici le detail :
+      Les cotisations CNSS du salarié sont prélevées directement sur le brut. Pour un salaire de 8 000 DH brut, voici le détail :
     </p>
     <div class="not-prose overflow-hidden rounded-lg border border-gray-200 my-4">
       <table class="w-full text-sm">
@@ -107,62 +107,62 @@ const faqs = [
             <td class="px-4 py-2 text-right tabular-nums">{formatDH(exemple.cnssDetail.retraite)}</td>
           </tr>
           <tr class="border-t-2 border-gray-300 bg-gray-50">
-            <td class="px-4 py-2 font-semibold" colspan="3">Total CNSS salarie</td>
+            <td class="px-4 py-2 font-semibold" colspan="3">Total CNSS salarié</td>
             <td class="px-4 py-2 text-right tabular-nums font-semibold">{formatDH(exemple.cnssMensuel)}</td>
           </tr>
         </tbody>
       </table>
     </div>
     <p>
-      Remarquez que les prestations sociales et la retraite sont calculees sur le plafond de 6 000 DH (et non sur 8 000 DH), tandis que l'AMO s'applique sur la totalite du salaire.
+      Remarquez que les prestations sociales et la retraite sont calculées sur le plafond de 6 000 DH (et non sur 8 000 DH), tandis que l'AMO s'applique sur la totalité du salaire.
     </p>
 
-    <h3>4. Impot sur le Revenu (IR)</h3>
+    <h3>4. Impôt sur le Revenu (IR)</h3>
     <p>
-      L'IR est calcule sur le <strong>revenu net imposable</strong>, obtenu apres deduction de la CNSS et des frais professionnels. Le processus est le suivant :
+      L'IR est calculé sur le <strong>revenu net imposable</strong>, obtenu après déduction de la CNSS et des frais professionnels. Le processus est le suivant :
     </p>
     <ol>
       <li>Salaire brut mensuel : {formatDH(8000)}</li>
-      <li>Moins CNSS salarie : -{formatDH(exemple.cnssMensuel)}</li>
+      <li>Moins CNSS salarié : -{formatDH(exemple.cnssMensuel)}</li>
       <li>= Revenu brut imposable mensuel : {formatDH(8000 - exemple.cnssMensuel)}</li>
       <li>Moins frais professionnels (20%) : -{formatDH((8000 - exemple.cnssMensuel) * 0.20)}</li>
       <li>= Revenu net imposable mensuel : {formatDH((8000 - exemple.cnssMensuel) * 0.80)}</li>
-      <li>Application du bareme IR sur la base annualisee, puis division par 12</li>
-      <li>Moins deductions pour personnes a charge (si applicable)</li>
+      <li>Application du barème IR sur la base annualisée, puis division par 12</li>
+      <li>Moins déductions pour personnes à charge (si applicable)</li>
       <li>= IR mensuel retenu : {formatDH(exemple.irMensuel)}</li>
     </ol>
 
-    <h3>5. Le net a payer</h3>
+    <h3>5. Le net à payer</h3>
     <p>
-      Le <strong>net a payer</strong> est la derniere ligne de votre bulletin de paie. C'est le montant qui sera effectivement vire sur votre compte bancaire ou verse en especes. Il s'obtient par :
+      Le <strong>net à payer</strong> est la dernière ligne de votre bulletin de paie. C'est le montant qui sera effectivement viré sur votre compte bancaire ou versé en espèces. Il s'obtient par :
     </p>
     <p class="font-semibold text-center text-charcoal">
-      Net a payer = Salaire brut - CNSS salarie - IR - Autres retenues eventuelles
+      Net à payer = Salaire brut - CNSS salarié - IR - Autres retenues éventuelles
     </p>
     <p>
-      Les "autres retenues" peuvent inclure : remboursement de pret employeur, acomptes, cession sur salaire, ou cotisations a une mutuelle complementaire.
+      Les "autres retenues" peuvent inclure : remboursement de prêt employeur, acomptes, cession sur salaire, ou cotisations à une mutuelle complémentaire.
     </p>
 
     <h3>6. Cumuls annuels</h3>
     <p>
-      En bas du bulletin figurent generalement les cumuls depuis le debut de l'annee : brut cumule, CNSS cumulee, IR cumule, et net cumule. Ces informations sont utiles pour verifier la coherence des calculs sur l'ensemble de l'annee et pour preparer sa declaration fiscale si necessaire.
+      En bas du bulletin figurent généralement les cumuls depuis le début de l'année : brut cumulé, CNSS cumulée, IR cumulé, et net cumulé. Ces informations sont utiles pour vérifier la cohérence des calculs sur l'ensemble de l'année et pour préparer sa déclaration fiscale si nécessaire.
     </p>
 
-    <h2>Les erreurs les plus courantes a verifier</h2>
+    <h2>Les erreurs les plus courantes à vérifier</h2>
     <ul>
-      <li><strong>Taux CNSS incorrect :</strong> verifiez que le taux total de 6,74% est bien applique, avec le plafond de 6 000 DH pour les composantes plafonnees.</li>
-      <li><strong>Prime d'anciennete oubliee :</strong> si vous avez plus de 2 ans d'anciennete, la prime doit apparaitre.</li>
-      <li><strong>Heures supplementaires non payees :</strong> toute heure au-dela de 191h/mois doit etre majoree.</li>
-      <li><strong>IR trop eleve :</strong> si vos personnes a charge ne sont pas prises en compte, l'IR sera superieur.</li>
-      <li><strong>Base de cotisation erronee :</strong> la CNSS doit etre calculee sur le brut total (y compris primes et avantages en nature soumis).</li>
+      <li><strong>Taux CNSS incorrect :</strong> vérifiez que le taux total de 6,74% est bien appliqué, avec le plafond de 6 000 DH pour les composantes plafonnées.</li>
+      <li><strong>Prime d'ancienneté oubliée :</strong> si vous avez plus de 2 ans d'ancienneté, la prime doit apparaître.</li>
+      <li><strong>Heures supplémentaires non payées :</strong> toute heure au-delà de 191h/mois doit être majorée.</li>
+      <li><strong>IR trop élevé :</strong> si vos personnes à charge ne sont pas prises en compte, l'IR sera supérieur.</li>
+      <li><strong>Base de cotisation erronée :</strong> la CNSS doit être calculée sur le brut total (y compris primes et avantages en nature soumis).</li>
     </ul>
 
     <h2>Conservation des bulletins de paie</h2>
     <p>
-      Il est fortement recommande de conserver tous vos bulletins de paie pendant toute votre carriere. Ils constituent la preuve de vos cotisations CNSS et sont indispensables pour la liquidation de votre pension de retraite. En cas de litige avec un employeur, ils servent egalement de preuve des salaires verses. A defaut de bulletins, il est possible de demander un releve de situation aupres de la CNSS.
+      Il est fortement recommandé de conserver tous vos bulletins de paie pendant toute votre carrière. Ils constituent la preuve de vos cotisations CNSS et sont indispensables pour la liquidation de votre pension de retraite. En cas de litige avec un employeur, ils servent également de preuve des salaires versés. À défaut de bulletins, il est possible de demander un relevé de situation auprès de la CNSS.
     </p>
     <p>
-      Pour verifier vos calculs ou anticiper votre prochain bulletin, utilisez notre <a href="/" class="text-brand hover:underline">calculateur de salaire brut/net</a>.
+      Pour vérifier vos calculs ou anticiper votre prochain bulletin, utilisez notre <a href="/" class="text-brand hover:underline">calculateur de salaire brut/net</a>.
     </p>
   </div>
 </CalculateurLayout>

@@ -3,20 +3,20 @@ import Layout from '../components/layout/Layout.astro';
 import { SITE_NAME, CURRENT_FISCAL_YEAR, CONTACT_EMAIL, AUTHOR_NAME, AUTHOR_CREDENTIALS } from '../config';
 import { buildPersonSchema, buildBreadcrumbSchema } from '../lib/seo';
 
-const title = `A propos de ${SITE_NAME} - ${AUTHOR_NAME}, ${AUTHOR_CREDENTIALS}`;
-const description = `${SITE_NAME} est cree par ${AUTHOR_NAME}, ${AUTHOR_CREDENTIALS}. Calculateurs de salaire gratuits et fiables pour le Maroc ${CURRENT_FISCAL_YEAR}.`;
+const title = `À propos de ${SITE_NAME} - ${AUTHOR_NAME}, ${AUTHOR_CREDENTIALS}`;
+const description = `${SITE_NAME} est créé par ${AUTHOR_NAME}, ${AUTHOR_CREDENTIALS}. Calculateurs de salaire gratuits et fiables pour le Maroc ${CURRENT_FISCAL_YEAR}.`;
 
 const schemas = [
   buildPersonSchema({
     name: AUTHOR_NAME,
-    jobTitle: 'Expert en finances personnelles et fiscalite marocaine',
-    description: `${AUTHOR_NAME} est le fondateur de ${SITE_NAME}. Diplome MBA de l'INSEAD, il met ses competences en finance et fiscalite au service des salaries marocains pour rendre la comprehension du bulletin de paie accessible a tous.`,
+    jobTitle: 'Expert en finances personnelles et fiscalité marocaine',
+    description: `${AUTHOR_NAME} est le fondateur de ${SITE_NAME}. Diplômé MBA de l'INSEAD, il met ses compétences en finance et fiscalité au service des salariés marocains pour rendre la compréhension du bulletin de paie accessible à tous.`,
     alumniOf: [
       { name: 'INSEAD', url: 'https://www.insead.edu' },
     ],
     knowsAbout: [
-      'Fiscalite marocaine',
-      'Impot sur le Revenu (IR)',
+      'Fiscalité marocaine',
+      'Impôt sur le Revenu (IR)',
       'Cotisations CNSS',
       'Salaire brut et net',
       'Finances personnelles',
@@ -24,7 +24,7 @@ const schemas = [
   }),
   buildBreadcrumbSchema([
     { name: 'Accueil', url: '/' },
-    { name: 'A propos', url: '/a-propos/' },
+    { name: 'À propos', url: '/a-propos/' },
   ]),
 ];
 ---
@@ -35,11 +35,11 @@ const schemas = [
       <ol class="flex items-center gap-1">
         <li><a href="/" class="hover:text-brand">Accueil</a></li>
         <li>/</li>
-        <li class="text-charcoal">A propos</li>
+        <li class="text-charcoal">À propos</li>
       </ol>
     </nav>
 
-    <h1 class="mb-8 text-3xl font-bold text-charcoal md:text-4xl">A propos de {SITE_NAME}</h1>
+    <h1 class="mb-8 text-3xl font-bold text-charcoal md:text-4xl">À propos de {SITE_NAME}</h1>
 
     <div class="grid gap-8 md:grid-cols-3">
       <!-- Author card -->
@@ -55,7 +55,7 @@ const schemas = [
           />
         </div>
         <h2 class="text-xl font-bold text-charcoal">{AUTHOR_NAME}</h2>
-        <p class="text-sm text-brand font-medium">Fondateur & Editeur</p>
+        <p class="text-sm text-brand font-medium">Fondateur & Éditeur</p>
         <p class="mt-1 text-sm text-medium-gray">{AUTHOR_CREDENTIALS}</p>
         <a
           href={`mailto:${CONTACT_EMAIL}`}
@@ -69,39 +69,39 @@ const schemas = [
       <div class="md:col-span-2 prose max-w-none text-dark-gray leading-relaxed">
         <h2>Notre mission</h2>
         <p>
-          {SITE_NAME} est ne d'un constat simple : trop de salaries marocains ne comprennent pas le passage de leur salaire brut a leur salaire net. Les calculs impliquent les cotisations CNSS, les frais professionnels, l'impot sur le revenu progressif et les deductions familiales. Notre mission est de rendre ces calculs transparents, instantanes et accessibles a tous.
+          {SITE_NAME} est né d'un constat simple : trop de salariés marocains ne comprennent pas le passage de leur salaire brut à leur salaire net. Les calculs impliquent les cotisations CNSS, les frais professionnels, l'impôt sur le revenu progressif et les déductions familiales. Notre mission est de rendre ces calculs transparents, instantanés et accessibles à tous.
         </p>
         <p>
-          Chaque calculateur est concu pour etre precis, rapide et pedagogique. Nous ne nous contentons pas de donner un chiffre : nous detaillons chaque etape du calcul pour que vous compreniez exactement d'ou vient votre salaire net.
+          Chaque calculateur est conçu pour être précis, rapide et pédagogique. Nous ne nous contentons pas de donner un chiffre : nous détaillons chaque étape du calcul pour que vous compreniez exactement d'où vient votre salaire net.
         </p>
 
         <h2>Qui suis-je ?</h2>
         <p>
-          Je suis <strong>{AUTHOR_NAME}</strong>, diplome MBA de l'<a href="https://www.insead.edu" class="text-brand hover:underline" target="_blank" rel="noopener">INSEAD</a> (Fontainebleau, France). Passionne de finances personnelles et de fiscalite, j'ai cree {SITE_NAME} pour partager mes connaissances et aider les salaries marocains a mieux comprendre leur fiche de paie.
+          Je suis <strong>{AUTHOR_NAME}</strong>, diplômé MBA de l'<a href="https://www.insead.edu" class="text-brand hover:underline" target="_blank" rel="noopener">INSEAD</a> (Fontainebleau, France). Passionné de finances personnelles et de fiscalité, j'ai créé {SITE_NAME} pour partager mes connaissances et aider les salariés marocains à mieux comprendre leur fiche de paie.
         </p>
         <p>
-          Mon parcours m'a permis d'acquerir une expertise approfondie en analyse financiere, en modelisation fiscale et en pedagogie des finances personnelles. Je crois fermement que la comprehension de sa situation fiscale est un droit fondamental pour chaque citoyen, et que les outils pour y parvenir doivent etre gratuits et accessibles.
+          Mon parcours m'a permis d'acquérir une expertise approfondie en analyse financière, en modélisation fiscale et en pédagogie des finances personnelles. Je crois fermement que la compréhension de sa situation fiscale est un droit fondamental pour chaque citoyen, et que les outils pour y parvenir doivent être gratuits et accessibles.
         </p>
 
-        <h2>Fiabilite des donnees</h2>
+        <h2>Fiabilité des données</h2>
         <p>
-          Les calculs presents sur {SITE_NAME} sont bases sur les donnees officielles publiees par :
+          Les calculs présents sur {SITE_NAME} sont basés sur les données officielles publiées par :
         </p>
         <ul>
-          <li><a href="https://www.tax.gov.ma" class="text-brand hover:underline" target="_blank" rel="noopener">La Direction Generale des Impots (DGI)</a> pour le bareme IR et les deductions</li>
-          <li><a href="https://www.cnss.ma" class="text-brand hover:underline" target="_blank" rel="noopener">La Caisse Nationale de Securite Sociale (CNSS)</a> pour les taux de cotisation et les plafonds</li>
-          <li>Le Code du Travail marocain pour le SMIG et les dispositions legales</li>
+          <li><a href="https://www.tax.gov.ma" class="text-brand hover:underline" target="_blank" rel="noopener">La Direction Générale des Impôts (DGI)</a> pour le barème IR et les déductions</li>
+          <li><a href="https://www.cnss.ma" class="text-brand hover:underline" target="_blank" rel="noopener">La Caisse Nationale de Sécurité Sociale (CNSS)</a> pour les taux de cotisation et les plafonds</li>
+          <li>Le Code du Travail marocain pour le SMIG et les dispositions légales</li>
         </ul>
         <p>
-          Les donnees sont mises a jour pour l'exercice fiscal {CURRENT_FISCAL_YEAR}. En cas de modification legislative, nous mettons a jour nos calculateurs dans les meilleurs delais.
+          Les données sont mises à jour pour l'exercice fiscal {CURRENT_FISCAL_YEAR}. En cas de modification législative, nous mettons à jour nos calculateurs dans les meilleurs délais.
         </p>
 
         <h2>Contact</h2>
         <p>
-          Pour toute question, suggestion ou signalement d'erreur, vous pouvez me contacter directement a l'adresse : <a href={`mailto:${CONTACT_EMAIL}`} class="text-brand hover:underline">{CONTACT_EMAIL}</a>.
+          Pour toute question, suggestion ou signalement d'erreur, vous pouvez me contacter directement à l'adresse : <a href={`mailto:${CONTACT_EMAIL}`} class="text-brand hover:underline">{CONTACT_EMAIL}</a>.
         </p>
         <p>
-          <strong>Avertissement :</strong> Les informations et resultats fournis par {SITE_NAME} sont donnes a titre indicatif. Ils ne constituent en aucun cas un conseil fiscal ou juridique. Pour des questions specifiques a votre situation, consultez un expert-comptable ou un conseiller fiscal agree.
+          <strong>Avertissement :</strong> Les informations et résultats fournis par {SITE_NAME} sont donnés à titre indicatif. Ils ne constituent en aucun cas un conseil fiscal ou juridique. Pour des questions spécifiques à votre situation, consultez un expert-comptable ou un conseiller fiscal agréé.
         </p>
       </div>
     </div>

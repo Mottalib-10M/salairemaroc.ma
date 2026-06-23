@@ -57,7 +57,7 @@ export default function PanelResultat({ resultat, showEmployeur = true }: PanelR
           <tbody>
             <LigneTableau label="Salaire brut annuel" value={fmtDH(brutAnnuel)} bold />
             <LigneTableau
-              label="Cotisations CNSS (salarie)"
+              label="Cotisations CNSS (salarié)"
               value={`-${fmtDH(cnssAnnuel)}`}
               sublabel={fmtPct(resultat.tauxEffectifCNSS)}
               negative
@@ -95,13 +95,13 @@ export default function PanelResultat({ resultat, showEmployeur = true }: PanelR
             />
             {resultat.irDetail.deductionFamille > 0 && (
               <LigneTableau
-                label="Deductions familiales"
+                label="Déductions familiales"
                 value={`-${fmtDH(resultat.irDetail.deductionFamille)}`}
                 negative
               />
             )}
             <LigneTableau
-              label="IR (Impot sur le Revenu)"
+              label="IR (Impôt sur le Revenu)"
               value={`-${fmtDH(irAnnuel)}`}
               sublabel={`Taux effectif : ${fmtPct(tauxEffectifIR)}`}
               negative
@@ -131,7 +131,7 @@ export default function PanelResultat({ resultat, showEmployeur = true }: PanelR
       {showEmployeur && resultat.coutEmployeurAnnuel > 0 && (
         <details className="rounded-lg border border-gray-200">
           <summary className="cursor-pointer px-4 py-3 font-medium text-charcoal">
-            Cout total employeur : {fmtDH(resultat.coutEmployeurMensuel)}/mois
+            Coût total employeur : {fmtDH(resultat.coutEmployeurMensuel)}/mois
           </summary>
           <div className="border-t border-gray-200 px-4 py-3 text-sm">
             <table className="w-full">
@@ -143,7 +143,7 @@ export default function PanelResultat({ resultat, showEmployeur = true }: PanelR
                 <LigneTableau label="Retraite patronale (7,93%)" value={`+${fmtDH(resultat.cnssEmployeurDetail.retraite)}`} />
                 <LigneTableau label="Formation professionnelle (1,6%)" value={`+${fmtDH(resultat.cnssEmployeurDetail.formationProfessionnelle)}`} />
                 <LigneTableau label="Total charges patronales" value={fmtDH(resultat.cnssEmployeurDetail.total)} bold />
-                <LigneTableau label="Cout total employeur" value={fmtDH(resultat.coutEmployeurMensuel)} bold highlight />
+                <LigneTableau label="Coût total employeur" value={fmtDH(resultat.coutEmployeurMensuel)} bold highlight />
               </tbody>
             </table>
           </div>

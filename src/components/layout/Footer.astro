@@ -4,25 +4,25 @@ import { SITE_NAME, CURRENT_FISCAL_YEAR, TAGLINE } from '../../config';
 const calculateurs = [
   { href: '/calculateur-salaire-net/', label: 'Brut vers Net' },
   { href: '/calculateur-net-vers-brut/', label: 'Net vers Brut' },
-  { href: '/calculateur-cout-employeur/', label: 'Cout Employeur' },
+  { href: '/calculateur-cout-employeur/', label: 'Coût Employeur' },
   { href: '/simulateur-ir/', label: 'Simulateur IR' },
 ];
 
 const guidesLinks = [
   { href: '/guides/smig-maroc/', label: 'SMIG au Maroc' },
   { href: '/guides/comprendre-bulletin-paie/', label: 'Bulletin de paie' },
-  { href: '/guides/bareme-ir-maroc/', label: 'Bareme IR' },
+  { href: '/guides/bareme-ir-maroc/', label: 'Barème IR' },
 ];
 
 const liensUtiles = [
   { href: 'https://www.tax.gov.ma', label: 'DGI Maroc' },
   { href: 'https://www.cnss.ma', label: 'CNSS' },
-  { href: 'https://www.emploi.gov.ma', label: 'Ministere de l\'Emploi' },
+  { href: 'https://www.emploi.gov.ma', label: 'Ministère de l\'Emploi' },
 ];
 
 const legal = [
-  { href: '/a-propos/', label: 'A propos' },
-  { href: '/mentions-legales/', label: 'Mentions legales' },
+  { href: '/a-propos/', label: 'À propos' },
+  { href: '/mentions-legales/', label: 'Mentions légales' },
 ];
 ---
 
@@ -35,7 +35,7 @@ const legal = [
           <span class="text-brand">Maroc</span>
         </a>
         <p class="text-sm text-medium-gray">
-          {TAGLINE} Donnees mises a jour pour {CURRENT_FISCAL_YEAR}.
+          {TAGLINE} Données mises à jour pour {CURRENT_FISCAL_YEAR}.
         </p>
       </div>
 
@@ -83,7 +83,7 @@ const legal = [
           ))}
         </ul>
         <h3 class="mb-3 mt-6 text-sm font-semibold uppercase tracking-wider text-charcoal">
-          Legal
+          Légal
         </h3>
         <ul class="space-y-2">
           {legal.map(({ href, label }) => (
@@ -99,7 +99,7 @@ const legal = [
 
     <div class="mt-10 border-t border-gray-300 pt-6">
       <p class="text-center text-xs text-medium-gray">
-        &copy; {new Date().getFullYear()} {SITE_NAME}. Les informations fournies le sont a titre indicatif et ne constituent pas un conseil fiscal.
+        &copy; {new Date().getFullYear()} {SITE_NAME}. Les informations fournies le sont à titre indicatif et ne constituent pas un conseil fiscal.
         {' '}Sources : <a href="https://www.tax.gov.ma" class="underline hover:text-brand" target="_blank" rel="noopener">DGI</a>,
         <a href="https://www.cnss.ma" class="underline hover:text-brand" target="_blank" rel="noopener">CNSS</a>,
         <a href="https://www.emploi.gov.ma" class="underline hover:text-brand" target="_blank" rel="noopener">Code du Travail</a>.

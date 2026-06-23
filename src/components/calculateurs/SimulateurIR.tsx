@@ -104,7 +104,7 @@ export default function SimulateurIR() {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Nombre de personnes a charge
+            Nombre de personnes à charge
           </label>
           <div className="mt-1 flex gap-2">
             {[0, 1, 2, 3, 4, 5, 6].map((n) => (
@@ -128,7 +128,7 @@ export default function SimulateurIR() {
       {/* Hero result */}
       <div className="rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 p-6 text-center">
         <p className="text-sm font-medium text-gray-500">
-          Impot sur le Revenu annuel
+          Impôt sur le Revenu annuel
         </p>
         <p className="mt-1 text-4xl font-bold text-red-600 md:text-5xl">
           {fmtDH(resultat.irNet)}
@@ -147,7 +147,7 @@ export default function SimulateurIR() {
               <td className="px-4 py-2 text-right tabular-nums font-semibold">{fmtDH(revenuNum)}</td>
             </tr>
             <tr className="border-b border-gray-100">
-              <td className="px-4 py-2 text-gray-600">Cotisations CNSS salarie</td>
+              <td className="px-4 py-2 text-gray-600">Cotisations CNSS salarié</td>
               <td className="px-4 py-2 text-right tabular-nums text-red-600">-{fmtDH(revenuNum - resultat.revenuBrutImposable)}</td>
             </tr>
             <tr className="border-b border-gray-100">
@@ -173,8 +173,8 @@ export default function SimulateurIR() {
             <tr className="bg-gray-50">
               <th className="px-4 py-2 text-left font-medium text-gray-500">Tranche</th>
               <th className="px-4 py-2 text-right font-medium text-gray-500">Taux</th>
-              <th className="px-4 py-2 text-right font-medium text-gray-500">Montant impose</th>
-              <th className="px-4 py-2 text-right font-medium text-gray-500">Impot</th>
+              <th className="px-4 py-2 text-right font-medium text-gray-500">Montant imposé</th>
+              <th className="px-4 py-2 text-right font-medium text-gray-500">Impôt</th>
             </tr>
           </thead>
           <tbody>
@@ -207,13 +207,13 @@ export default function SimulateurIR() {
             {resultat.deductionFamille > 0 && (
               <tr className="border-t border-gray-100">
                 <td className="px-4 py-2 text-gray-600" colSpan={3}>
-                  Deductions pour charges de famille ({dependants} x 360 DH)
+                  Déductions pour charges de famille ({dependants} x 360 DH)
                 </td>
                 <td className="px-4 py-2 text-right tabular-nums text-emerald-600">-{fmtDH(resultat.deductionFamille)}</td>
               </tr>
             )}
             <tr className="bg-red-50">
-              <td className="px-4 py-2 font-bold text-charcoal" colSpan={3}>IR net a payer</td>
+              <td className="px-4 py-2 font-bold text-charcoal" colSpan={3}>IR net à payer</td>
               <td className="px-4 py-2 text-right tabular-nums font-bold text-red-700">{fmtDH(resultat.irNet)}</td>
             </tr>
           </tbody>

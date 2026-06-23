@@ -7,28 +7,28 @@ import { calculerSalaireNet, SMIG_MENSUEL } from '../lib/salaire-engine';
 import { formatDH, formatDHArrondi } from '../lib/format';
 
 const title = `Calculateur Salaire Net Maroc ${CURRENT_FISCAL_YEAR} - Brut en Net`;
-const description = `Calculez votre salaire net au Maroc en quelques secondes. CNSS, IR, frais professionnels et deductions inclus. Bareme ${CURRENT_FISCAL_YEAR}.`;
+const description = `Calculez votre salaire net au Maroc en quelques secondes. CNSS, IR, frais professionnels et déductions inclus. Barème ${CURRENT_FISCAL_YEAR}.`;
 
 const faqs = [
   {
-    question: 'Quelle est la difference entre salaire brut et net au Maroc ?',
-    answer: `Le salaire brut est le montant total avant deductions. Le salaire net est ce que vous recevez effectivement sur votre compte bancaire, apres deduction des cotisations CNSS (6,74% pour le salarie) et de l'Impot sur le Revenu (IR). La formule est : Net = Brut - CNSS salarie - IR.`,
+    question: 'Quelle est la différence entre salaire brut et net au Maroc ?',
+    answer: `Le salaire brut est le montant total avant déductions. Le salaire net est ce que vous recevez effectivement sur votre compte bancaire, après déduction des cotisations CNSS (6,74% pour le salarié) et de l'Impôt sur le Revenu (IR). La formule est : Net = Brut - CNSS salarié - IR.`,
   },
   {
     question: `Quel est le SMIG au Maroc en ${CURRENT_FISCAL_YEAR} ?`,
-    answer: `Le Salaire Minimum Interprofessionnel Garanti (SMIG) au Maroc en ${CURRENT_FISCAL_YEAR} est de 3 111,39 DH par mois (15,55 DH/heure pour 191 heures mensuelles). C'est le salaire minimum legal qu'un employeur doit verser a un salarie a temps plein.`,
+    answer: `Le Salaire Minimum Interprofessionnel Garanti (SMIG) au Maroc en ${CURRENT_FISCAL_YEAR} est de 3 111,39 DH par mois (15,55 DH/heure pour 191 heures mensuelles). C'est le salaire minimum légal qu'un employeur doit verser à un salarié à temps plein.`,
   },
   {
-    question: 'Comment sont calculees les cotisations CNSS ?',
-    answer: 'Les cotisations CNSS du salarie se composent de trois elements : prestations sociales (0,52%, plafonné a 6 000 DH/mois), AMO - assurance maladie obligatoire (2,26%, deplafonne) et prestations long terme/retraite (3,96%, plafonne a 6 000 DH/mois). Le total salarie est de 6,74% du brut.',
+    question: 'Comment sont calculées les cotisations CNSS ?',
+    answer: 'Les cotisations CNSS du salarié se composent de trois éléments : prestations sociales (0,52%, plafonné à 6 000 DH/mois), AMO - assurance maladie obligatoire (2,26%, déplafonnée) et prestations long terme/retraite (3,96%, plafonné à 6 000 DH/mois). Le total salarié est de 6,74% du brut.',
   },
   {
-    question: `Quel est le bareme de l'IR au Maroc en ${CURRENT_FISCAL_YEAR} ?`,
-    answer: `L'IR au Maroc est progressif avec 6 tranches : 0-30 000 DH (0%), 30 001-50 000 DH (10%), 50 001-60 000 DH (20%), 60 001-80 000 DH (30%), 80 001-180 000 DH (34%), au-dela de 180 000 DH (38%). Ces tranches s'appliquent au revenu net imposable annuel apres deduction de la CNSS et des frais professionnels.`,
+    question: `Quel est le barème de l'IR au Maroc en ${CURRENT_FISCAL_YEAR} ?`,
+    answer: `L'IR au Maroc est progressif avec 6 tranches : 0-30 000 DH (0%), 30 001-50 000 DH (10%), 50 001-60 000 DH (20%), 60 001-80 000 DH (30%), 80 001-180 000 DH (34%), au-delà de 180 000 DH (38%). Ces tranches s'appliquent au revenu net imposable annuel après déduction de la CNSS et des frais professionnels.`,
   },
   {
     question: 'Qu\'est-ce que les frais professionnels de 20% ?',
-    answer: 'Les frais professionnels sont une deduction forfaitaire de 20% appliquee au revenu brut imposable (salaire brut moins cotisations CNSS). Cette deduction est plafonnee a 30 000 DH par an. Elle reduit la base sur laquelle l\'IR est calcule, diminuant ainsi l\'impot a payer.',
+    answer: 'Les frais professionnels sont une déduction forfaitaire de 20% appliquée au revenu brut imposable (salaire brut moins cotisations CNSS). Cette déduction est plafonnée à 30 000 DH par an. Elle réduit la base sur laquelle l\'IR est calculé, diminuant ainsi l\'impôt à payer.',
   },
 ];
 
@@ -64,7 +64,7 @@ const tableRef = salairesRef.map(brut => {
       </h1>
       <p class="mx-auto max-w-2xl text-lg text-dark-gray">
         Calculez votre salaire net en quelques secondes. Cotisations CNSS,
-        impot sur le revenu et frais professionnels inclus.
+        impôt sur le revenu et frais professionnels inclus.
       </p>
     </div>
   </section>
@@ -79,21 +79,21 @@ const tableRef = salairesRef.map(brut => {
     <div class="prose max-w-none text-dark-gray leading-relaxed">
       <h2 class="text-2xl font-bold text-charcoal">Comment calculer son salaire net au Maroc ?</h2>
       <p>
-        Le salaire net est la somme que le salarie recoit effectivement sur son compte bancaire chaque mois, apres deduction de toutes les charges obligatoires. Au Maroc, deux grandes categories de retenues transforment le brut en net : les <strong>cotisations CNSS</strong> et l'<strong>Impot sur le Revenu (IR)</strong>.
+        Le salaire net est la somme que le salarié reçoit effectivement sur son compte bancaire chaque mois, après déduction de toutes les charges obligatoires. Au Maroc, deux grandes catégories de retenues transforment le brut en net : les <strong>cotisations CNSS</strong> et l'<strong>Impôt sur le Revenu (IR)</strong>.
       </p>
       <p>
-        Les cotisations CNSS du salarie representent <strong>6,74%</strong> du salaire brut, reparties entre les prestations sociales a court terme (0,52%), l'Assurance Maladie Obligatoire ou AMO (2,26%) et les prestations a long terme pour la retraite (3,96%). Il est important de noter que les prestations sociales et la retraite sont plafonnees a une base de 6 000 DH par mois, tandis que l'AMO est deplafonnnee et s'applique sur la totalite du salaire.
+        Les cotisations CNSS du salarié représentent <strong>6,74%</strong> du salaire brut, réparties entre les prestations sociales à court terme (0,52%), l'Assurance Maladie Obligatoire ou AMO (2,26%) et les prestations à long terme pour la retraite (3,96%). Il est important de noter que les prestations sociales et la retraite sont plafonnées à une base de 6 000 DH par mois, tandis que l'AMO est déplafonnée et s'applique sur la totalité du salaire.
       </p>
       <p>
-        L'IR est un impot progressif qui s'applique par tranches. Avant de calculer l'IR, on deduit du salaire brut les cotisations CNSS pour obtenir le revenu brut imposable. Ensuite, on applique la deduction forfaitaire pour frais professionnels de 20% (plafonnee a 30 000 DH/an) pour obtenir le revenu net imposable. C'est sur cette base que les tranches de l'IR sont appliquees, allant de 0% pour les premiers 30 000 DH annuels a 38% pour la fraction depassant 180 000 DH.
+        L'IR est un impôt progressif qui s'applique par tranches. Avant de calculer l'IR, on déduit du salaire brut les cotisations CNSS pour obtenir le revenu brut imposable. Ensuite, on applique la déduction forfaitaire pour frais professionnels de 20% (plafonnée à 30 000 DH/an) pour obtenir le revenu net imposable. C'est sur cette base que les tranches de l'IR sont appliquées, allant de 0% pour les premiers 30 000 DH annuels à 38% pour la fraction dépassant 180 000 DH.
       </p>
 
       <h3 class="mt-10 mb-3 text-lg font-semibold text-charcoal">Exemple pratique : bulletin de paie de 8 000 DH brut</h3>
       <p>
-        Prenons l'exemple d'un salarie celibataire, sans personnes a charge, avec un salaire brut mensuel de 8 000 DH :
+        Prenons l'exemple d'un salarié célibataire, sans personnes à charge, avec un salaire brut mensuel de 8 000 DH :
       </p>
       <ol class="list-decimal ml-4 space-y-1">
-        <li><strong>CNSS salarie :</strong> Prestations sociales = 31,20 DH + AMO = 180,80 DH + Retraite = 237,60 DH = <strong>{formatDH(exemple.cnssMensuel)}/mois</strong> ({formatDH(exemple.cnssAnnuel)}/an).</li>
+        <li><strong>CNSS salarié :</strong> Prestations sociales = 31,20 DH + AMO = 180,80 DH + Retraite = 237,60 DH = <strong>{formatDH(exemple.cnssMensuel)}/mois</strong> ({formatDH(exemple.cnssAnnuel)}/an).</li>
         <li><strong>Revenu brut imposable :</strong> {formatDH(exemple.brutAnnuel)} - {formatDH(exemple.cnssAnnuel)} = {formatDH(exemple.irDetail.revenuBrutImposable)}/an.</li>
         <li><strong>Frais professionnels (20%) :</strong> {formatDH(exemple.irDetail.fraisProfessionnels)}/an.</li>
         <li><strong>Revenu net imposable :</strong> {formatDH(exemple.irDetail.revenuNetImposable)}/an.</li>
@@ -101,10 +101,10 @@ const tableRef = salairesRef.map(brut => {
         <li><strong>Salaire net mensuel :</strong> 8 000 - {formatDH(exemple.cnssMensuel)} - {formatDH(exemple.irMensuel)} = <strong>{formatDH(exemple.netMensuel)}</strong>.</li>
       </ol>
       <p>
-        Dans cet exemple, le taux de retenue effectif total (CNSS + IR sur le brut) est de {(exemple.tauxEffectifTotal * 100).toFixed(1)}%. Autrement dit, sur chaque 100 DH bruts, le salarie recoit environ {(100 - exemple.tauxEffectifTotal * 100).toFixed(0)} DH nets sur son compte.
+        Dans cet exemple, le taux de retenue effectif total (CNSS + IR sur le brut) est de {(exemple.tauxEffectifTotal * 100).toFixed(1)}%. Autrement dit, sur chaque 100 DH bruts, le salarié reçoit environ {(100 - exemple.tauxEffectifTotal * 100).toFixed(0)} DH nets sur son compte.
       </p>
 
-      <h3 class="mt-10 mb-3 text-lg font-semibold text-charcoal">Tableau de reference : brut vers net au Maroc ({CURRENT_FISCAL_YEAR})</h3>
+      <h3 class="mt-10 mb-3 text-lg font-semibold text-charcoal">Tableau de référence : brut vers net au Maroc ({CURRENT_FISCAL_YEAR})</h3>
       <div class="overflow-x-auto">
         <table class="w-full text-sm border-collapse my-4">
           <thead>
@@ -135,18 +135,18 @@ const tableRef = salairesRef.map(brut => {
           </tbody>
         </table>
       </div>
-      <p class="text-xs text-gray-400 mt-2">Valeurs indicatives pour un salarie celibataire, sans personnes a charge, regime general. Les montants exacts peuvent varier selon la situation personnelle.</p>
+      <p class="text-xs text-gray-400 mt-2">Valeurs indicatives pour un salarié célibataire, sans personnes à charge, régime général. Les montants exacts peuvent varier selon la situation personnelle.</p>
 
       <h3 class="mt-10 mb-3 text-lg font-semibold text-charcoal">Le SMIG et son impact sur la fiche de paie</h3>
       <p>
-        Le SMIG (Salaire Minimum Interprofessionnel Garanti) au Maroc en {CURRENT_FISCAL_YEAR} est fixe a {formatDH(SMIG_MENSUEL)} par mois. C'est le plancher salarial en dessous duquel aucun employeur ne peut remunerer un salarie a temps plein. A ce niveau de salaire, l'IR est tres faible voire nul grace a la premiere tranche exoneree (0-30 000 DH/an). Les cotisations CNSS restent cependant applicables integralement.
+        Le SMIG (Salaire Minimum Interprofessionnel Garanti) au Maroc en {CURRENT_FISCAL_YEAR} est fixé à {formatDH(SMIG_MENSUEL)} par mois. C'est le plancher salarial en dessous duquel aucun employeur ne peut rémunérer un salarié à temps plein. À ce niveau de salaire, l'IR est très faible voire nul grâce à la première tranche exonérée (0-30 000 DH/an). Les cotisations CNSS restent cependant applicables intégralement.
       </p>
 
       <h3 class="mt-10 mb-3 text-lg font-semibold text-charcoal">Sources officielles</h3>
       <ul class="list-disc ml-4 space-y-2">
-        <li><a href="https://www.tax.gov.ma" class="text-brand hover:underline" target="_blank" rel="noopener">Direction Generale des Impots (DGI)</a> : bareme IR, deductions et reglementations fiscales.</li>
-        <li><a href="https://www.cnss.ma" class="text-brand hover:underline" target="_blank" rel="noopener">Caisse Nationale de Securite Sociale (CNSS)</a> : taux de cotisation, plafonds et prestations.</li>
-        <li><a href="https://www.emploi.gov.ma" class="text-brand hover:underline" target="_blank" rel="noopener">Ministere de l'Emploi</a> : Code du Travail, SMIG et reglementation du travail.</li>
+        <li><a href="https://www.tax.gov.ma" class="text-brand hover:underline" target="_blank" rel="noopener">Direction Générale des Impôts (DGI)</a> : barème IR, déductions et réglementations fiscales.</li>
+        <li><a href="https://www.cnss.ma" class="text-brand hover:underline" target="_blank" rel="noopener">Caisse Nationale de Sécurité Sociale (CNSS)</a> : taux de cotisation, plafonds et prestations.</li>
+        <li><a href="https://www.emploi.gov.ma" class="text-brand hover:underline" target="_blank" rel="noopener">Ministère de l'Emploi</a> : Code du Travail, SMIG et réglementation du travail.</li>
       </ul>
     </div>
   </section>
@@ -154,7 +154,7 @@ const tableRef = salairesRef.map(brut => {
   <!-- FAQ -->
   <section class="mx-auto max-w-4xl px-4 py-8">
     <h2 class="mb-6 text-2xl font-bold text-charcoal">
-      Questions frequemment posees sur le salaire net
+      Questions fréquemment posées sur le salaire net
     </h2>
     <div class="space-y-4">
       {faqs.map((faq) => (
@@ -177,12 +177,12 @@ const tableRef = salairesRef.map(brut => {
     </h2>
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {[
-        { href: '/calculateur-net-vers-brut/', title: 'Net vers Brut', desc: 'Trouvez le brut necessaire pour un net souhaite' },
-        { href: '/calculateur-cout-employeur/', title: 'Cout Employeur', desc: 'Calculez le cout total pour l\'employeur' },
-        { href: '/simulateur-ir/', title: 'Simulateur IR', desc: 'Simulez votre impot sur le revenu par tranche' },
+        { href: '/calculateur-net-vers-brut/', title: 'Net vers Brut', desc: 'Trouvez le brut nécessaire pour un net souhaité' },
+        { href: '/calculateur-cout-employeur/', title: 'Coût Employeur', desc: 'Calculez le coût total pour l\'employeur' },
+        { href: '/simulateur-ir/', title: 'Simulateur IR', desc: 'Simulez votre impôt sur le revenu par tranche' },
         { href: '/guides/smig-maroc/', title: 'Guide SMIG', desc: 'Tout savoir sur le salaire minimum au Maroc' },
         { href: '/guides/comprendre-bulletin-paie/', title: 'Bulletin de paie', desc: 'Comprendre chaque ligne de votre fiche de paie' },
-        { href: '/guides/bareme-ir-maroc/', title: 'Bareme IR', desc: 'Les tranches de l\'impot sur le revenu expliquees' },
+        { href: '/guides/bareme-ir-maroc/', title: 'Barème IR', desc: 'Les tranches de l\'impôt sur le revenu expliquées' },
       ].map(({ href, title, desc }) => (
         <a href={href} class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-brand hover:shadow-md">
           <h3 class="font-semibold text-charcoal group-hover:text-brand">{title}</h3>
@@ -195,7 +195,7 @@ const tableRef = salairesRef.map(brut => {
   <!-- Popular salaries -->
   <section class="mx-auto max-w-4xl px-4 py-8">
     <h2 class="mb-4 text-2xl font-bold text-charcoal">
-      Salaires les plus consultes
+      Salaires les plus consultés
     </h2>
     <div class="flex flex-wrap gap-2">
       {[3000, 4000, 5000, 6000, 7000, 8000, 10000, 12000, 15000, 20000].map((amount) => (

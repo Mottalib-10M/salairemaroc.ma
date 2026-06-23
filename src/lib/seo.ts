@@ -64,7 +64,7 @@ export function buildOrganizationSchema() {
     name: SITE_NAME,
     url: SITE_URL,
     logo: `${SITE_URL}/og-default.png`,
-    description: `Calculateurs de salaire gratuits pour le Maroc, mis a jour pour l'annee fiscale ${CURRENT_FISCAL_YEAR}.`,
+    description: `Calculateurs de salaire gratuits pour le Maroc, mis à jour pour l'année fiscale ${CURRENT_FISCAL_YEAR}.`,
     foundingDate: '2025',
     sameAs: [],
     contactPoint: {
@@ -77,7 +77,7 @@ export function buildOrganizationSchema() {
       '@type': 'Person',
       name: AUTHOR_NAME,
       jobTitle: 'Expert en finances personnelles',
-      description: 'Expert en finances personnelles et fiscalite marocaine, diplome MBA de l\'INSEAD.',
+      description: 'Expert en finances personnelles et fiscalité marocaine, diplômé MBA de l\'INSEAD.',
       image: `${SITE_URL}/team/mottalib-radif.jpg`,
       alumniOf: { '@type': 'CollegeOrUniversity', name: 'INSEAD' },
     },
@@ -125,7 +125,7 @@ export function buildWebSiteSchema() {
     name: SITE_NAME,
     url: SITE_URL,
     inLanguage: 'fr',
-    description: `Calculateurs de salaire brut/net, IR, CNSS et cout employeur pour le Maroc ${CURRENT_FISCAL_YEAR}.`,
+    description: `Calculateurs de salaire brut/net, IR, CNSS et coût employeur pour le Maroc ${CURRENT_FISCAL_YEAR}.`,
     publisher: {
       '@type': 'Organization',
       name: SITE_NAME,

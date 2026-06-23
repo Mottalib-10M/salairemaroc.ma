@@ -4,25 +4,25 @@ import { CURRENT_FISCAL_YEAR } from '../../config';
 import { TRANCHES_IR, calculerSalaireNet, calculerIR, calculerCotisationsCNSSSalarie } from '../../lib/salaire-engine';
 import { formatDH, formatDHArrondi } from '../../lib/format';
 
-const title = `Bareme IR Maroc ${CURRENT_FISCAL_YEAR} : Tranches et Taux d'Imposition`;
-const description = `Le bareme de l'Impot sur le Revenu au Maroc en ${CURRENT_FISCAL_YEAR}. Tranches, taux, calculs detailles, frais professionnels, deductions. Guide complet.`;
+const title = `Barème IR Maroc ${CURRENT_FISCAL_YEAR} : Tranches et Taux d'Imposition`;
+const description = `Le barème de l'Impôt sur le Revenu au Maroc en ${CURRENT_FISCAL_YEAR}. Tranches, taux, calculs détaillés, frais professionnels, déductions. Guide complet.`;
 
 const faqs = [
   {
     question: `Quelles sont les tranches de l'IR au Maroc en ${CURRENT_FISCAL_YEAR} ?`,
-    answer: `L'IR au Maroc comporte 6 tranches annuelles : 0-30 000 DH a 0%, 30 001-50 000 DH a 10%, 50 001-60 000 DH a 20%, 60 001-80 000 DH a 30%, 80 001-180 000 DH a 34%, et au-dela de 180 000 DH a 38%.`,
+    answer: `L'IR au Maroc comporte 6 tranches annuelles : 0-30 000 DH à 0%, 30 001-50 000 DH à 10%, 50 001-60 000 DH à 20%, 60 001-80 000 DH à 30%, 80 001-180 000 DH à 34%, et au-delà de 180 000 DH à 38%.`,
   },
   {
     question: 'Comment se calcule le revenu net imposable ?',
-    answer: 'Le revenu net imposable = Salaire brut - Cotisations CNSS salarie - Frais professionnels (20% du revenu brut imposable, plafonnes a 30 000 DH/an). C\'est sur ce revenu net imposable que les tranches de l\'IR sont appliquees.',
+    answer: 'Le revenu net imposable = Salaire brut - Cotisations CNSS salarié - Frais professionnels (20% du revenu brut imposable, plafonnés à 30 000 DH/an). C\'est sur ce revenu net imposable que les tranches de l\'IR sont appliquées.',
   },
   {
     question: 'Qu\'est-ce que le taux marginal vs le taux effectif ?',
-    answer: 'Le taux marginal est le taux de la tranche la plus haute atteinte par votre revenu. Le taux effectif est le pourcentage reel d\'impot paye sur l\'ensemble du revenu. Exemple : avec un revenu net imposable de 100 000 DH, le taux marginal est de 34% mais le taux effectif est bien inferieur.',
+    answer: 'Le taux marginal est le taux de la tranche la plus haute atteinte par votre revenu. Le taux effectif est le pourcentage réel d\'impôt payé sur l\'ensemble du revenu. Exemple : avec un revenu net imposable de 100 000 DH, le taux marginal est de 34% mais le taux effectif est bien inférieur.',
   },
   {
-    question: 'Les frais professionnels s\'appliquent-ils a tous les salaries ?',
-    answer: 'Oui, la deduction de 20% pour frais professionnels est automatique et s\'applique a tous les salaries, sans justificatif. Elle est plafonnee a 30 000 DH par an, ce qui correspond a un revenu brut imposable d\'environ 150 000 DH/an.',
+    question: 'Les frais professionnels s\'appliquent-ils à tous les salariés ?',
+    answer: 'Oui, la déduction de 20% pour frais professionnels est automatique et s\'applique à tous les salariés, sans justificatif. Elle est plafonnée à 30 000 DH par an, ce qui correspond à un revenu brut imposable d\'environ 150 000 DH/an.',
   },
 ];
 
@@ -53,24 +53,24 @@ const exemplesIR = [36000, 48000, 60000, 72000, 96000, 120000, 180000, 240000, 3
 <CalculateurLayout
   title={title}
   description={description}
-  h1={`Bareme IR Maroc ${CURRENT_FISCAL_YEAR} : Guide Complet`}
-  calculatorName="Guide Bareme IR"
+  h1={`Barème IR Maroc ${CURRENT_FISCAL_YEAR} : Guide Complet`}
+  calculatorName="Guide Barème IR"
   path="/guides/bareme-ir-maroc/"
   faqs={faqs}
   breadcrumbs={[
     { name: 'Accueil', url: '/' },
     { name: 'Guides', url: '/guides/bareme-ir-maroc/' },
-    { name: 'Bareme IR', url: '/guides/bareme-ir-maroc/' },
+    { name: 'Barème IR', url: '/guides/bareme-ir-maroc/' },
   ]}
 >
   <div class="prose max-w-none text-dark-gray leading-relaxed">
     <p>
-      L'Impot sur le Revenu (IR) est le principal impot direct au Maroc applicable aux revenus salariaux. Il est progressif, ce qui signifie que le taux d'imposition augmente par paliers en fonction du montant du revenu. Ce guide vous explique en detail le fonctionnement du bareme, les deductions applicables et leur impact concret sur votre salaire net.
+      L'Impôt sur le Revenu (IR) est le principal impôt direct au Maroc applicable aux revenus salariaux. Il est progressif, ce qui signifie que le taux d'imposition augmente par paliers en fonction du montant du revenu. Ce guide vous explique en détail le fonctionnement du barème, les déductions applicables et leur impact concret sur votre salaire net.
     </p>
 
-    <h2>Le bareme de l'IR {CURRENT_FISCAL_YEAR}</h2>
+    <h2>Le barème de l'IR {CURRENT_FISCAL_YEAR}</h2>
     <p>
-      Le bareme de l'IR est fixe par la loi de finances et s'applique au revenu net imposable annuel. Voici les tranches en vigueur :
+      Le barème de l'IR est fixé par la loi de finances et s'applique au revenu net imposable annuel. Voici les tranches en vigueur :
     </p>
     <div class="not-prose overflow-hidden rounded-lg border border-gray-200 my-4">
       <table class="w-full text-sm">
@@ -78,7 +78,7 @@ const exemplesIR = [36000, 48000, 60000, 72000, 96000, 120000, 180000, 240000, 3
           <tr class="bg-gray-50">
             <th class="px-4 py-2 text-left font-medium text-gray-500">Tranche de revenu annuel</th>
             <th class="px-4 py-2 text-right font-medium text-gray-500">Taux</th>
-            <th class="px-4 py-2 text-right font-medium text-gray-500">Impot dans la tranche</th>
+            <th class="px-4 py-2 text-right font-medium text-gray-500">Impôt dans la tranche</th>
             <th class="px-4 py-2 text-right font-medium text-gray-500">Cumul</th>
           </tr>
         </thead>
@@ -93,7 +93,7 @@ const exemplesIR = [36000, 48000, 60000, 72000, 96000, 120000, 180000, 240000, 3
                 <tr class="border-t border-gray-100">
                   <td class="px-4 py-2">
                     {t.max === Infinity
-                      ? `Au-dela de ${t.min.toLocaleString('fr-FR')} DH`
+                      ? `Au-delà de ${t.min.toLocaleString('fr-FR')} DH`
                       : `${t.min.toLocaleString('fr-FR')} - ${t.max.toLocaleString('fr-FR')} DH`}
                   </td>
                   <td class="px-4 py-2 text-right font-medium">{(t.taux * 100).toFixed(0)}%</td>
@@ -111,32 +111,32 @@ const exemplesIR = [36000, 48000, 60000, 72000, 96000, 120000, 180000, 240000, 3
       </table>
     </div>
 
-    <h2>Comment fonctionne le systeme progressif ?</h2>
+    <h2>Comment fonctionne le système progressif ?</h2>
     <p>
-      Le systeme progressif signifie que votre revenu est "decoupe" en tranches successives, et chaque tranche est imposee a un taux different. Contrairement a une idee repandue, passer dans une tranche superieure ne signifie <strong>pas</strong> que la totalite de votre revenu est imposee au nouveau taux. Seule la fraction qui depasse le seuil de la tranche est imposee au taux superieur.
+      Le système progressif signifie que votre revenu est "découpé" en tranches successives, et chaque tranche est imposée à un taux différent. Contrairement à une idée répandue, passer dans une tranche supérieure ne signifie <strong>pas</strong> que la totalité de votre revenu est imposée au nouveau taux. Seule la fraction qui dépasse le seuil de la tranche est imposée au taux supérieur.
     </p>
     <p>
       Prenons un exemple concret. Pour un revenu net imposable annuel de 70 000 DH :
     </p>
     <ul>
-      <li>De 0 a 30 000 DH : 30 000 x 0% = <strong>0 DH</strong></li>
-      <li>De 30 001 a 50 000 DH : 20 000 x 10% = <strong>2 000 DH</strong></li>
-      <li>De 50 001 a 60 000 DH : 10 000 x 20% = <strong>2 000 DH</strong></li>
-      <li>De 60 001 a 70 000 DH : 10 000 x 30% = <strong>3 000 DH</strong></li>
+      <li>De 0 à 30 000 DH : 30 000 x 0% = <strong>0 DH</strong></li>
+      <li>De 30 001 à 50 000 DH : 20 000 x 10% = <strong>2 000 DH</strong></li>
+      <li>De 50 001 à 60 000 DH : 10 000 x 20% = <strong>2 000 DH</strong></li>
+      <li>De 60 001 à 70 000 DH : 10 000 x 30% = <strong>3 000 DH</strong></li>
       <li><strong>IR total = 7 000 DH</strong> (taux effectif = 10,0%, taux marginal = 30%)</li>
     </ul>
 
     <h2>Du salaire brut au revenu net imposable</h2>
     <p>
-      L'IR ne s'applique pas directement sur le salaire brut. Plusieurs deductions viennent reduire la base imposable :
+      L'IR ne s'applique pas directement sur le salaire brut. Plusieurs déductions viennent réduire la base imposable :
     </p>
     <ol>
-      <li><strong>Cotisations CNSS salarie (6,74%) :</strong> deduites du brut pour obtenir le revenu brut imposable.</li>
-      <li><strong>Frais professionnels (20%) :</strong> deduction forfaitaire de 20% du revenu brut imposable, plafonnee a 30 000 DH/an. Cette deduction est automatique et ne necessite aucun justificatif.</li>
-      <li><strong>Cotisations retraite complementaire :</strong> si le salarie cotise a un regime de retraite complementaire (CIMR par exemple), ces cotisations sont egalement deductibles, dans certaines limites.</li>
+      <li><strong>Cotisations CNSS salarié (6,74%) :</strong> déduites du brut pour obtenir le revenu brut imposable.</li>
+      <li><strong>Frais professionnels (20%) :</strong> déduction forfaitaire de 20% du revenu brut imposable, plafonnée à 30 000 DH/an. Cette déduction est automatique et ne nécessite aucun justificatif.</li>
+      <li><strong>Cotisations retraite complémentaire :</strong> si le salarié cotise à un régime de retraite complémentaire (CIMR par exemple), ces cotisations sont également déductibles, dans certaines limites.</li>
     </ol>
     <p>
-      Le resultat de ces deductions est le <strong>revenu net imposable</strong>, sur lequel le bareme progressif est applique.
+      Le résultat de ces déductions est le <strong>revenu net imposable</strong>, sur lequel le barème progressif est appliqué.
     </p>
 
     <h2>Tableau comparatif : IR par niveau de salaire</h2>
@@ -167,46 +167,46 @@ const exemplesIR = [36000, 48000, 60000, 72000, 96000, 120000, 180000, 240000, 3
       </table>
     </div>
 
-    <h2>Deductions pour charges de famille</h2>
+    <h2>Déductions pour charges de famille</h2>
     <p>
-      Apres le calcul de l'IR brut (en appliquant le bareme), le contribuable peut beneficier d'une deduction pour charges de famille de <strong>360 DH par personne a charge et par an</strong>, dans la limite de <strong>6 personnes a charge</strong> (soit 2 160 DH/an maximum). Les personnes a charge comprennent :
+      Après le calcul de l'IR brut (en appliquant le barème), le contribuable peut bénéficier d'une déduction pour charges de famille de <strong>360 DH par personne à charge et par an</strong>, dans la limite de <strong>6 personnes à charge</strong> (soit 2 160 DH/an maximum). Les personnes à charge comprennent :
     </p>
     <ul>
-      <li>Le conjoint (s'il n'a pas de revenus propres depassant le seuil d'exoneration)</li>
-      <li>Les enfants a charge (mineurs ou poursuivant leurs etudes, dans les limites prevues par la loi)</li>
+      <li>Le conjoint (s'il n'a pas de revenus propres dépassant le seuil d'exonération)</li>
+      <li>Les enfants à charge (mineurs ou poursuivant leurs études, dans les limites prévues par la loi)</li>
     </ul>
     <p>
-      L'IR net a payer = IR brut - Deductions familiales. Le resultat ne peut pas etre negatif.
+      L'IR net à payer = IR brut - Déductions familiales. Le résultat ne peut pas être négatif.
     </p>
 
     <h2>Impact du plafond des frais professionnels</h2>
     <p>
-      La deduction pour frais professionnels de 20% est plafonnee a 30 000 DH/an. Ce plafond est atteint lorsque le revenu brut imposable annuel depasse 150 000 DH (soit environ 13 700 DH brut/mois). Au-dela de ce seuil, la deduction reste fixe a 30 000 DH et ne progresse plus avec le salaire.
+      La déduction pour frais professionnels de 20% est plafonnée à 30 000 DH/an. Ce plafond est atteint lorsque le revenu brut imposable annuel dépasse 150 000 DH (soit environ 13 700 DH brut/mois). Au-delà de ce seuil, la déduction reste fixe à 30 000 DH et ne progresse plus avec le salaire.
     </p>
     <p>
-      Cela signifie que pour les hauts salaires, la part du revenu soumise a l'IR est proportionnellement plus importante, ce qui renforce la progressivite effective du systeme fiscal marocain.
-    </p>
-
-    <h2>Retenue a la source par l'employeur</h2>
-    <p>
-      Au Maroc, l'IR sur les revenus salariaux est preleve a la source par l'employeur. Chaque mois, l'employeur calcule l'IR du a partir du salaire annualise, divise par 12, et retient ce montant avant de verser le salaire net au salarie. L'employeur est ensuite tenu de reverser cette retenue a l'administration fiscale dans les delais prevus par la loi.
-    </p>
-    <p>
-      Ce mecanisme de retenue a la source dispense generalement le salarie de toute demarche declarative supplementaire, sauf s'il dispose de revenus d'autres sources (revenus fonciers, revenus professionnels, etc.) qui necessitent une declaration annuelle globale.
+      Cela signifie que pour les hauts salaires, la part du revenu soumise à l'IR est proportionnellement plus importante, ce qui renforce la progressivité effective du système fiscal marocain.
     </p>
 
-    <h2>Exonerations et cas particuliers</h2>
+    <h2>Retenue à la source par l'employeur</h2>
     <p>
-      Certains elements de remuneration beneficient d'exonerations totales ou partielles de l'IR :
+      Au Maroc, l'IR sur les revenus salariaux est prélevé à la source par l'employeur. Chaque mois, l'employeur calcule l'IR dû à partir du salaire annualisé, divisé par 12, et retient ce montant avant de verser le salaire net au salarié. L'employeur est ensuite tenu de reverser cette retenue à l'administration fiscale dans les délais prévus par la loi.
+    </p>
+    <p>
+      Ce mécanisme de retenue à la source dispense généralement le salarié de toute démarche déclarative supplémentaire, sauf s'il dispose de revenus d'autres sources (revenus fonciers, revenus professionnels, etc.) qui nécessitent une déclaration annuelle globale.
+    </p>
+
+    <h2>Exonérations et cas particuliers</h2>
+    <p>
+      Certains éléments de rémunération bénéficient d'exonérations totales ou partielles de l'IR :
     </p>
     <ul>
-      <li><strong>Indemnites de licenciement :</strong> exonerees dans les limites prevues par le Code du Travail.</li>
-      <li><strong>Allocations familiales :</strong> versees par la CNSS, non imposables.</li>
-      <li><strong>Indemnites de stage :</strong> exonerees sous certaines conditions et dans certaines limites.</li>
-      <li><strong>Cotisations de retraite complementaire :</strong> deductibles du revenu imposable dans les limites legales.</li>
+      <li><strong>Indemnités de licenciement :</strong> exonérées dans les limites prévues par le Code du Travail.</li>
+      <li><strong>Allocations familiales :</strong> versées par la CNSS, non imposables.</li>
+      <li><strong>Indemnités de stage :</strong> exonérées sous certaines conditions et dans certaines limites.</li>
+      <li><strong>Cotisations de retraite complémentaire :</strong> déductibles du revenu imposable dans les limites légales.</li>
     </ul>
     <p>
-      Pour simuler votre IR en detail, tranche par tranche, utilisez notre <a href="/simulateur-ir/" class="text-brand hover:underline">simulateur IR</a>. Pour calculer directement votre salaire net, utilisez notre <a href="/" class="text-brand hover:underline">calculateur brut/net</a>.
+      Pour simuler votre IR en détail, tranche par tranche, utilisez notre <a href="/simulateur-ir/" class="text-brand hover:underline">simulateur IR</a>. Pour calculer directement votre salaire net, utilisez notre <a href="/" class="text-brand hover:underline">calculateur brut/net</a>.
     </p>
   </div>
 </CalculateurLayout>

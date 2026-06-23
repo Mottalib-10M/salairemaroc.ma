@@ -1,11 +1,11 @@
 /**
- * Moroccan number formatting utilities.
- * Uses space as thousands separator, comma as decimal separator.
- * Currency: DH (Dirham marocain).
+ * Utilitaires de formatage des nombres marocains.
+ * Utilise l'espace comme séparateur de milliers, la virgule comme séparateur décimal.
+ * Devise : DH (Dirham marocain).
  */
 
 /**
- * Format amount in Dirhams: "5 000 DH" (no decimals for round numbers, 2 decimals otherwise)
+ * Formate un montant en Dirhams : "5 000 DH" (pas de décimales pour les nombres ronds, 2 décimales sinon)
  */
 export function formatDH(amount: number): string {
   const rounded = Math.round(amount * 100) / 100;
@@ -18,7 +18,7 @@ export function formatDH(amount: number): string {
 }
 
 /**
- * Format amount in Dirhams with always 2 decimal places: "5 000,50 DH"
+ * Formate un montant en Dirhams avec toujours 2 décimales : "5 000,50 DH"
  */
 export function formatDHPrecis(amount: number): string {
   const formatted = new Intl.NumberFormat('fr-FR', {
@@ -29,7 +29,7 @@ export function formatDHPrecis(amount: number): string {
 }
 
 /**
- * Format amount in Dirhams rounded to nearest integer: "5 000 DH"
+ * Formate un montant en Dirhams arrondi à l'entier le plus proche : "5 000 DH"
  */
 export function formatDHArrondi(amount: number): string {
   const formatted = new Intl.NumberFormat('fr-FR', {
@@ -40,7 +40,7 @@ export function formatDHArrondi(amount: number): string {
 }
 
 /**
- * Format a plain number: "5 000,50"
+ * Formate un nombre simple : "5 000,50"
  */
 export function formatNumber(value: number): string {
   return new Intl.NumberFormat('fr-FR', {
@@ -50,7 +50,7 @@ export function formatNumber(value: number): string {
 }
 
 /**
- * Format a plain number rounded: "5 000"
+ * Formate un nombre arrondi : "5 000"
  */
 export function formatNumberArrondi(value: number): string {
   return new Intl.NumberFormat('fr-FR', {
@@ -60,7 +60,7 @@ export function formatNumberArrondi(value: number): string {
 }
 
 /**
- * Format a percentage: "12,34%"
+ * Formate un pourcentage : "12,34%"
  */
 export function formatPercent(value: number): string {
   return new Intl.NumberFormat('fr-FR', {
@@ -71,14 +71,14 @@ export function formatPercent(value: number): string {
 }
 
 /**
- * Format a percentage from a decimal (0.1234 -> "12,34%")
+ * Formate un pourcentage à partir d'un décimal (0.1234 -> "12,34%")
  */
 export function formatPercentFromDecimal(value: number): string {
   return formatPercent(value);
 }
 
 /**
- * Format amount for display in URLs and titles: "5 000"
+ * Formate un montant pour affichage dans les URLs et titres : "5 000"
  */
 export function formatAmountTitle(amount: number): string {
   return new Intl.NumberFormat('fr-FR', {

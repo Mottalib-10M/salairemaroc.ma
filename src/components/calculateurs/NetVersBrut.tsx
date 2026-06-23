@@ -55,7 +55,7 @@ export default function NetVersBrut() {
     <div className="space-y-6">
       <div className="space-y-1">
         <label htmlFor="net-cible" className="block text-sm font-medium text-gray-700">
-          Salaire net souhaite (mensuel)
+          Salaire net souhaité (mensuel)
         </label>
         <div className="relative">
           <input
@@ -78,7 +78,7 @@ export default function NetVersBrut() {
 
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Nombre de personnes a charge
+          Nombre de personnes à charge
         </label>
         <div className="mt-1 flex gap-2">
           {[0, 1, 2, 3, 4, 5, 6].map((n) => (
