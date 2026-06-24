@@ -41,7 +41,7 @@ const adjacent = allPages.filter((_, i) => Math.abs(i - currentIndex) > 0 && Mat
 
 // SEO
 const title = `${amountFormatted} DH Brut en Net au Maroc ${CURRENT_FISCAL_YEAR} : Salaire Détaillé`;
-const description = `Avec ${amountFormatted} DH brut/mois au Maroc, votre salaire net est d'environ ${formatDHArrondi(result.netMensuel)}. Détail complet CNSS et IR, tableau par situation familiale. Barème ${CURRENT_FISCAL_YEAR}.`;
+const description = `Avec ${amountFormatted} DH brut/mois au Maroc, votre salaire net est d'environ ${formatDHArrondi(result.netMensuel)}. Détail complet des cotisations CNSS et IR, tableau par situation familiale. Barème officiel ${CURRENT_FISCAL_YEAR}.`;
 
 // FAQs
 const faqs: FAQItem[] = [
@@ -214,6 +214,12 @@ const schemas = [
         <p>
           Le coût total pour l'employeur s'élève à {formatDH(result.coutEmployeurMensuel)} par mois, soit un surcoût de {formatDH(result.cnssEmployeurDetail.total)} en charges patronales.
           Cela signifie que pour chaque dirham de salaire brut versé, l'employeur paie environ {(result.cnssEmployeurDetail.total / page.amount * 100).toFixed(0)} centimes supplémentaires en charges.
+        </p>
+        <p>
+          Il est important de noter que le barème de l'IR au Maroc est progressif : les premières tranches de revenu sont exonérées ou faiblement imposées, et seule la fraction du revenu qui dépasse chaque seuil est soumise au taux correspondant. Ainsi, même si le taux marginal peut paraître élevé, le taux effectif reste bien inférieur. Pour un salaire brut de {amountFormatted} DH, le taux effectif d'imposition est de {(result.tauxEffectifIR * 100).toFixed(1)}%, ce qui reflète l'avantage du système progressif marocain.
+        </p>
+        <p>
+          En matière de protection sociale, les cotisations CNSS ouvrent droit à plusieurs prestations importantes : les allocations familiales, les indemnités journalières de maladie et de maternité, ainsi que la pension de retraite. La couverture AMO (Assurance Maladie Obligatoire) garantit un remboursement partiel des frais médicaux pour le salarié et ses ayants droit. Ces prestations constituent un complément de rémunération non négligeable et doivent être prises en compte dans l'évaluation globale du package salarial au Maroc.
         </p>
       </div>
     </section>

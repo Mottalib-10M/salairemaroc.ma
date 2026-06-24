@@ -63,7 +63,12 @@ export function buildOrganizationSchema() {
     '@type': 'Organization',
     name: SITE_NAME,
     url: SITE_URL,
-    logo: `${SITE_URL}/og-default.png`,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${SITE_URL}/og-default.png`,
+      width: 1200,
+      height: 630,
+    },
     description: `Calculateurs de salaire gratuits pour le Maroc, mis à jour pour l'année fiscale ${CURRENT_FISCAL_YEAR}.`,
     foundingDate: '2025',
     sameAs: [],
@@ -131,6 +136,14 @@ export function buildWebSiteSchema() {
       name: SITE_NAME,
       url: SITE_URL,
     },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${SITE_URL}/?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
   };
 }
 
@@ -162,5 +175,6 @@ export function buildArticleSchema(
       name: SITE_NAME,
       logo: { '@type': 'ImageObject', url: `${SITE_URL}/og-default.png` },
     },
+    image: `${SITE_URL}/og-default.png`,
   };
 }
