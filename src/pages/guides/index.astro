@@ -1,0 +1,128 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+import { CURRENT_FISCAL_YEAR } from '../../config';
+import { buildBreadcrumbSchema } from '../../lib/seo';
+
+const title = 'Guides salaire et fiscalité Maroc : IR, SMIG, bulletin paie';
+const description = `Guides complets sur le salaire au Maroc en ${CURRENT_FISCAL_YEAR} : barème IR, SMIG, bulletin de paie, cotisations CNSS et frais professionnels. Tout comprendre pour optimiser votre rémunération.`;
+
+const guides = [
+  {
+    href: '/guides/bareme-ir-maroc/',
+    title: `Barème IR Maroc ${CURRENT_FISCAL_YEAR}`,
+    description: "Guide complet des tranches de l'Impôt sur le Revenu au Maroc. Comprenez le système progressif, les déductions et calculez votre taux effectif d'imposition.",
+    icon: '📊',
+  },
+  {
+    href: '/guides/smig-maroc/',
+    title: `SMIG Maroc ${CURRENT_FISCAL_YEAR}`,
+    description: "Tout savoir sur le Salaire Minimum Interprofessionnel Garanti : montant actuel, historique des revalorisations, net correspondant et droits du salarié au SMIG.",
+    icon: '💰',
+  },
+  {
+    href: '/guides/comprendre-bulletin-paie/',
+    title: 'Comprendre son bulletin de paie',
+    description: "Décryptez chaque ligne de votre fiche de paie : salaire de base, cotisations CNSS, IR, frais professionnels, primes et net à payer. Ne laissez rien au hasard.",
+    icon: '📄',
+  },
+];
+
+const schemas = [
+  buildBreadcrumbSchema([
+    { name: 'Accueil', url: '/' },
+    { name: 'Guides', url: '/guides/' },
+  ]),
+];
+---
+
+<Layout title={title} description={description} schema={schemas}>
+  <div class="mx-auto max-w-4xl px-4 py-8">
+    <nav class="mb-6 text-sm text-medium-gray" aria-label="Fil d'Ariane">
+      <ol class="flex items-center gap-1">
+        <li><a href="/" class="hover:text-brand">Accueil</a></li>
+        <li>/</li>
+        <li class="text-charcoal">Guides</li>
+      </ol>
+    </nav>
+
+    <h1 class="mb-6 text-3xl font-bold text-charcoal md:text-4xl">
+      Guides salaire et fiscalité au Maroc
+    </h1>
+
+    <!-- Definition box -->
+    <div class="bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-lg mb-8">
+      <p class="font-semibold text-teal-900">En bref</p>
+      <p class="text-teal-800">Comprendre son salaire au Maroc nécessite de maîtriser trois éléments clés : les <strong>cotisations CNSS</strong> (6,74% du brut pour le salarié), les <strong>frais professionnels</strong> (déduction de 20%, plafonnée à 30 000 DH/an) et l'<strong>Impôt sur le Revenu</strong> (IR progressif de 0% à 38%). Nos guides vous expliquent tout en détail.</p>
+    </div>
+
+    <!-- Guides list -->
+    <div class="grid gap-6 mb-10">
+      {guides.map(guide => (
+        <a href={guide.href} class="group flex gap-4 rounded-xl border border-gray-200 p-6 transition-all hover:border-teal-500 hover:shadow-md">
+          <span class="text-3xl shrink-0">{guide.icon}</span>
+          <div>
+            <h2 class="text-xl font-bold text-charcoal group-hover:text-teal-600">{guide.title}</h2>
+            <p class="mt-2 text-dark-gray">{guide.description}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- Editorial content -->
+    <div class="prose max-w-none text-dark-gray leading-relaxed mb-10">
+      <h2 class="text-2xl font-bold text-charcoal">Comprendre le salaire au Maroc : l'essentiel</h2>
+      <p>
+        Au Maroc, le passage du salaire brut au salaire net implique un ensemble de mécanismes fiscaux et sociaux que chaque salarié devrait comprendre. Que vous soyez un jeune diplômé à la recherche de votre premier emploi, un salarié confirmé négociant une augmentation, ou un employeur souhaitant comprendre le coût réel de la masse salariale, nos guides vous accompagnent dans la compréhension de ces sujets essentiels.
+      </p>
+      <p>
+        Le système fiscal marocain repose sur un impôt progressif par tranches. Cela signifie que plus votre revenu est élevé, plus le taux d'imposition augmente, mais uniquement sur la fraction dépassant chaque seuil. Cette progressivité est conçue pour assurer une contribution proportionnelle à la capacité financière de chaque contribuable. Comprendre ce mécanisme est crucial pour évaluer correctement l'impact d'une augmentation de salaire sur votre net.
+      </p>
+      <p>
+        Les cotisations de sécurité sociale (CNSS) constituent l'autre composante majeure des retenues sur salaire. Elles financent votre protection sociale : assurance maladie (AMO), retraite, allocations familiales et indemnités journalières. Bien que ces cotisations réduisent votre net immédiat, elles représentent un investissement dans votre couverture sociale à long terme.
+      </p>
+      <p>
+        Le bulletin de paie est le document qui synthétise l'ensemble de ces calculs. Savoir le lire permet de vérifier que vos droits sont respectés et que les montants prélevés sont corrects. Trop de salariés marocains ne comprennent pas leur bulletin de paie, ce qui peut mener à des situations où des erreurs passent inaperçues pendant des mois.
+      </p>
+      <p>
+        Enfin, le SMIG (Salaire Minimum Interprofessionnel Garanti) fixe le plancher salarial en dessous duquel aucun employeur ne peut rémunérer un salarié à temps plein. Sa connaissance est essentielle tant pour les salariés que pour les employeurs, et son évolution reflète les politiques sociales et économiques du pays.
+      </p>
+      <p>
+        Nos guides sont rédigés par des experts en fiscalité marocaine et mis à jour pour l'année fiscale {CURRENT_FISCAL_YEAR}. Ils s'appuient sur les données officielles de la Direction Générale des Impôts (DGI) et de la Caisse Nationale de Sécurité Sociale (CNSS).
+      </p>
+    </div>
+
+    <!-- Calculator links -->
+    <section class="mb-8">
+      <h2 class="mb-6 text-2xl font-bold text-charcoal">Nos calculateurs de salaire</h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <a href="/" class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+          <h3 class="font-semibold text-charcoal group-hover:text-teal-600">Calculateur salaire brut/net</h3>
+          <p class="mt-1 text-sm text-gray-500">Convertissez votre salaire brut en net instantanément avec le détail des cotisations</p>
+        </a>
+        <a href="/calculateur-net-vers-brut/" class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+          <h3 class="font-semibold text-charcoal group-hover:text-teal-600">Calculateur net vers brut</h3>
+          <p class="mt-1 text-sm text-gray-500">Trouvez le salaire brut nécessaire pour obtenir le net souhaité</p>
+        </a>
+        <a href="/calculateur-cout-employeur/" class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+          <h3 class="font-semibold text-charcoal group-hover:text-teal-600">Calculateur coût employeur</h3>
+          <p class="mt-1 text-sm text-gray-500">Calculez le coût total d'un salarié, charges patronales CNSS incluses</p>
+        </a>
+        <a href="/simulateur-ir/" class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+          <h3 class="font-semibold text-charcoal group-hover:text-teal-600">Simulateur IR Maroc</h3>
+          <p class="mt-1 text-sm text-gray-500">Simulez votre impôt sur le revenu tranche par tranche</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Author -->
+    <div class="flex items-center gap-4 rounded-lg border border-gray-200 px-5 py-4">
+      <img src="/team/mottalib-radif.jpg" alt="Mottalib Radif" class="h-12 w-12 rounded-full object-cover bg-gray-200" width="48" height="48" loading="lazy" />
+      <div class="text-sm">
+        <p class="font-semibold text-charcoal">
+          Rédigé par <a href="/a-propos/" class="text-brand hover:underline">Mottalib Radif</a>
+        </p>
+        <p class="text-medium-gray">MBA INSEAD &middot; Expert en finances personnelles</p>
+      </div>
+    </div>
+  </div>
+</Layout>

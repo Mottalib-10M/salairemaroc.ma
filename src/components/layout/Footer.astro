@@ -2,16 +2,26 @@
 import { SITE_NAME, CURRENT_FISCAL_YEAR, TAGLINE } from '../../config';
 
 const calculateurs = [
-  { href: '/calculateur-salaire-net/', label: 'Brut vers Net' },
+  { href: '/calculateurs/', label: 'Tous les calculateurs' },
+  { href: '/', label: 'Brut vers Net' },
   { href: '/calculateur-net-vers-brut/', label: 'Net vers Brut' },
   { href: '/calculateur-cout-employeur/', label: 'Coût Employeur' },
   { href: '/simulateur-ir/', label: 'Simulateur IR' },
 ];
 
 const guidesLinks = [
+  { href: '/guides/', label: 'Tous les guides' },
   { href: '/guides/smig-maroc/', label: 'SMIG au Maroc' },
   { href: '/guides/comprendre-bulletin-paie/', label: 'Bulletin de paie' },
   { href: '/guides/bareme-ir-maroc/', label: 'Barème IR' },
+];
+
+const salaires = [
+  { href: '/salaire/metier/ingenieur/', label: 'Salaire Ingénieur' },
+  { href: '/salaire/metier/developpeur/', label: 'Salaire Développeur' },
+  { href: '/salaire/metier/medecin/', label: 'Salaire Médecin' },
+  { href: '/salaire/ville/casablanca/', label: 'Salaire Casablanca' },
+  { href: '/salaire/ville/rabat/', label: 'Salaire Rabat' },
 ];
 
 const liensUtiles = [
@@ -28,7 +38,7 @@ const legal = [
 
 <footer class="border-t border-gray-200 bg-light-gray">
   <div class="mx-auto max-w-6xl px-4 py-12">
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-6">
       <div class="lg:col-span-2">
         <a href="/" class="mb-4 inline-block text-lg font-bold">
           <span class="text-charcoal">Salaire </span>
@@ -60,6 +70,21 @@ const legal = [
         </h3>
         <ul class="space-y-2">
           {guidesLinks.map(({ href, label }) => (
+            <li>
+              <a href={href} class="text-sm text-medium-gray transition-colors hover:text-brand">
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-charcoal">
+          Salaires
+        </h3>
+        <ul class="space-y-2">
+          {salaires.map(({ href, label }) => (
             <li>
               <a href={href} class="text-sm text-medium-gray transition-colors hover:text-brand">
                 {label}

@@ -66,12 +66,16 @@ const articleSchema = buildArticleSchema(title, description, '/guides/bareme-ir-
   extraSchemas={[articleSchema]}
   breadcrumbs={[
     { name: 'Accueil', url: '/' },
-    { name: 'Guides', url: '/' },
+    { name: 'Guides', url: '/guides/' },
     { name: 'Barème IR', url: '/guides/bareme-ir-maroc/' },
   ]}
 >
   <div class="prose max-w-none text-dark-gray leading-relaxed">
-    <p>
+    <!-- Definition box for featured snippets -->
+    <div class="not-prose bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-lg mb-6">
+      <p class="font-semibold text-teal-900">En bref</p>
+      <p class="text-teal-800">L'IR au Maroc est un impôt progressif à 6 tranches : 0% (0-30 000 DH), 10% (30-50k), 20% (50-60k), 30% (60-80k), 34% (80-180k) et 38% (au-delà de 180 000 DH). Il s'applique au revenu net imposable annuel après déduction de la CNSS et des frais professionnels de 20%.</p>
+    </div>    <p>
       L'Impôt sur le Revenu (IR) est le principal impôt direct au Maroc applicable aux revenus salariaux. Il est progressif, ce qui signifie que le taux d'imposition augmente par paliers en fonction du montant du revenu. Ce guide vous explique en détail le fonctionnement du barème, les déductions applicables et leur impact concret sur votre salaire net.
     </p>
 
@@ -215,5 +219,12 @@ const articleSchema = buildArticleSchema(title, description, '/guides/bareme-ir-
     <p>
       Pour simuler votre IR en détail, tranche par tranche, utilisez notre <a href="/simulateur-ir/" class="text-brand hover:underline">simulateur IR</a>. Pour calculer directement votre salaire net, utilisez notre <a href="/" class="text-brand hover:underline">calculateur brut/net</a>.
     </p>
-  </div>
+    <h2>Articles liés</h2>
+    <ul>
+      <li><a href="/" class="text-brand hover:underline">Calculateur salaire brut vers net au Maroc</a> - Convertissez votre brut en net instantanément</li>
+      <li><a href="/simulateur-ir/" class="text-brand hover:underline">Simulateur IR détaillé par tranche</a> - Visualisez le calcul de votre impôt</li>
+      <li><a href="/guides/smig-maroc/" class="text-brand hover:underline">SMIG au Maroc : montant et calcul</a> - Tout sur le salaire minimum</li>
+      <li><a href="/guides/comprendre-bulletin-paie/" class="text-brand hover:underline">Comprendre son bulletin de paie</a> - Décryptez votre fiche de paie</li>
+      <li><a href="/calculateur-cout-employeur/" class="text-brand hover:underline">Coût employeur au Maroc</a> - Charges patronales détaillées</li>
+    </ul>  </div>
 </CalculateurLayout>

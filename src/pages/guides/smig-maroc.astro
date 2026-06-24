@@ -45,12 +45,16 @@ const articleSchema = buildArticleSchema(title, description, '/guides/smig-maroc
   extraSchemas={[articleSchema]}
   breadcrumbs={[
     { name: 'Accueil', url: '/' },
-    { name: 'Guides', url: '/' },
+    { name: 'Guides', url: '/guides/' },
     { name: 'SMIG Maroc', url: '/guides/smig-maroc/' },
   ]}
 >
   <div class="prose max-w-none text-dark-gray leading-relaxed">
-    <div class="not-prose mb-8 rounded-xl bg-gradient-to-br from-brand/5 to-brand/10 p-6">
+    <!-- Definition box for featured snippets -->
+    <div class="not-prose bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-lg mb-6">
+      <p class="font-semibold text-teal-900">En bref</p>
+      <p class="text-teal-800">Le SMIG au Maroc en 2026 est de <strong>3 111,39 DH brut par mois</strong> (15,55 DH/heure pour 191 heures mensuelles). C'est le salaire minimum légal en dessous duquel aucun employeur ne peut rémunérer un salarié à temps plein dans les secteurs de l'industrie, du commerce et des services.</p>
+    </div>    <div class="not-prose mb-8 rounded-xl bg-gradient-to-br from-brand/5 to-brand/10 p-6">
       <div class="grid gap-4 sm:grid-cols-3 text-center">
         <div>
           <p class="text-sm text-gray-500">SMIG mensuel brut</p>
@@ -146,5 +150,12 @@ const articleSchema = buildArticleSchema(title, description, '/guides/smig-maroc
     <p>
       Pour calculer le net exact correspondant à n'importe quel salaire, utilisez notre <a href="/" class="text-brand hover:underline">calculateur de salaire brut/net</a>.
     </p>
-  </div>
+    <h2>Articles liés</h2>
+    <ul>
+      <li><a href="/" class="text-brand hover:underline">Calculateur salaire brut vers net</a> - Convertissez n'importe quel salaire brut en net</li>
+      <li><a href="/guides/bareme-ir-maroc/" class="text-brand hover:underline">Barème IR Maroc</a> - Tranches et taux de l'impôt sur le revenu</li>
+      <li><a href="/guides/comprendre-bulletin-paie/" class="text-brand hover:underline">Comprendre son bulletin de paie</a> - Chaque ligne de votre fiche expliquée</li>
+      <li><a href="/calculateur-net-vers-brut/" class="text-brand hover:underline">Calculateur net vers brut</a> - Trouvez le brut nécessaire pour votre net</li>
+      <li><a href="/calculateurs/" class="text-brand hover:underline">Tous nos calculateurs de salaire</a> - Outils gratuits pour le Maroc</li>
+    </ul>  </div>
 </CalculateurLayout>

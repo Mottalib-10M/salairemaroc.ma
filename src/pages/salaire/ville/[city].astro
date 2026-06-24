@@ -1,0 +1,257 @@
+---
+import Layout from '../../../components/layout/Layout.astro';
+import SalaireNet from '../../../components/calculateurs/SalaireNet';
+import { CURRENT_FISCAL_YEAR } from '../../../config';
+import { buildBreadcrumbSchema, buildFAQSchema } from '../../../lib/seo';
+import { calculerSalaireNet } from '../../../lib/salaire-engine';
+import { formatDH, formatDHArrondi } from '../../../lib/format';
+import { CITIES, type City } from '../../../data/cities';
+import { PROFESSIONS } from '../../../data/professions';
+
+export function getStaticPaths() {
+  return CITIES.map(c => ({
+    params: { city: c.slug },
+    props: { city: c },
+  }));
+}
+
+interface Props { city: City; }
+const { city } = Astro.props;
+
+const result = calculerSalaireNet(city.salaireMoyen, 0);
+const relatedCities = CITIES.filter(c => city.relatedCitySlugs.includes(c.slug));
+const topProfessions = PROFESSIONS.slice(0, 6);
+
+const title = `Salaire moyen à ${city.name} ${CURRENT_FISCAL_YEAR} : grille par secteur et métier`;
+const description = `Le salaire moyen à ${city.name} en ${CURRENT_FISCAL_YEAR} est de ${formatDHArrondi(city.salaireMoyen)} brut/mois (${formatDHArrondi(result.netMensuel)} net). Grille par secteur, coût de la vie et comparaison avec les autres villes du Maroc.`;
+
+const schemas = [
+  buildBreadcrumbSchema([
+    { name: 'Accueil', url: '/' },
+    { name: 'Salaires par ville', url: '/salaire/ville/' },
+    { name: `Salaire à ${city.name}`, url: `/salaire/ville/${city.slug}/` },
+  ]),
+  buildFAQSchema(city.faqs),
+];
+
+const nationalAvg = 7000;
+const diffPct = ((city.salaireMoyen - nationalAvg) / nationalAvg * 100).toFixed(0);
+const diffSign = Number(diffPct) >= 0 ? '+' : '';
+---
+
+<Layout title={title} description={description} schema={schemas}>
+  <div class="mx-auto max-w-4xl px-4 py-8">
+    <nav class="mb-6 text-sm text-medium-gray" aria-label="Fil d'Ariane">
+      <ol class="flex flex-wrap items-center gap-1">
+        <li><a href="/" class="hover:text-brand">Accueil</a></li>
+        <li>/</li>
+        <li><a href="/calculateurs/" class="hover:text-brand">Calculateurs</a></li>
+        <li>/</li>
+        <li class="text-charcoal">Salaire à {city.name}</li>
+      </ol>
+    </nav>
+
+    <h1 class="mb-6 text-3xl font-bold text-charcoal md:text-4xl">
+      Salaire moyen à {city.name} ({CURRENT_FISCAL_YEAR})
+    </h1>
+
+    <!-- Definition box -->
+    <div class="bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-lg mb-6">
+      <p class="font-semibold text-teal-900">En bref</p>
+      <p class="text-teal-800">Le salaire moyen à {city.name} en {CURRENT_FISCAL_YEAR} est de <strong>{formatDHArrondi(city.salaireMoyen)} brut/mois</strong> ({formatDHArrondi(result.netMensuel)} net), soit {diffSign}{diffPct}% par rapport à la moyenne nationale. Coût de la vie : indice {city.coutVie}/100. Population : {city.population}.</p>
+    </div>
+
+    <!-- Key figures -->
+    <div class="mb-8 grid gap-4 sm:grid-cols-4">
+      <div class="rounded-xl border border-gray-200 p-4 text-center">
+        <p class="text-sm text-gray-500">Salaire moyen</p>
+        <p class="text-xl font-bold text-teal-600">{formatDHArrondi(city.salaireMoyen)}</p>
+        <p class="text-xs text-gray-400">brut/mois</p>
+      </div>
+      <div class="rounded-xl border border-gray-200 p-4 text-center">
+        <p class="text-sm text-gray-500">Salaire net</p>
+        <p class="text-xl font-bold text-emerald-600">{formatDHArrondi(result.netMensuel)}</p>
+        <p class="text-xs text-gray-400">net/mois</p>
+      </div>
+      <div class="rounded-xl border border-gray-200 p-4 text-center">
+        <p class="text-sm text-gray-500">Coût de la vie</p>
+        <p class="text-xl font-bold text-charcoal">{city.coutVie}</p>
+        <p class="text-xs text-gray-400">indice (100 = moy. nationale)</p>
+      </div>
+      <div class="rounded-xl border border-gray-200 p-4 text-center">
+        <p class="text-sm text-gray-500">Population</p>
+        <p class="text-xl font-bold text-charcoal">{city.population}</p>
+        <p class="text-xs text-gray-400">habitants</p>
+      </div>
+    </div>
+
+    <!-- Calculator -->
+    <section class="mb-8">
+      <h2 class="mb-4 text-2xl font-bold text-charcoal">Calculez votre salaire net à {city.name}</h2>
+      <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <SalaireNet client:idle initialBrut={city.salaireMoyen} />
+      </div>
+    </section>
+
+    <!-- Salary by sector -->
+    <section class="mb-8">
+      <h2 class="mb-4 text-2xl font-bold text-charcoal">Salaires par secteur à {city.name}</h2>
+      <div class="overflow-hidden rounded-lg border border-gray-200">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-gray-50">
+              <th class="px-4 py-2 text-left font-medium text-gray-500">Secteur</th>
+              <th class="px-4 py-2 text-right font-medium text-gray-500">Min brut/mois</th>
+              <th class="px-4 py-2 text-right font-medium text-gray-500">Max brut/mois</th>
+              <th class="px-4 py-2 text-right font-medium text-gray-500">Net moyen/mois</th>
+            </tr>
+          </thead>
+          <tbody>
+            {city.salairesParSecteur.map(s => {
+              const avgBrut = (s.min + s.max) / 2;
+              const avgNet = calculerSalaireNet(avgBrut, 0).netMensuel;
+              return (
+                <tr class="border-t border-gray-100">
+                  <td class="px-4 py-2 text-gray-700">{s.secteur}</td>
+                  <td class="px-4 py-2 text-right tabular-nums">{formatDHArrondi(s.min)}</td>
+                  <td class="px-4 py-2 text-right tabular-nums">{formatDHArrondi(s.max)}</td>
+                  <td class="px-4 py-2 text-right tabular-nums font-medium text-emerald-600">{formatDHArrondi(avgNet)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Cost of living comparison -->
+    <section class="mb-8">
+      <h2 class="mb-4 text-2xl font-bold text-charcoal">Coût de la vie à {city.name}</h2>
+      <div class="prose max-w-none text-dark-gray leading-relaxed">
+        <p>
+          L'indice du coût de la vie à {city.name} est de <strong>{city.coutVie}/100</strong> (100 étant la moyenne nationale).
+          {city.coutVie > 110
+            ? `${city.name} est donc une ville plus chère que la moyenne marocaine. Les loyers, le transport et les loisirs y sont plus élevés, ce qui impacte le pouvoir d'achat malgré des salaires supérieurs.`
+            : city.coutVie >= 95
+            ? `${city.name} se situe dans la moyenne nationale en termes de coût de la vie. Les dépenses courantes sont raisonnables et proportionnées aux salaires locaux.`
+            : `${city.name} offre un coût de la vie inférieur à la moyenne nationale, ce qui permet un bon pouvoir d'achat même avec des salaires modérés.`
+          }
+        </p>
+        <div class="not-prose my-4">
+          <h3 class="mb-3 text-lg font-semibold text-charcoal">Comparaison avec les autres villes</h3>
+          <div class="space-y-2">
+            {CITIES.map(c => (
+              <div class="flex items-center gap-3">
+                <span class="w-28 text-sm text-gray-600 shrink-0">
+                  {c.slug === city.slug ? <strong>{c.name}</strong> : <a href={`/salaire/ville/${c.slug}/`} class="text-brand hover:underline">{c.name}</a>}
+                </span>
+                <div class="flex-1 bg-gray-100 rounded-full h-4 overflow-hidden">
+                  <div
+                    class:list={['h-4 rounded-full', c.slug === city.slug ? 'bg-teal-500' : 'bg-gray-300']}
+                    style={`width: ${Math.min(100, (c.salaireMoyen / 10000) * 100)}%`}
+                  ></div>
+                </div>
+                <span class="w-24 text-sm text-right tabular-nums font-medium">{formatDHArrondi(c.salaireMoyen)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Editorial content -->
+    <section class="mb-8">
+      <div class="prose max-w-none text-dark-gray leading-relaxed">
+        <h2 class="text-2xl font-bold text-charcoal">Travailler et vivre à {city.name}</h2>
+        <p>{city.description}</p>
+
+        <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Secteurs principaux à {city.name}</h3>
+        <p>Les secteurs économiques dominants à {city.name} sont :</p>
+        <ul class="list-disc ml-4 space-y-1">
+          {city.secteursPrincipaux.map(s => <li><strong>{s}</strong></li>)}
+        </ul>
+      </div>
+    </section>
+
+    <!-- FAQs -->
+    <section class="mb-8">
+      <h2 class="mb-4 text-2xl font-bold text-charcoal">Questions fréquentes sur les salaires à {city.name}</h2>
+      <div class="space-y-3">
+        {city.faqs.map(faq => (
+          <details class="group rounded-lg border border-gray-200">
+            <summary class="cursor-pointer px-4 py-3 font-medium text-charcoal">{faq.question}</summary>
+            <div class="border-t border-gray-200 px-4 py-3 text-sm text-dark-gray">
+              <p>{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Related cities -->
+    <section class="mb-8">
+      <h2 class="mb-4 text-xl font-bold text-charcoal">Salaires dans les autres villes</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {relatedCities.map(c => {
+          const r = calculerSalaireNet(c.salaireMoyen, 0);
+          return (
+            <a href={`/salaire/ville/${c.slug}/`} class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+              <h3 class="font-semibold text-charcoal group-hover:text-teal-600">{c.name}</h3>
+              <p class="mt-1 text-sm text-gray-500">{formatDHArrondi(c.salaireMoyen)} brut/mois &middot; {formatDHArrondi(r.netMensuel)} net</p>
+              <p class="text-xs text-gray-400">Indice coût de la vie : {c.coutVie}</p>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- Popular professions -->
+    <section class="mb-8">
+      <h2 class="mb-4 text-xl font-bold text-charcoal">Salaires par métier au Maroc</h2>
+      <div class="flex flex-wrap gap-2">
+        {topProfessions.map(p => (
+          <a href={`/salaire/metier/${p.slug}/`} class="rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-dark-gray transition-colors hover:border-teal-500 hover:text-teal-600">
+            {p.title}
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Internal links -->
+    <section class="mb-8">
+      <h2 class="mb-4 text-xl font-bold text-charcoal">Liens utiles</h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <a href="/" class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+          <h3 class="font-semibold text-charcoal group-hover:text-teal-600">Calculateur salaire brut/net</h3>
+          <p class="mt-1 text-sm text-gray-500">Convertissez votre salaire brut en net</p>
+        </a>
+        <a href="/calculateur-cout-employeur/" class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+          <h3 class="font-semibold text-charcoal group-hover:text-teal-600">Calculateur coût employeur</h3>
+          <p class="mt-1 text-sm text-gray-500">Calculez le coût total d'un salarié</p>
+        </a>
+        <a href="/guides/smig-maroc/" class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+          <h3 class="font-semibold text-charcoal group-hover:text-teal-600">SMIG Maroc {CURRENT_FISCAL_YEAR}</h3>
+          <p class="mt-1 text-sm text-gray-500">Tout savoir sur le salaire minimum</p>
+        </a>
+        <a href="/guides/bareme-ir-maroc/" class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+          <h3 class="font-semibold text-charcoal group-hover:text-teal-600">Barème IR Maroc</h3>
+          <p class="mt-1 text-sm text-gray-500">Tranches et taux de l'impôt sur le revenu</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Author -->
+    <div class="flex items-center gap-4 rounded-lg border border-gray-200 px-5 py-4">
+      <img src="/team/mottalib-radif.jpg" alt="Mottalib Radif" class="h-12 w-12 rounded-full object-cover bg-gray-200" width="48" height="48" loading="lazy" />
+      <div class="text-sm">
+        <p class="font-semibold text-charcoal">
+          Rédigé par <a href="/a-propos/" class="text-brand hover:underline">Mottalib Radif</a>
+        </p>
+        <p class="text-medium-gray">MBA INSEAD &middot; Expert en finances personnelles</p>
+      </div>
+    </div>
+    <div class="mt-4 text-xs text-medium-gray">
+      <p>Mis à jour pour l'année fiscale {CURRENT_FISCAL_YEAR}.</p>
+    </div>
+  </div>
+</Layout>

@@ -45,12 +45,16 @@ const articleSchema = buildArticleSchema(title, description, '/guides/comprendre
   extraSchemas={[articleSchema]}
   breadcrumbs={[
     { name: 'Accueil', url: '/' },
-    { name: 'Guides', url: '/' },
+    { name: 'Guides', url: '/guides/' },
     { name: 'Bulletin de paie', url: '/guides/comprendre-bulletin-paie/' },
   ]}
 >
   <div class="prose max-w-none text-dark-gray leading-relaxed">
-    <p>
+    <!-- Definition box for featured snippets -->
+    <div class="not-prose bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-lg mb-6">
+      <p class="font-semibold text-teal-900">En bref</p>
+      <p class="text-teal-800">Le bulletin de paie au Maroc détaille le passage du <strong>salaire brut au net</strong> : salaire de base + primes - cotisations CNSS (6,74%) - IR (impôt progressif) = net à payer. L'employeur est légalement obligé de remettre ce document à chaque salarié chaque mois.</p>
+    </div>    <p>
       Le bulletin de paie est le document que votre employeur vous remet chaque mois. Il détaille l'ensemble des éléments composant votre rémunération et les retenues effectuées. Comprendre votre bulletin de paie est essentiel pour vérifier que vos droits sont respectés et que les calculs sont corrects.
     </p>
 
@@ -175,5 +179,12 @@ const articleSchema = buildArticleSchema(title, description, '/guides/comprendre
     <p>
       Pour vérifier vos calculs ou anticiper votre prochain bulletin, utilisez notre <a href="/" class="text-brand hover:underline">calculateur de salaire brut/net</a>.
     </p>
-  </div>
+    <h2>Articles liés</h2>
+    <ul>
+      <li><a href="/" class="text-brand hover:underline">Calculateur salaire brut vers net</a> - Vérifiez votre bulletin de paie en un clic</li>
+      <li><a href="/guides/bareme-ir-maroc/" class="text-brand hover:underline">Barème IR Maroc</a> - Comprendre les tranches d'imposition sur votre bulletin</li>
+      <li><a href="/guides/smig-maroc/" class="text-brand hover:underline">SMIG au Maroc</a> - Le salaire minimum et ses implications sur la paie</li>
+      <li><a href="/calculateur-cout-employeur/" class="text-brand hover:underline">Coût employeur au Maroc</a> - Voir aussi les charges patronales</li>
+      <li><a href="/guides/" class="text-brand hover:underline">Tous nos guides salaire et fiscalité</a> - Ressources complètes</li>
+    </ul>  </div>
 </CalculateurLayout>

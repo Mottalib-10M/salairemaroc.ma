@@ -1,0 +1,155 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+import { CURRENT_FISCAL_YEAR } from '../../config';
+import { buildBreadcrumbSchema } from '../../lib/seo';
+import { PROFESSIONS } from '../../data/professions';
+import { CITIES } from '../../data/cities';
+
+const title = 'Calculateurs salaire Maroc 2026 : brut, net, IR, coût employeur';
+const description = `Tous les outils gratuits pour calculer votre salaire au Maroc en ${CURRENT_FISCAL_YEAR} : brut vers net, net vers brut, simulateur IR, coût employeur. Salaires par métier et par ville.`;
+
+const calculateurs = [
+  {
+    href: '/',
+    title: 'Calculateur Salaire Brut → Net',
+    description: `Convertissez votre salaire brut en net au Maroc. Cotisations CNSS, IR progressif et frais professionnels inclus. Résultat instantané pour ${CURRENT_FISCAL_YEAR}.`,
+    badge: 'Le plus utilisé',
+  },
+  {
+    href: '/calculateur-net-vers-brut/',
+    title: 'Calculateur Net → Brut',
+    description: "Trouvez le salaire brut nécessaire pour obtenir un net souhaité. Idéal pour la négociation salariale et les offres d'emploi en net.",
+    badge: null,
+  },
+  {
+    href: '/calculateur-cout-employeur/',
+    title: 'Calculateur Coût Employeur',
+    description: "Calculez le coût total d'un salarié pour l'employeur : salaire brut + charges patronales CNSS détaillées (allocations familiales, AMO, retraite).",
+    badge: null,
+  },
+  {
+    href: '/simulateur-ir/',
+    title: "Simulateur Impôt sur le Revenu",
+    description: "Simulez votre IR tranche par tranche. Visualisez le calcul progressif, le taux effectif et l'impact des déductions familiales sur votre impôt.",
+    badge: null,
+  },
+];
+
+const schemas = [
+  buildBreadcrumbSchema([
+    { name: 'Accueil', url: '/' },
+    { name: 'Calculateurs', url: '/calculateurs/' },
+  ]),
+];
+---
+
+<Layout title={title} description={description} schema={schemas}>
+  <div class="mx-auto max-w-4xl px-4 py-8">
+    <nav class="mb-6 text-sm text-medium-gray" aria-label="Fil d'Ariane">
+      <ol class="flex items-center gap-1">
+        <li><a href="/" class="hover:text-brand">Accueil</a></li>
+        <li>/</li>
+        <li class="text-charcoal">Calculateurs</li>
+      </ol>
+    </nav>
+
+    <h1 class="mb-6 text-3xl font-bold text-charcoal md:text-4xl">
+      Calculateurs de salaire Maroc {CURRENT_FISCAL_YEAR}
+    </h1>
+
+    <!-- Definition box -->
+    <div class="bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-lg mb-8">
+      <p class="font-semibold text-teal-900">En bref</p>
+      <p class="text-teal-800">Nos calculateurs gratuits vous permettent de convertir votre <strong>salaire brut en net</strong>, d'estimer votre <strong>impôt sur le revenu</strong> et de calculer le <strong>coût total employeur</strong> au Maroc. Tous les outils sont mis à jour avec le barème fiscal {CURRENT_FISCAL_YEAR}.</p>
+    </div>
+
+    <!-- Calculator cards -->
+    <div class="grid gap-6 mb-10">
+      {calculateurs.map(calc => (
+        <a href={calc.href} class="group relative flex flex-col rounded-xl border border-gray-200 p-6 transition-all hover:border-teal-500 hover:shadow-md">
+          {calc.badge && (
+            <span class="absolute -top-2 right-4 rounded-full bg-teal-500 px-3 py-0.5 text-xs font-medium text-white">{calc.badge}</span>
+          )}
+          <h2 class="text-xl font-bold text-charcoal group-hover:text-teal-600">{calc.title}</h2>
+          <p class="mt-2 text-dark-gray">{calc.description}</p>
+        </a>
+      ))}
+    </div>
+
+    <!-- Editorial content -->
+    <div class="prose max-w-none text-dark-gray leading-relaxed mb-10">
+      <h2 class="text-2xl font-bold text-charcoal">Pourquoi utiliser nos calculateurs de salaire ?</h2>
+      <p>
+        Calculer son salaire net au Maroc n'est pas une opération triviale. Entre les cotisations CNSS (6,74% pour le salarié, dont certaines plafonnées à 6 000 DH/mois), les frais professionnels forfaitaires de 20% (plafonnés à 30 000 DH/an) et l'impôt sur le revenu progressif à 6 tranches allant de 0% à 38%, les variables sont nombreuses et interagissent de manière complexe.
+      </p>
+      <p>
+        Nos calculateurs intègrent toutes ces règles fiscales en vigueur pour l'année {CURRENT_FISCAL_YEAR} et vous fournissent un résultat instantané et détaillé. Chaque calcul décompose les différentes retenues pour que vous compreniez exactement comment votre salaire brut se transforme en net.
+      </p>
+      <p>
+        Que vous soyez salarié cherchant à comprendre votre bulletin de paie, candidat négociant une offre d'emploi, employeur estimant le coût d'un recrutement, ou simplement curieux de comprendre le système fiscal marocain, nos outils sont conçus pour répondre à vos besoins de manière claire et pédagogique.
+      </p>
+      <p>
+        Chaque calculateur est accompagné d'explications détaillées, de tableaux de référence et d'une FAQ pour répondre aux questions les plus courantes. Nous nous appuyons sur les données officielles de la Direction Générale des Impôts (DGI) et de la Caisse Nationale de Sécurité Sociale (CNSS) pour garantir l'exactitude de nos résultats.
+      </p>
+      <p>
+        Au-delà des calculateurs, nous proposons des grilles de salaires par métier et par ville pour vous aider à situer votre rémunération par rapport au marché marocain. Ces données sont compilées à partir de sources multiples et mises à jour régulièrement.
+      </p>
+    </div>
+
+    <!-- Salary by profession -->
+    <section class="mb-10">
+      <h2 class="mb-4 text-2xl font-bold text-charcoal">Salaires par métier au Maroc</h2>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {PROFESSIONS.map(p => (
+          <a href={`/salaire/metier/${p.slug}/`} class="group rounded-lg border border-gray-200 p-3 transition-all hover:border-teal-500 hover:shadow-sm">
+            <p class="font-semibold text-charcoal group-hover:text-teal-600 text-sm">{p.title}</p>
+            <p class="text-xs text-gray-500">{p.fourchette.min.toLocaleString('fr-FR')} - {p.fourchette.max.toLocaleString('fr-FR')} DH/mois</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Salary by city -->
+    <section class="mb-10">
+      <h2 class="mb-4 text-2xl font-bold text-charcoal">Salaires par ville au Maroc</h2>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {CITIES.map(c => (
+          <a href={`/salaire/ville/${c.slug}/`} class="group rounded-lg border border-gray-200 p-3 transition-all hover:border-teal-500 hover:shadow-sm">
+            <p class="font-semibold text-charcoal group-hover:text-teal-600 text-sm">{c.name}</p>
+            <p class="text-xs text-gray-500">Moy. {c.salaireMoyen.toLocaleString('fr-FR')} DH/mois</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Guides links -->
+    <section class="mb-8">
+      <h2 class="mb-6 text-2xl font-bold text-charcoal">Guides pratiques</h2>
+      <div class="grid gap-4 sm:grid-cols-3">
+        <a href="/guides/bareme-ir-maroc/" class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+          <h3 class="font-semibold text-charcoal group-hover:text-teal-600">Barème IR Maroc</h3>
+          <p class="mt-1 text-sm text-gray-500">Tranches et taux d'imposition {CURRENT_FISCAL_YEAR}</p>
+        </a>
+        <a href="/guides/smig-maroc/" class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+          <h3 class="font-semibold text-charcoal group-hover:text-teal-600">SMIG Maroc</h3>
+          <p class="mt-1 text-sm text-gray-500">Salaire minimum et historique</p>
+        </a>
+        <a href="/guides/comprendre-bulletin-paie/" class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+          <h3 class="font-semibold text-charcoal group-hover:text-teal-600">Bulletin de paie</h3>
+          <p class="mt-1 text-sm text-gray-500">Comprendre chaque ligne de votre fiche</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Author -->
+    <div class="flex items-center gap-4 rounded-lg border border-gray-200 px-5 py-4">
+      <img src="/team/mottalib-radif.jpg" alt="Mottalib Radif" class="h-12 w-12 rounded-full object-cover bg-gray-200" width="48" height="48" loading="lazy" />
+      <div class="text-sm">
+        <p class="font-semibold text-charcoal">
+          Rédigé par <a href="/a-propos/" class="text-brand hover:underline">Mottalib Radif</a>
+        </p>
+        <p class="text-medium-gray">MBA INSEAD &middot; Expert en finances personnelles</p>
+      </div>
+    </div>
+  </div>
+</Layout>

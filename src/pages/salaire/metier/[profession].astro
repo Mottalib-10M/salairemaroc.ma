@@ -1,0 +1,214 @@
+---
+import Layout from '../../../components/layout/Layout.astro';
+import SalaireNet from '../../../components/calculateurs/SalaireNet';
+import { CURRENT_FISCAL_YEAR } from '../../../config';
+import { buildBreadcrumbSchema, buildFAQSchema } from '../../../lib/seo';
+import { calculerSalaireNet } from '../../../lib/salaire-engine';
+import { formatDH, formatDHArrondi } from '../../../lib/format';
+import { PROFESSIONS, type Profession } from '../../../data/professions';
+
+export function getStaticPaths() {
+  return PROFESSIONS.map(p => ({
+    params: { profession: p.slug },
+    props: { profession: p },
+  }));
+}
+
+interface Props { profession: Profession; }
+const { profession } = Astro.props;
+
+const result = calculerSalaireNet(profession.salaireMoyen, 0);
+const resultMin = calculerSalaireNet(profession.fourchette.min, 0);
+const resultMax = calculerSalaireNet(profession.fourchette.max, 0);
+
+const title = `Salaire ${profession.title} au Maroc ${CURRENT_FISCAL_YEAR} : grille et évolution`;
+const description = `Le salaire moyen d'un(e) ${profession.title.toLowerCase()} au Maroc en ${CURRENT_FISCAL_YEAR} est de ${formatDHArrondi(profession.salaireMoyen)} brut/mois (${formatDHArrondi(result.netMensuel)} net). Grille salariale, évolution de carrière et secteurs.`;
+
+const related = PROFESSIONS.filter(p => profession.relatedSlugs.includes(p.slug));
+
+const schemas = [
+  buildBreadcrumbSchema([
+    { name: 'Accueil', url: '/' },
+    { name: 'Salaires par métier', url: '/salaire/metier/' },
+    { name: `Salaire ${profession.title}`, url: `/salaire/metier/${profession.slug}/` },
+  ]),
+  buildFAQSchema(profession.faqs),
+];
+---
+
+<Layout title={title} description={description} schema={schemas}>
+  <div class="mx-auto max-w-4xl px-4 py-8">
+    <nav class="mb-6 text-sm text-medium-gray" aria-label="Fil d'Ariane">
+      <ol class="flex flex-wrap items-center gap-1">
+        <li><a href="/" class="hover:text-brand">Accueil</a></li>
+        <li>/</li>
+        <li><a href="/calculateurs/" class="hover:text-brand">Calculateurs</a></li>
+        <li>/</li>
+        <li class="text-charcoal">Salaire {profession.title}</li>
+      </ol>
+    </nav>
+
+    <h1 class="mb-6 text-3xl font-bold text-charcoal md:text-4xl">
+      Salaire {profession.title} au Maroc ({CURRENT_FISCAL_YEAR})
+    </h1>
+
+    <!-- Definition box for featured snippets -->
+    <div class="bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-lg mb-6">
+      <p class="font-semibold text-teal-900">En bref</p>
+      <p class="text-teal-800">Le salaire moyen d'un(e) {profession.title.toLowerCase()} au Maroc en {CURRENT_FISCAL_YEAR} est de <strong>{formatDHArrondi(profession.salaireMoyen)} brut/mois</strong> ({formatDHArrondi(result.netMensuel)} net). La fourchette va de {formatDHArrondi(profession.fourchette.min)} à {formatDHArrondi(profession.fourchette.max)} brut selon l'expérience et le secteur ({profession.secteur}).</p>
+    </div>
+
+    <!-- Salary overview cards -->
+    <div class="mb-8 grid gap-4 sm:grid-cols-3">
+      <div class="rounded-xl border border-gray-200 p-4 text-center">
+        <p class="text-sm text-gray-500">Salaire minimum</p>
+        <p class="text-xl font-bold text-charcoal">{formatDHArrondi(profession.fourchette.min)}</p>
+        <p class="text-sm text-gray-400">brut/mois</p>
+        <p class="text-sm text-emerald-600 font-medium">{formatDHArrondi(resultMin.netMensuel)} net</p>
+      </div>
+      <div class="rounded-xl border-2 border-teal-500 bg-teal-50 p-4 text-center">
+        <p class="text-sm text-teal-600">Salaire moyen</p>
+        <p class="text-2xl font-bold text-teal-700">{formatDHArrondi(profession.salaireMoyen)}</p>
+        <p class="text-sm text-teal-500">brut/mois</p>
+        <p class="text-sm text-teal-700 font-medium">{formatDHArrondi(result.netMensuel)} net</p>
+      </div>
+      <div class="rounded-xl border border-gray-200 p-4 text-center">
+        <p class="text-sm text-gray-500">Salaire maximum</p>
+        <p class="text-xl font-bold text-charcoal">{formatDHArrondi(profession.fourchette.max)}</p>
+        <p class="text-sm text-gray-400">brut/mois</p>
+        <p class="text-sm text-emerald-600 font-medium">{formatDHArrondi(resultMax.netMensuel)} net</p>
+      </div>
+    </div>
+
+    <!-- Calculator pre-filled -->
+    <section class="mb-8">
+      <h2 class="mb-4 text-2xl font-bold text-charcoal">Calculez votre salaire net de {profession.title.toLowerCase()}</h2>
+      <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <SalaireNet client:idle initialBrut={profession.salaireMoyen} />
+      </div>
+    </section>
+
+    <!-- Editorial content -->
+    <section class="mb-8">
+      <div class="prose max-w-none text-dark-gray leading-relaxed">
+        <h2 class="text-2xl font-bold text-charcoal">Le métier de {profession.title.toLowerCase()} au Maroc</h2>
+        <p>{profession.description}</p>
+
+        <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Grille salariale détaillée</h3>
+        <div class="not-prose overflow-hidden rounded-lg border border-gray-200 my-4">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-gray-50">
+                <th class="px-4 py-2 text-left font-medium text-gray-500">Niveau</th>
+                <th class="px-4 py-2 text-right font-medium text-gray-500">Brut/mois</th>
+                <th class="px-4 py-2 text-right font-medium text-gray-500">Net/mois</th>
+                <th class="px-4 py-2 text-right font-medium text-gray-500">Net/an</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { label: 'Débutant (0-2 ans)', brut: profession.fourchette.min },
+                { label: 'Junior (2-5 ans)', brut: Math.round((profession.fourchette.min + profession.salaireMoyen) / 2) },
+                { label: 'Confirmé (5-10 ans)', brut: profession.salaireMoyen },
+                { label: 'Senior (10-15 ans)', brut: Math.round((profession.salaireMoyen + profession.fourchette.max) / 2) },
+                { label: 'Expert (15+ ans)', brut: profession.fourchette.max },
+              ].map(level => {
+                const r = calculerSalaireNet(level.brut, 0);
+                return (
+                  <tr class="border-t border-gray-100">
+                    <td class="px-4 py-2 text-gray-700">{level.label}</td>
+                    <td class="px-4 py-2 text-right tabular-nums font-medium">{formatDHArrondi(level.brut)}</td>
+                    <td class="px-4 py-2 text-right tabular-nums font-medium text-emerald-600">{formatDHArrondi(r.netMensuel)}</td>
+                    <td class="px-4 py-2 text-right tabular-nums text-gray-600">{formatDHArrondi(r.netAnnuel)}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Évolution de carrière</h3>
+        <p>{profession.evolution}</p>
+
+        <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Diplômes et formations requis</h3>
+        <ul class="list-disc ml-4 space-y-1">
+          {profession.diplomes.map(d => <li>{d}</li>)}
+        </ul>
+
+        <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Secteur : {profession.secteur}</h3>
+        <p>
+          Le secteur {profession.secteur.toLowerCase()} au Maroc offre des perspectives variées pour les {profession.title.toLowerCase()}s.
+          Avec un salaire moyen de {formatDHArrondi(profession.salaireMoyen)} brut par mois, soit {formatDHArrondi(result.netMensuel)} net après déduction des cotisations CNSS ({formatDH(result.cnssMensuel)}/mois) et de l'IR ({formatDH(result.irMensuel)}/mois), ce métier se positionne dans la grille salariale marocaine de manière {profession.salaireMoyen >= 10000 ? 'attractive' : profession.salaireMoyen >= 6000 ? 'correcte' : 'modeste'}.
+          Le coût total pour l'employeur s'élève à {formatDHArrondi(result.coutEmployeurMensuel)} par mois, incluant les charges patronales CNSS.
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQs -->
+    <section class="mb-8">
+      <h2 class="mb-4 text-2xl font-bold text-charcoal">Questions fréquentes sur le salaire de {profession.title.toLowerCase()}</h2>
+      <div class="space-y-3">
+        {profession.faqs.map(faq => (
+          <details class="group rounded-lg border border-gray-200">
+            <summary class="cursor-pointer px-4 py-3 font-medium text-charcoal">{faq.question}</summary>
+            <div class="border-t border-gray-200 px-4 py-3 text-sm text-dark-gray">
+              <p>{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Related professions -->
+    <section class="mb-8">
+      <h2 class="mb-4 text-xl font-bold text-charcoal">Métiers et salaires associés</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {related.map(p => (
+          <a href={`/salaire/metier/${p.slug}/`} class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+            <h3 class="font-semibold text-charcoal group-hover:text-teal-600">{p.title}</h3>
+            <p class="mt-1 text-sm text-gray-500">{formatDHArrondi(p.salaireMoyen)} brut/mois</p>
+            <p class="text-xs text-gray-400">{p.secteur}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Internal links -->
+    <section class="mb-8">
+      <h2 class="mb-4 text-xl font-bold text-charcoal">Liens utiles</h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <a href="/" class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+          <h3 class="font-semibold text-charcoal group-hover:text-teal-600">Calculateur salaire brut/net</h3>
+          <p class="mt-1 text-sm text-gray-500">Convertissez votre salaire brut en net instantanément</p>
+        </a>
+        <a href="/calculateur-cout-employeur/" class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+          <h3 class="font-semibold text-charcoal group-hover:text-teal-600">Coût employeur pour un {profession.title.toLowerCase()}</h3>
+          <p class="mt-1 text-sm text-gray-500">Calculez le coût total charges patronales incluses</p>
+        </a>
+        <a href="/guides/bareme-ir-maroc/" class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+          <h3 class="font-semibold text-charcoal group-hover:text-teal-600">Barème IR Maroc {CURRENT_FISCAL_YEAR}</h3>
+          <p class="mt-1 text-sm text-gray-500">Comprendre les tranches de l'impôt sur le revenu</p>
+        </a>
+        <a href="/guides/comprendre-bulletin-paie/" class="group rounded-lg border border-gray-200 p-4 transition-all hover:border-teal-500 hover:shadow-md">
+          <h3 class="font-semibold text-charcoal group-hover:text-teal-600">Comprendre son bulletin de paie</h3>
+          <p class="mt-1 text-sm text-gray-500">Décryptez chaque ligne de votre fiche de paie</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Author -->
+    <div class="flex items-center gap-4 rounded-lg border border-gray-200 px-5 py-4">
+      <img src="/team/mottalib-radif.jpg" alt="Mottalib Radif" class="h-12 w-12 rounded-full object-cover bg-gray-200" width="48" height="48" loading="lazy" />
+      <div class="text-sm">
+        <p class="font-semibold text-charcoal">
+          Rédigé par <a href="/a-propos/" class="text-brand hover:underline">Mottalib Radif</a>
+        </p>
+        <p class="text-medium-gray">MBA INSEAD &middot; Expert en finances personnelles</p>
+      </div>
+    </div>
+    <div class="mt-4 text-xs text-medium-gray">
+      <p>Mis à jour pour l'année fiscale {CURRENT_FISCAL_YEAR}.</p>
+      <p class="mt-1">Sources : <a href="https://www.tax.gov.ma" class="underline hover:text-brand" target="_blank" rel="noopener">DGI</a>, <a href="https://www.cnss.ma" class="underline hover:text-brand" target="_blank" rel="noopener">CNSS</a>.</p>
+    </div>
+  </div>
+</Layout>
