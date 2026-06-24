@@ -5,8 +5,8 @@ import { CURRENT_FISCAL_YEAR } from '../config';
 import { TRANCHES_IR, calculerSalaireNet } from '../lib/salaire-engine';
 import { formatDH, formatDHArrondi } from '../lib/format';
 
-const title = `Simulateur IR Maroc ${CURRENT_FISCAL_YEAR} - Impôt sur le Revenu`;
-const description = `Simulez votre Impôt sur le Revenu au Maroc tranche par tranche. Barème IR progressif, frais professionnels, déductions familiales. ${CURRENT_FISCAL_YEAR}.`;
+const title = `Simulateur IR Maroc ${CURRENT_FISCAL_YEAR} - Impôt sur le Revenu Détaillé`;
+const description = `Simulez votre Impôt sur le Revenu (IR) au Maroc tranche par tranche. Barème progressif, frais professionnels et déductions familiales inclus. Année ${CURRENT_FISCAL_YEAR}.`;
 
 const faqs = [
   {
@@ -24,6 +24,10 @@ const faqs = [
   {
     question: 'Comment fonctionnent les déductions pour personnes à charge ?',
     answer: 'Chaque personne à charge donne droit à une déduction de 360 DH par an, dans la limite de 6 personnes (2 160 DH/an maximum). Cette déduction est soustraite directement du montant de l\'IR calculé, ce qui réduit l\'impôt final à payer.',
+  },
+  {
+    question: 'Les revenus fonciers sont-ils soumis au même barème IR que les salaires ?',
+    answer: 'Les revenus fonciers au Maroc sont soumis à l\'IR mais avec des règles spécifiques. Ils peuvent être imposés au taux forfaitaire de 15% ou intégrés au revenu global et soumis au barème progressif. Le choix dépend de la situation du contribuable. Ce simulateur concerne spécifiquement l\'IR salarial.',
   },
 ];
 

@@ -6,7 +6,7 @@ import { calculerSalaireNet, CNSS_SALARIE_TOTAL, TRANCHES_IR, SMIG_MENSUEL } fro
 import { formatDH, formatDHArrondi } from '../lib/format';
 
 const title = `Calculateur Salaire Brut Net Maroc ${CURRENT_FISCAL_YEAR} - CNSS & IR`;
-const description = `Convertissez votre salaire brut en net au Maroc. Cotisations CNSS, IR progressif, frais professionnels. Calcul instantané et gratuit ${CURRENT_FISCAL_YEAR}.`;
+const description = `Convertissez votre salaire brut en net au Maroc. Cotisations CNSS, IR progressif, frais professionnels et déductions familiales. Calcul instantané gratuit ${CURRENT_FISCAL_YEAR}.`;
 
 const faqs = [
   {
@@ -24,6 +24,10 @@ const faqs = [
   {
     question: 'Le calculateur tient-il compte des personnes à charge ?',
     answer: 'Oui, vous pouvez indiquer le nombre de personnes à charge (de 0 à 6). Chaque personne à charge donne droit à une déduction de 360 DH/an sur l\'IR, soit un maximum de 2 160 DH/an pour 6 personnes à charge.',
+  },
+  {
+    question: 'La prime d\'ancienneté est-elle incluse dans le calcul du salaire net ?',
+    answer: 'La prime d\'ancienneté est un droit du salarié marocain après 2 ans d\'ancienneté. Elle va de 5% (2-5 ans) à 25% (plus de 25 ans) du salaire de base. Cette prime s\'ajoute au brut et est soumise aux mêmes cotisations CNSS et à l\'IR. Vous pouvez l\'intégrer dans le montant brut saisi.',
   },
 ];
 

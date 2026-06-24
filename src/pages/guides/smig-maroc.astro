@@ -1,11 +1,12 @@
 ---
 import CalculateurLayout from '../../layouts/CalculateurLayout.astro';
+import { buildArticleSchema } from '../../lib/seo';
 import { CURRENT_FISCAL_YEAR } from '../../config';
 import { calculerSalaireNet, SMIG_MENSUEL, SMIG_HORAIRE } from '../../lib/salaire-engine';
 import { formatDH, formatDHArrondi } from '../../lib/format';
 
-const title = `SMIG Maroc ${CURRENT_FISCAL_YEAR} : Montant, Calcul Brut Net, CNSS`;
-const description = `Le SMIG au Maroc en ${CURRENT_FISCAL_YEAR} est de 3 111,39 DH/mois (15,55 DH/h). Découvrez le net, les cotisations et l'historique du salaire minimum.`;
+const title = `SMIG Maroc ${CURRENT_FISCAL_YEAR} : Montant, Calcul Brut Net et CNSS`;
+const description = `Le SMIG au Maroc en ${CURRENT_FISCAL_YEAR} est fixé à 3 111,39 DH/mois (15,55 DH/h). Découvrez le net correspondant, les cotisations CNSS et l'historique du salaire minimum.`;
 
 const smigResult = calculerSalaireNet(SMIG_MENSUEL, 0);
 
@@ -26,7 +27,12 @@ const faqs = [
     question: 'Un employeur peut-il payer en dessous du SMIG ?',
     answer: 'Non, le SMIG est un minimum légal obligatoire. Tout employeur qui rémunère un salarié en dessous du SMIG s\'expose à des sanctions prévues par le Code du Travail marocain. Le salarié peut réclamer la différence devant les juridictions compétentes.',
   },
+  {
+    question: 'Quand aura lieu la prochaine revalorisation du SMIG au Maroc ?',
+    answer: 'Les revalorisations du SMIG au Maroc sont décidées dans le cadre du dialogue social entre le gouvernement, les syndicats et le patronat. Elles sont généralement annoncées lors des accords tripartites et entrent en vigueur par décret. La fréquence n\'est pas fixe, mais des augmentations ont lieu tous les 1 à 2 ans environ.',
+  },
 ];
+const articleSchema = buildArticleSchema(title, description, '/guides/smig-maroc/', '2025-06-01');
 ---
 
 <CalculateurLayout
@@ -36,6 +42,7 @@ const faqs = [
   calculatorName="Guide SMIG Maroc"
   path="/guides/smig-maroc/"
   faqs={faqs}
+  extraSchemas={[articleSchema]}
   breadcrumbs={[
     { name: 'Accueil', url: '/' },
     { name: 'Guides', url: '/guides/smig-maroc/' },

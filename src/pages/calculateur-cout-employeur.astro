@@ -5,8 +5,8 @@ import { CURRENT_FISCAL_YEAR } from '../config';
 import { calculerCoutEmployeur } from '../lib/salaire-engine';
 import { formatDH, formatDHArrondi } from '../lib/format';
 
-const title = `Calculateur Coût Employeur Maroc ${CURRENT_FISCAL_YEAR} - Charges`;
-const description = `Calculez le coût total d'un salarié pour l'employeur au Maroc. Charges patronales CNSS détaillées, allocations familiales, AMO. Barème ${CURRENT_FISCAL_YEAR}.`;
+const title = `Calculateur Coût Employeur Maroc ${CURRENT_FISCAL_YEAR} - Charges CNSS`;
+const description = `Calculez le coût total d'un salarié pour l'employeur au Maroc. Charges patronales CNSS détaillées : allocations familiales, AMO, retraite. Barème ${CURRENT_FISCAL_YEAR}.`;
 
 const faqs = [
   {
@@ -20,6 +20,14 @@ const faqs = [
   {
     question: 'Comment réduire le coût employeur ?',
     answer: 'Les employeurs peuvent bénéficier d\'exonérations temporaires lors de l\'embauche de certains profils (premiers employés, jeunes diplômés). La CNSS propose aussi des programmes d\'accompagnement. Il est conseillé de se rapprocher de la CNSS et de l\'ANAPEC pour connaître les dispositifs en vigueur.',
+  },
+  {
+    question: 'La taxe de formation professionnelle est-elle obligatoire pour tous les employeurs ?',
+    answer: 'Oui, la taxe de formation professionnelle (TFP) de 1,60% du salaire brut est obligatoire pour tous les employeurs du secteur privé au Maroc. Elle finance la formation continue des salariés via l\'OFPPT. Elle est déplafonnée et s\'applique sur la totalité du salaire brut.',
+  },
+  {
+    question: 'Quelle est la différence entre le coût employeur et le salaire brut ?',
+    answer: 'Le salaire brut est le montant mentionné sur le contrat de travail. Le coût employeur inclut le brut plus toutes les charges patronales CNSS (environ 21% du brut pour les salaires sous le plafond). Pour un salarié à 10 000 DH brut, le coût total dépasse 12 000 DH par mois.',
   },
 ];
 

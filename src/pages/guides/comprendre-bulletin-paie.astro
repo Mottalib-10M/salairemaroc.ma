@@ -1,11 +1,12 @@
 ---
 import CalculateurLayout from '../../layouts/CalculateurLayout.astro';
+import { buildArticleSchema } from '../../lib/seo';
 import { CURRENT_FISCAL_YEAR } from '../../config';
 import { calculerSalaireNet } from '../../lib/salaire-engine';
 import { formatDH } from '../../lib/format';
 
-const title = `Comprendre Son Bulletin de Paie Maroc ${CURRENT_FISCAL_YEAR}`;
-const description = `Guide complet pour lire et comprendre chaque ligne de votre bulletin de paie au Maroc. CNSS, IR, frais professionnels expliqués. ${CURRENT_FISCAL_YEAR}.`;
+const title = `Comprendre Son Bulletin de Paie au Maroc - Guide ${CURRENT_FISCAL_YEAR}`;
+const description = `Guide complet pour lire et comprendre chaque ligne de votre bulletin de paie au Maroc : CNSS, IR, frais professionnels et net à payer. Année fiscale ${CURRENT_FISCAL_YEAR}.`;
 
 const exemple = calculerSalaireNet(8000, 0);
 
@@ -22,7 +23,16 @@ const faqs = [
     question: 'Que faire si mon bulletin de paie comporte des erreurs ?',
     answer: 'Signalez immédiatement l\'erreur à votre service des ressources humaines ou à votre employeur. Si l\'erreur n\'est pas corrigée, vous pouvez saisir l\'inspecteur du travail de votre préfecture. Conservez toujours vos bulletins de paie comme preuves.',
   },
+  {
+    question: 'Combien de temps faut-il conserver ses bulletins de paie au Maroc ?',
+    answer: 'Il est recommandé de conserver vos bulletins de paie pendant toute votre carrière, voire à vie. Ils constituent la preuve de vos cotisations CNSS pour la retraite et peuvent servir en cas de litige. En droit marocain, le délai de prescription des créances salariales est de 2 ans.',
+  },
+  {
+    question: 'La prime d\'ancienneté apparaît-elle sur le bulletin de paie ?',
+    answer: 'Oui, la prime d\'ancienneté est un droit légal au Maroc après 2 ans d\'ancienneté. Elle doit figurer comme ligne distincte sur le bulletin de paie. Son taux va de 5% (2-5 ans) à 25% (plus de 25 ans) du salaire de base. Si elle est absente malgré votre ancienneté, signalez-le à votre employeur.',
+  },
 ];
+const articleSchema = buildArticleSchema(title, description, '/guides/comprendre-bulletin-paie/', '2025-06-01');
 ---
 
 <CalculateurLayout
@@ -32,6 +42,7 @@ const faqs = [
   calculatorName="Guide Bulletin de Paie"
   path="/guides/comprendre-bulletin-paie/"
   faqs={faqs}
+  extraSchemas={[articleSchema]}
   breadcrumbs={[
     { name: 'Accueil', url: '/' },
     { name: 'Guides', url: '/guides/comprendre-bulletin-paie/' },

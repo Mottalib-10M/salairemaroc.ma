@@ -2,12 +2,12 @@
 import Layout from '../components/layout/Layout.astro';
 import SalaireNet from '../components/calculateurs/SalaireNet';
 import { CURRENT_FISCAL_YEAR } from '../config';
-import { buildWebApplicationSchema, buildBreadcrumbSchema, buildFAQSchema } from '../lib/seo';
+import { buildWebApplicationSchema, buildBreadcrumbSchema, buildFAQSchema, buildPersonSchema } from '../lib/seo';
 import { calculerSalaireNet, SMIG_MENSUEL } from '../lib/salaire-engine';
 import { formatDH, formatDHArrondi } from '../lib/format';
 
-const title = `Calculateur Salaire Net Maroc ${CURRENT_FISCAL_YEAR} - Brut en Net`;
-const description = `Calculez votre salaire net au Maroc en quelques secondes. CNSS, IR, frais professionnels et déductions inclus. Barème ${CURRENT_FISCAL_YEAR}.`;
+const title = `Calculateur Salaire Net Maroc ${CURRENT_FISCAL_YEAR} - Brut en Net Gratuit`;
+const description = `Calculez votre salaire net au Maroc en quelques secondes. Cotisations CNSS, impôt sur le revenu, frais professionnels et déductions inclus. Barème fiscal ${CURRENT_FISCAL_YEAR}.`;
 
 const faqs = [
   {
@@ -36,6 +36,13 @@ const schemas = [
   buildWebApplicationSchema(`Calculateur Salaire Net ${CURRENT_FISCAL_YEAR}`, '/'),
   buildBreadcrumbSchema([{ name: 'Calculateur Salaire Net', url: '/' }]),
   buildFAQSchema(faqs),
+  buildPersonSchema({
+    name: 'Mottalib Radif',
+    jobTitle: 'Expert en finances personnelles et fiscalité marocaine',
+    description: 'Fondateur de Salaire Maroc, diplômé MBA de l\'INSEAD. Spécialiste en fiscalité marocaine et calcul de salaire brut/net.',
+    alumniOf: [{ name: 'INSEAD', url: 'https://www.insead.edu' }],
+    knowsAbout: ['Fiscalité marocaine', 'Impôt sur le Revenu', 'CNSS', 'Salaire brut et net'],
+  }),
 ];
 
 // Pre-calculate example: 8,000 DH brut
@@ -82,7 +89,7 @@ const tableRef = salairesRef.map(brut => {
         Le salaire net est la somme que le salarié reçoit effectivement sur son compte bancaire chaque mois, après déduction de toutes les charges obligatoires. Au Maroc, deux grandes catégories de retenues transforment le brut en net : les <strong>cotisations CNSS</strong> et l'<strong>Impôt sur le Revenu (IR)</strong>.
       </p>
       <p>
-        Les cotisations CNSS du salarié représentent <strong>6,74%</strong> du salaire brut, réparties entre les prestations sociales à court terme (0,52%), l'Assurance Maladie Obligatoire ou AMO (2,26%) et les prestations à long terme pour la retraite (3,96%). Il est important de noter que les prestations sociales et la retraite sont plafonnées à une base de 6 000 DH par mois, tandis que l'AMO est déplafonnée et s'applique sur la totalité du salaire.
+        Les cotisations CNSS du salarié représentent <strong>6,74%</strong> du salaire brut, réparties entre les prestations sociales à court terme (0,52%), l'Assurance Maladie Obligatoire ou AMO (2,26%) et les prestations à long terme pour la retraite (3,96%). Notez que les prestations sociales et la retraite sont plafonnées à une base de 6 000 DH par mois, tandis que l'AMO est déplafonnée et s'applique sur la totalité du salaire.
       </p>
       <p>
         L'IR est un impôt progressif qui s'applique par tranches. Avant de calculer l'IR, on déduit du salaire brut les cotisations CNSS pour obtenir le revenu brut imposable. Ensuite, on applique la déduction forfaitaire pour frais professionnels de 20% (plafonnée à 30 000 DH/an) pour obtenir le revenu net imposable. C'est sur cette base que les tranches de l'IR sont appliquées, allant de 0% pour les premiers 30 000 DH annuels à 38% pour la fraction dépassant 180 000 DH.
@@ -167,6 +174,19 @@ const tableRef = salairesRef.map(brut => {
           </div>
         </details>
       ))}
+    </div>
+  </section>
+
+  <!-- Author byline -->
+  <section class="mx-auto max-w-4xl px-4 py-4">
+    <div class="flex items-center gap-4 rounded-lg border border-gray-200 px-5 py-4">
+      <img src="/team/mottalib-radif.jpg" alt="Mottalib Radif" class="h-12 w-12 rounded-full object-cover bg-gray-200" width="48" height="48" loading="lazy" />
+      <div class="text-sm">
+        <p class="font-semibold text-charcoal">
+          Par <a href="/a-propos/" class="text-brand hover:underline">Mottalib Radif</a> (MBA INSEAD)
+        </p>
+        <p class="text-medium-gray">Expert en finances personnelles et fiscalité marocaine</p>
+      </div>
     </div>
   </section>
 

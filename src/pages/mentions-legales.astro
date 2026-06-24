@@ -1,10 +1,10 @@
 ---
 import Layout from '../components/layout/Layout.astro';
-import { SITE_NAME, SITE_URL, CONTACT_EMAIL, AUTHOR_NAME } from '../config';
+import { SITE_NAME, SITE_URL, CONTACT_EMAIL, AUTHOR_NAME, CURRENT_FISCAL_YEAR } from '../config';
 import { buildBreadcrumbSchema } from '../lib/seo';
 
-const title = `Mentions Légales - ${SITE_NAME}`;
-const description = `Mentions légales du site ${SITE_NAME}. Éditeur, hébergement, propriété intellectuelle et responsabilité.`;
+const title = `Mentions Légales et Conditions - ${SITE_NAME} ${CURRENT_FISCAL_YEAR}`;
+const description = `Mentions légales du site ${SITE_NAME}. Informations sur l'éditeur, l'hébergement, la propriété intellectuelle, les données personnelles et la responsabilité.`;
 
 const schemas = [
   buildBreadcrumbSchema([

@@ -5,8 +5,8 @@ import { CURRENT_FISCAL_YEAR } from '../config';
 import { calculerBrutDepuisNet } from '../lib/salaire-engine';
 import { formatDH, formatDHArrondi } from '../lib/format';
 
-const title = `Calculateur Net vers Brut Maroc ${CURRENT_FISCAL_YEAR} - Salaire`;
-const description = `Trouvez le salaire brut nécessaire pour obtenir le net souhaité au Maroc. Calcul inverse avec CNSS et IR inclus. Barème ${CURRENT_FISCAL_YEAR}.`;
+const title = `Calculateur Net vers Brut Maroc ${CURRENT_FISCAL_YEAR} - Salaire Inversé`;
+const description = `Trouvez le salaire brut nécessaire pour obtenir le net souhaité au Maroc. Calcul inverse précis intégrant CNSS, IR et frais professionnels. Barème ${CURRENT_FISCAL_YEAR}.`;
 
 const faqs = [
   {
@@ -20,6 +20,14 @@ const faqs = [
   {
     question: 'Le résultat est-il exact ?',
     answer: 'Oui, le résultat est précis à 1 DH près. L\'algorithme effectue une convergence itérative jusqu\'à trouver le brut qui produit exactement le net souhaité, en respectant toutes les règles fiscales marocaines en vigueur.',
+  },
+  {
+    question: 'Comment négocier un salaire net garanti avec mon employeur ?',
+    answer: 'Lors de la négociation, utilisez ce calculateur pour connaître le brut correspondant à votre net souhaité. Présentez le montant brut à votre employeur, car c\'est la référence légale sur le contrat de travail. L\'employeur appréciera que vous maîtrisiez la conversion brut/net.',
+  },
+  {
+    question: 'Le calcul tient-il compte des primes et avantages en nature ?',
+    answer: 'Le calcul est basé sur le salaire brut mensuel régulier. Les primes exceptionnelles, le 13e mois ou les avantages en nature (voiture, logement) sont soumis à des règles spécifiques. Vous pouvez les ajouter au brut mensuel pour une estimation globale.',
   },
 ];
 

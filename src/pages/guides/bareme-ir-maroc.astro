@@ -1,11 +1,12 @@
 ---
 import CalculateurLayout from '../../layouts/CalculateurLayout.astro';
+import { buildArticleSchema } from '../../lib/seo';
 import { CURRENT_FISCAL_YEAR } from '../../config';
 import { TRANCHES_IR, calculerSalaireNet, calculerIR, calculerCotisationsCNSSSalarie } from '../../lib/salaire-engine';
 import { formatDH, formatDHArrondi } from '../../lib/format';
 
 const title = `Barème IR Maroc ${CURRENT_FISCAL_YEAR} : Tranches et Taux d'Imposition`;
-const description = `Le barème de l'Impôt sur le Revenu au Maroc en ${CURRENT_FISCAL_YEAR}. Tranches, taux, calculs détaillés, frais professionnels, déductions. Guide complet.`;
+const description = `Barème complet de l'Impôt sur le Revenu (IR) au Maroc en ${CURRENT_FISCAL_YEAR}. Tranches, taux, calculs détaillés, frais professionnels et déductions. Guide pratique IR.`;
 
 const faqs = [
   {
@@ -23,6 +24,10 @@ const faqs = [
   {
     question: 'Les frais professionnels s\'appliquent-ils à tous les salariés ?',
     answer: 'Oui, la déduction de 20% pour frais professionnels est automatique et s\'applique à tous les salariés, sans justificatif. Elle est plafonnée à 30 000 DH par an, ce qui correspond à un revenu brut imposable d\'environ 150 000 DH/an.',
+  },
+  {
+    question: 'Un salarié au SMIG paye-t-il l\'IR au Maroc ?',
+    answer: 'Un salarié au SMIG (3 111,39 DH brut/mois) paye très peu ou pas d\'IR. Son revenu net imposable annuel tombe dans la première tranche à 0% (0-30 000 DH). En pratique, seul un montant très faible d\'IR peut être dû selon le calcul exact, car une partie du revenu dépasse légèrement la tranche exonérée.',
   },
 ];
 
@@ -48,6 +53,7 @@ const exemplesIR = [36000, 48000, 60000, 72000, 96000, 120000, 180000, 240000, 3
     })(),
   };
 });
+const articleSchema = buildArticleSchema(title, description, '/guides/bareme-ir-maroc/', '2025-06-01');
 ---
 
 <CalculateurLayout
@@ -57,6 +63,7 @@ const exemplesIR = [36000, 48000, 60000, 72000, 96000, 120000, 180000, 240000, 3
   calculatorName="Guide Barème IR"
   path="/guides/bareme-ir-maroc/"
   faqs={faqs}
+  extraSchemas={[articleSchema]}
   breadcrumbs={[
     { name: 'Accueil', url: '/' },
     { name: 'Guides', url: '/guides/bareme-ir-maroc/' },

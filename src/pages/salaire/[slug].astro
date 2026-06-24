@@ -40,8 +40,8 @@ const currentIndex = allPages.findIndex(p => p.slug === page.slug);
 const adjacent = allPages.filter((_, i) => Math.abs(i - currentIndex) > 0 && Math.abs(i - currentIndex) <= 3);
 
 // SEO
-const title = `${amountFormatted} DH Brut en Net ${CURRENT_FISCAL_YEAR} : Salaire Maroc`;
-const description = `Avec ${amountFormatted} DH brut/mois, votre salaire net est d'environ ${formatDHArrondi(result.netMensuel)}. Calcul détaillé CNSS + IR, Maroc ${CURRENT_FISCAL_YEAR}.`;
+const title = `${amountFormatted} DH Brut en Net au Maroc ${CURRENT_FISCAL_YEAR} : Salaire Détaillé`;
+const description = `Avec ${amountFormatted} DH brut/mois au Maroc, votre salaire net est d'environ ${formatDHArrondi(result.netMensuel)}. Détail complet CNSS et IR, tableau par situation familiale. Barème ${CURRENT_FISCAL_YEAR}.`;
 
 // FAQs
 const faqs: FAQItem[] = [
@@ -60,6 +60,10 @@ const faqs: FAQItem[] = [
   {
     question: `Quel est le coût employeur pour ${amountFormatted} DH brut ?`,
     answer: `Le coût total pour l'employeur est d'environ ${formatDH(result.coutEmployeurMensuel)}/mois, soit ${formatDH(result.coutEmployeurAnnuel)}/an. Les charges patronales représentent ${formatDH(result.cnssEmployeurDetail.total)}/mois en plus du brut.`,
+  },
+  {
+    question: `Comment augmenter mon salaire net sans changer de brut ?`,
+    answer: `Vous pouvez réduire votre IR en déclarant vos personnes à charge (conjoint, enfants), ce qui donne une déduction de 360 DH/an par personne. Certains avantages en nature ou primes non imposables peuvent aussi améliorer votre rémunération nette globale. Consultez votre service RH.`,
   },
 ];
 
