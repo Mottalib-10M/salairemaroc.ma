@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { calculerCoutEmployeur, calculerSalaireNet } from '../../lib/salaire-engine';
+import ShareButtons from '../ui/ShareButtons';
 
 function fmtDH(n: number): string {
   const rounded = Math.round(n * 100) / 100;
@@ -12,6 +13,10 @@ function fmtDH(n: number): string {
 
 function fmtPct(n: number): string {
   return (n * 100).toFixed(1) + '%';
+}
+
+function fmtDHSimple(n: number): string {
+  return new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 }).format(Math.round(n));
 }
 
 export default function CoutEmployeur() {
@@ -34,25 +39,37 @@ export default function CoutEmployeur() {
     setDisplayValue(num === 0 ? '0' : String(num));
   };
 
-  // Hash URL state
+  // Read URL state on mount (query params + legacy hash fallback)
   useEffect(() => {
-    const hashStr = window.location.hash.replace(/^#/, '');
-    if (!hashStr) return;
-    const params = new URLSearchParams(hashStr);
-    const b = params.get('brut');
+    const searchParams = new URLSearchParams(window.location.search);
+    let b = searchParams.get('brut');
+
+    if (!b) {
+      const hashStr = window.location.hash.replace(/^#/, '');
+      if (hashStr) {
+        const hashParams = new URLSearchParams(hashStr);
+        b = hashParams.get('brut');
+      }
+    }
+
     if (b) { setBrutMensuel(b); setDisplayValue(b); }
   }, []);
 
+  // Debounced URL query param update
   useEffect(() => {
     if (brutNum > 0) {
       const timeout = setTimeout(() => {
-        window.history.replaceState(null, '', `${window.location.pathname}#brut=${brutNum}`);
+        window.history.replaceState(null, '', `${window.location.pathname}?brut=${brutNum}`);
       }, 500);
       return () => clearTimeout(timeout);
     }
   }, [brutNum]);
 
   const totalEmployeurPct = brutNum > 0 ? cout.cnssEmployeurMensuel / brutNum : 0;
+
+  const shareText = brutNum > 0
+    ? `Le coût total employeur pour un salaire de ${fmtDHSimple(brutNum)} DH brut au Maroc est de ${fmtDHSimple(cout.coutTotalMensuel)} DH/mois. Calculez le vôtre :`
+    : '';
 
   return (
     <div className="space-y-6">
@@ -190,6 +207,8 @@ export default function CoutEmployeur() {
           </div>
         </div>
       </div>
+
+      {brutNum > 0 && <ShareButtons shareText={shareText} />}
     </div>
   );
 }

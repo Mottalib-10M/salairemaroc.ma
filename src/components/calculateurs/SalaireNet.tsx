@@ -2,9 +2,14 @@ import { useState, useMemo, useEffect } from 'react';
 import { calculerSalaireNet } from '../../lib/salaire-engine';
 import ChampSalaire from '../ui/ChampSalaire';
 import PanelResultat from '../ui/PanelResultat';
+import ShareButtons from '../ui/ShareButtons';
 
 interface SalaireNetProps {
   initialBrut?: number;
+}
+
+function fmtDH(n: number): string {
+  return new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 }).format(Math.round(n));
 }
 
 export default function SalaireNet({ initialBrut = 8000 }: SalaireNetProps) {
@@ -22,7 +27,7 @@ export default function SalaireNet({ initialBrut = 8000 }: SalaireNetProps) {
   const handleBrutChange = (v: string) => { setDirty(true); setBrutMensuel(v); };
   const handleDependantsChange = (v: number) => { setDirty(true); setDependants(v); };
 
-  // Debounced URL hash state
+  // Debounced URL query param state
   useEffect(() => {
     if (!dirty) return;
     const timeout = setTimeout(() => {
@@ -30,24 +35,38 @@ export default function SalaireNet({ initialBrut = 8000 }: SalaireNetProps) {
         const params = new URLSearchParams();
         params.set('brut', String(brutNum));
         if (dependants > 0) params.set('dep', String(dependants));
-        const newUrl = `${window.location.pathname}#${params.toString()}`;
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
         window.history.replaceState(null, '', newUrl);
       }
     }, 500);
     return () => clearTimeout(timeout);
   }, [dirty, brutNum, dependants]);
 
-  // Read URL state on mount
+  // Read URL state on mount (support both query params and legacy hash)
   useEffect(() => {
-    const hashStr = window.location.hash.replace(/^#/, '');
-    if (!hashStr) return;
-    const params = new URLSearchParams(hashStr);
-    const b = params.get('brut');
+    // Try query params first
+    const searchParams = new URLSearchParams(window.location.search);
+    let b = searchParams.get('brut');
+    let d = searchParams.get('dep');
+
+    // Fallback to hash for legacy URLs
+    if (!b) {
+      const hashStr = window.location.hash.replace(/^#/, '');
+      if (hashStr) {
+        const hashParams = new URLSearchParams(hashStr);
+        b = hashParams.get('brut');
+        d = d || hashParams.get('dep');
+      }
+    }
+
     if (b) setBrutMensuel(b);
-    const d = params.get('dep');
     if (d) setDependants(Math.min(6, Math.max(0, Number(d) || 0)));
-    setDirty(true);
+    if (b || d) setDirty(true);
   }, []);
+
+  const shareText = brutNum > 0
+    ? `Mon salaire net au Maroc est de ${fmtDH(resultat.netMensuel)} DH pour un brut de ${fmtDH(brutNum)} DH. Calculez le vôtre :`
+    : '';
 
   return (
     <div className="space-y-6">
@@ -84,6 +103,8 @@ export default function SalaireNet({ initialBrut = 8000 }: SalaireNetProps) {
       </div>
 
       <PanelResultat resultat={resultat} />
+
+      {brutNum > 0 && <ShareButtons shareText={shareText} />}
     </div>
   );
 }

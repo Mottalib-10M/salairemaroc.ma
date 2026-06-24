@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { calculerIR, calculerCotisationsCNSSSalarie, TRANCHES_IR } from '../../lib/salaire-engine';
+import ShareButtons from '../ui/ShareButtons';
 
 function fmtDH(n: number): string {
   const rounded = Math.round(n * 100) / 100;
@@ -12,6 +13,10 @@ function fmtDH(n: number): string {
 
 function fmtPct(n: number): string {
   return (n * 100).toFixed(2) + '%';
+}
+
+function fmtDHSimple(n: number): string {
+  return new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 }).format(Math.round(n));
 }
 
 export default function SimulateurIR() {
@@ -41,24 +46,33 @@ export default function SimulateurIR() {
     setDisplayValue(num === 0 ? '0' : String(num));
   };
 
-  // Hash URL state
+  // Read URL state on mount (query params + legacy hash fallback)
   useEffect(() => {
-    const hashStr = window.location.hash.replace(/^#/, '');
-    if (!hashStr) return;
-    const params = new URLSearchParams(hashStr);
-    const r = params.get('revenu');
+    const searchParams = new URLSearchParams(window.location.search);
+    let r = searchParams.get('revenu');
+    let d = searchParams.get('dep');
+
+    if (!r) {
+      const hashStr = window.location.hash.replace(/^#/, '');
+      if (hashStr) {
+        const hashParams = new URLSearchParams(hashStr);
+        r = hashParams.get('revenu');
+        d = d || hashParams.get('dep');
+      }
+    }
+
     if (r) { setRevenuAnnuel(r); setDisplayValue(r); }
-    const d = params.get('dep');
     if (d) setDependants(Math.min(6, Math.max(0, Number(d) || 0)));
   }, []);
 
+  // Debounced URL query param update
   useEffect(() => {
     if (revenuNum > 0) {
       const params = new URLSearchParams();
       params.set('revenu', String(revenuNum));
       if (dependants > 0) params.set('dep', String(dependants));
       const timeout = setTimeout(() => {
-        window.history.replaceState(null, '', `${window.location.pathname}#${params.toString()}`);
+        window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
       }, 500);
       return () => clearTimeout(timeout);
     }
@@ -75,6 +89,10 @@ export default function SimulateurIR() {
     const ir = calculerIR(r, cnssAnnuel, 0);
     return { revenu: r, taux: ir.tauxEffectif };
   });
+
+  const shareText = revenuNum > 0
+    ? `Mon IR au Maroc est de ${fmtDHSimple(resultat.irNet)} DH/an (taux effectif ${fmtPct(resultat.tauxEffectif)}) pour un brut annuel de ${fmtDHSimple(revenuNum)} DH. Simulez le vôtre :`
+    : '';
 
   return (
     <div className="space-y-6">
@@ -272,6 +290,8 @@ export default function SimulateurIR() {
           Le point vert indique votre position actuelle : taux effectif de {fmtPct(resultat.tauxEffectif)} pour un brut annuel de {fmtDH(revenuNum)}.
         </p>
       </div>
+
+      {revenuNum > 0 && <ShareButtons shareText={shareText} />}
     </div>
   );
 }
