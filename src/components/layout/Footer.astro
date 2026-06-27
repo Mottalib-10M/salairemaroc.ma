@@ -1,43 +1,27 @@
 ---
 import { SITE_NAME, CURRENT_FISCAL_YEAR, TAGLINE } from '../../config';
+import {
+  footerCalcLinks,
+  footerGuideLinks,
+  footerSalaireLinks,
+  footerExternalLinks,
+  footerLegalLinks,
+} from '../../data/nav';
 
-const calculateurs = [
-  { href: '/calculateurs/', label: 'Tous les calculateurs' },
-  { href: '/', label: 'Brut vers Net' },
-  { href: '/calculateur-net-vers-brut/', label: 'Net vers Brut' },
-  { href: '/calculateur-cout-employeur/', label: 'Coût Employeur' },
-  { href: '/simulateur-ir/', label: 'Simulateur IR' },
-];
+const calculateurs = footerCalcLinks;
 
-const guidesLinks = [
-  { href: '/guides/', label: 'Tous les guides' },
-  { href: '/guides/smig-maroc/', label: 'SMIG au Maroc' },
-  { href: '/guides/comprendre-bulletin-paie/', label: 'Bulletin de paie' },
-  { href: '/guides/bareme-ir-maroc/', label: 'Barème IR' },
-];
+const guidesLinks = footerGuideLinks;
 
-const salaires = [
-  { href: '/salaire/metier/ingenieur/', label: 'Salaire Ingénieur' },
-  { href: '/salaire/metier/developpeur/', label: 'Salaire Développeur' },
-  { href: '/salaire/metier/medecin/', label: 'Salaire Médecin' },
-  { href: '/salaire/ville/casablanca/', label: 'Salaire Casablanca' },
-  { href: '/salaire/ville/rabat/', label: 'Salaire Rabat' },
-];
+const salaires = footerSalaireLinks;
 
-const liensUtiles = [
-  { href: 'https://www.tax.gov.ma', label: 'DGI Maroc' },
-  { href: 'https://www.cnss.ma', label: 'CNSS' },
-  { href: 'https://www.emploi.gov.ma', label: 'Ministère de l\'Emploi' },
-];
+const liensUtiles = footerExternalLinks;
 
-const legal = [
-  { href: '/a-propos/', label: 'À propos' },
-  { href: '/mentions-legales/', label: 'Mentions légales' },
-];
+const legal = footerLegalLinks;
 ---
 
 <footer class="border-t border-gray-200 bg-light-gray">
   <div class="mx-auto max-w-6xl px-4 py-12">
+    <nav aria-label="Navigation de pied de page">
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-6">
       <div class="lg:col-span-2">
         <a href="/" class="mb-4 inline-block text-lg font-bold">
@@ -121,6 +105,7 @@ const legal = [
         </ul>
       </div>
     </div>
+    </nav>
 
     <div class="mt-10 border-t border-gray-300 pt-6">
       <p class="text-center text-xs text-medium-gray">

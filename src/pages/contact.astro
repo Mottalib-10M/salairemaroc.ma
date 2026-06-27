@@ -1,0 +1,70 @@
+---
+import Layout from '../components/layout/Layout.astro';
+import { SITE_NAME, SITE_URL, CONTACT_EMAIL, AUTHOR_NAME, AUTHOR_CREDENTIALS } from '../config';
+import { buildBreadcrumbSchema } from '../lib/seo';
+
+const title = 'Contactez-nous - Salaire Maroc | Questions et Aide';
+const description = 'Contactez Salaire Maroc pour vos questions sur le calcul brut/net, l\'IR et les cotisations CNSS. Réponse sous 48h par email à contact@salairemaroc.ma.';
+
+const schemas = [
+  buildBreadcrumbSchema([
+    { name: 'Accueil', url: '/' },
+    { name: 'Contact', url: '/contact/' },
+  ]),
+];
+---
+
+<Layout title={title} description={description} schema={schemas}>
+  <div class="mx-auto max-w-4xl px-4 py-12">
+    <nav class="mb-6 text-sm text-medium-gray" aria-label="Fil d'Ariane">
+      <ol class="flex items-center gap-1">
+        <li><a href="/" class="hover:text-brand">Accueil</a></li>
+        <li>/</li>
+        <li class="text-charcoal">Contact</li>
+      </ol>
+    </nav>
+
+    <h1 class="mb-8 text-3xl font-bold text-charcoal md:text-4xl">Contactez-nous</h1>
+
+    <div class="prose max-w-none text-dark-gray leading-relaxed">
+      <p>Vous avez une question sur nos calculateurs de salaire, nos guides fiscaux ou les informations publiées sur <strong>{SITE_NAME}</strong> ? Nous sommes à votre écoute. Votre retour nous aide à maintenir la fiabilité et la pertinence de nos outils pour les salariés marocains.</p>
+
+      <h2>Nous écrire par email</h2>
+
+      <p>Le moyen le plus efficace de nous contacter est par email :</p>
+
+      <p class="text-lg"><strong><a href={`mailto:${CONTACT_EMAIL}`} class="text-brand hover:underline">{CONTACT_EMAIL}</a></strong></p>
+
+      <p>Nous nous efforçons de répondre à tous les messages dans un délai de <strong>48 heures ouvrables</strong>. Les demandes reçues le week-end ou les jours fériés seront traitées dès le jour ouvrable suivant.</p>
+
+      <h2>Quand nous contacter ?</h2>
+
+      <ul>
+        <li><strong>Signalement d'erreur :</strong> si vous constatez une erreur dans un calcul de salaire, un taux de cotisation ou un barème IR, merci de nous le signaler avec le maximum de détails (page concernée, valeurs saisies, résultat attendu, source officielle).</li>
+        <li><strong>Suggestion d'amélioration :</strong> si vous souhaitez voir un nouveau calculateur, un guide sur un sujet spécifique ou une fonctionnalité supplémentaire.</li>
+        <li><strong>Question sur un calcul :</strong> si vous ne comprenez pas le passage du brut au net ou les étapes du calcul de l'IR, n'hésitez pas à nous écrire.</li>
+        <li><strong>Information obsolète :</strong> si une mise à jour du barème IR, du plafond CNSS ou du SMIG n'est pas encore reflétée sur notre site.</li>
+      </ul>
+
+      <h2>Questions fréquentes</h2>
+
+      <h3>Vos calculateurs sont-ils officiels ?</h3>
+      <p>Non. {SITE_NAME} est un site indépendant et informatif. Nos calculateurs sont basés sur les taux et barèmes officiels publiés par la DGI et la CNSS, mais ils ne se substituent pas aux calculs officiels de ces organismes. Pour un calcul officiel de votre salaire net, consultez votre employeur ou un expert-comptable agréé.</p>
+
+      <h3>Mes données salariales sont-elles collectées ?</h3>
+      <p>Non. Tous les calculs sont effectués entièrement dans votre navigateur. Aucun salaire, aucune situation familiale ou autre information saisie n'est transmise à un serveur. Consultez notre <a href="/confidentialite/" class="text-brand hover:underline">politique de confidentialité</a> pour plus de détails.</p>
+
+      <h3>Puis-je utiliser vos résultats pour négocier mon salaire ?</h3>
+      <p>Nos calculateurs vous donnent une estimation fiable du passage brut/net basée sur la législation en vigueur. Ces résultats peuvent constituer une base de discussion, mais chaque situation peut comporter des spécificités (primes, indemnités, avantages en nature) que nos outils ne couvrent pas nécessairement.</p>
+
+      <h2>Avertissement</h2>
+
+      <p>{SITE_NAME} ne fournit pas de conseils juridiques, fiscaux ou comptables personnalisés. Les informations et résultats de calcul sont fournis à titre indicatif. Pour des questions spécifiques à votre situation individuelle, consultez un expert-comptable, un conseiller fiscal ou les services de la <a href="https://www.tax.gov.ma" class="text-brand hover:underline" target="_blank" rel="noopener">DGI</a>.</p>
+    </div>
+
+    <div class="mt-10 p-6 rounded-xl bg-gray-50 border border-gray-200">
+      <p class="text-sm text-gray-600"><strong>Responsable éditorial :</strong> {AUTHOR_NAME}, {AUTHOR_CREDENTIALS}</p>
+      <p class="text-sm text-gray-600 mt-1"><strong>Email :</strong> <a href={`mailto:${CONTACT_EMAIL}`} class="text-brand hover:underline">{CONTACT_EMAIL}</a></p>
+    </div>
+  </div>
+</Layout>

@@ -22,8 +22,8 @@ const result = calculerSalaireNet(city.salaireMoyen, 0);
 const relatedCities = CITIES.filter(c => city.relatedCitySlugs.includes(c.slug));
 const topProfessions = PROFESSIONS.slice(0, 6);
 
-const title = `Salaire moyen à ${city.name} ${CURRENT_FISCAL_YEAR} : grille par secteur et métier`;
-const description = `Le salaire moyen à ${city.name} en ${CURRENT_FISCAL_YEAR} est de ${formatDHArrondi(city.salaireMoyen)} brut/mois (${formatDHArrondi(result.netMensuel)} net). Grille par secteur, coût de la vie et comparaison avec les autres villes du Maroc.`;
+const title = `Salaires à ${city.name} ${CURRENT_FISCAL_YEAR} : grille par secteur et métier`;
+const description = `Salaire moyen à ${city.name} en ${CURRENT_FISCAL_YEAR} : grille salariale par secteur et métier, coût de la vie, comparaison avec les autres villes du Maroc et calcul brut en net.`;
 
 const schemas = [
   buildBreadcrumbSchema([

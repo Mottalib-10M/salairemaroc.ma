@@ -1,0 +1,289 @@
+---
+import Layout from '../components/layout/Layout.astro';
+import { SITE_NAME, SITE_URL, CURRENT_FISCAL_YEAR, AUTHOR_NAME, AUTHOR_CREDENTIALS } from '../config';
+import { buildBreadcrumbSchema } from '../lib/seo';
+
+const title = 'Glossaire Salaire Maroc : Termes Paie et Fiscalité';
+const description = 'Glossaire du salaire au Maroc : définitions des termes de la paie, cotisations CNSS, IR, et fiscalité marocaine. Tous les termes expliqués simplement.';
+
+const breadcrumbs = [
+  { name: 'Accueil', url: '/' },
+  { name: 'Glossaire', url: '/glossaire/' },
+];
+
+const definedTermSetSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  name: 'Glossaire Salaire Maroc',
+  description: 'Termes et définitions relatifs au salaire, à la paie et à la fiscalité au Maroc.',
+  inLanguage: 'fr',
+  url: SITE_URL + '/glossaire/',
+};
+
+const schemas = [
+  buildBreadcrumbSchema(breadcrumbs),
+  definedTermSetSchema,
+];
+
+const letters = ['A', 'B', 'C', 'D', 'H', 'I', 'P', 'R', 'S', 'T'];
+---
+
+<Layout title={title} description={description} schema={schemas}>
+  <div class="mx-auto max-w-4xl px-4 py-12">
+    <nav class="mb-6 text-sm text-medium-gray" aria-label="Fil d'Ariane">
+      <ol class="flex items-center gap-1">
+        {breadcrumbs.map((crumb, i) => (
+          <>
+            {i > 0 && <li class="text-medium-gray">/</li>}
+            <li>
+              {i < breadcrumbs.length - 1 ? (
+                <a href={crumb.url} class="hover:text-brand">{crumb.name}</a>
+              ) : (
+                <span class="text-charcoal">{crumb.name}</span>
+              )}
+            </li>
+          </>
+        ))}
+      </ol>
+    </nav>
+
+    <h1 class="mb-4 text-3xl font-bold text-charcoal md:text-4xl">
+      Glossaire Salaire Maroc
+    </h1>
+    <p class="text-lg text-dark-gray mb-8 max-w-3xl">
+      Retrouvez les définitions de tous les termes liés au <strong>salaire et à la paie</strong> au Maroc : cotisations, fiscalité, droit du travail et bulletin de paie.
+    </p>
+
+    <!-- Navigation A-Z -->
+    <nav aria-label="Navigation alphabétique" class="mb-10 flex flex-wrap gap-2">
+      {letters.map((letter) => (
+        <a href={`#${letter}`} class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-100 text-sm font-semibold text-charcoal hover:bg-brand hover:text-white transition-colors">
+          {letter}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Glossaire -->
+    <div class="space-y-10">
+
+      <!-- A -->
+      <section id="A">
+        <h2 class="text-2xl font-bold text-brand mb-4 border-b border-gray-200 pb-2">A</h2>
+        <dl class="space-y-4">
+          <div>
+            <dt class="font-semibold text-charcoal">Abattement forfaitaire</dt>
+            <dd class="text-dark-gray mt-1">Déduction appliquée au salaire brut imposable au titre des frais professionnels. Le taux standard est de 20% avec un plafond annuel de 30 000 DH, et des taux spécifiques s'appliquent à certaines professions.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">AMO (Assurance Maladie Obligatoire)</dt>
+            <dd class="text-dark-gray mt-1">Cotisation prélevée sur le salaire brut pour financer la couverture maladie du salarié. Le taux AMO salarié est de 2,26% du salaire brut, sans plafond.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">ANAPEC</dt>
+            <dd class="text-dark-gray mt-1">Agence Nationale de Promotion de l'Emploi et des Compétences. Organisme public chargé de l'intermédiation sur le marché de l'emploi et de l'accompagnement des demandeurs d'emploi au Maroc.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">Ancienneté</dt>
+            <dd class="text-dark-gray mt-1">Durée de présence d'un salarié au sein de la même entreprise. L'ancienneté ouvre droit à une prime d'ancienneté obligatoire selon le Code du travail marocain.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- B -->
+      <section id="B">
+        <h2 class="text-2xl font-bold text-brand mb-4 border-b border-gray-200 pb-2">B</h2>
+        <dl class="space-y-4">
+          <div>
+            <dt class="font-semibold text-charcoal">Barème IR</dt>
+            <dd class="text-dark-gray mt-1">Grille progressive des taux d'imposition appliquée au revenu net imposable. Le barème IR marocain comporte 6 tranches avec des taux allant de 0% à 38%. Consultez notre <a href="/guides/bareme-ir-maroc/" class="text-brand hover:underline">guide du barème IR</a> pour le détail des tranches.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">Bulletin de paie</dt>
+            <dd class="text-dark-gray mt-1">Document mensuel obligatoire remis au salarié, détaillant le salaire brut, les retenues (CNSS, AMO, IR), les primes et le salaire net. Voir notre <a href="/guides/comprendre-bulletin-paie/" class="text-brand hover:underline">guide du bulletin de paie</a>.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- C -->
+      <section id="C">
+        <h2 class="text-2xl font-bold text-brand mb-4 border-b border-gray-200 pb-2">C</h2>
+        <dl class="space-y-4">
+          <div>
+            <dt class="font-semibold text-charcoal">Charge de famille</dt>
+            <dd class="text-dark-gray mt-1">Déduction fiscale accordée pour chaque personne à charge du salarié (conjoint, enfants). La déduction est de 360 DH par personne à charge et par an, dans la limite de 6 personnes.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">CNSS (Caisse Nationale de Sécurité Sociale)</dt>
+            <dd class="text-dark-gray mt-1">Organisme public gérant la protection sociale des salariés du secteur privé au Maroc. La cotisation salariale CNSS est prélevée directement sur le salaire brut. Calculez vos cotisations avec notre <a href="/" class="text-brand hover:underline">calculateur de salaire</a>.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">Code du travail</dt>
+            <dd class="text-dark-gray mt-1">Loi n° 65-99 régissant les relations entre employeurs et salariés au Maroc. Le Code du travail fixe les règles du contrat de travail, du salaire minimum, des congés, du licenciement et des conditions de travail.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">Congé annuel</dt>
+            <dd class="text-dark-gray mt-1">Droit du salarié à un repos payé de 1,5 jour ouvrable par mois de travail effectif, soit 18 jours ouvrables par an. Ce droit augmente de 1,5 jour par période de 5 ans d'ancienneté.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">Contrat CDI</dt>
+            <dd class="text-dark-gray mt-1">Contrat à Durée Indéterminée, forme normale et générale du contrat de travail au Maroc. Il ne comporte pas de date de fin et offre une plus grande stabilité au salarié.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">Contrat CDD</dt>
+            <dd class="text-dark-gray mt-1">Contrat à Durée Déterminée, contrat de travail conclu pour une durée limitée. Le CDD ne peut être renouvelé qu'une seule fois et sa durée totale ne peut excéder un an (sauf exceptions sectorielles).</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">Convention collective</dt>
+            <dd class="text-dark-gray mt-1">Accord négocié entre les représentants des employeurs et des salariés d'un secteur d'activité, fixant des conditions de travail et de rémunération souvent plus favorables que le Code du travail.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">Cotisation patronale</dt>
+            <dd class="text-dark-gray mt-1">Part des charges sociales supportée par l'employeur (CNSS, AMO, allocations familiales, formation professionnelle, taxe professionnelle). Simulez le coût total avec notre <a href="/calculateur-cout-employeur/" class="text-brand hover:underline">calculateur coût employeur</a>.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">Cotisation salariale</dt>
+            <dd class="text-dark-gray mt-1">Part des charges sociales prélevée sur le salaire brut du salarié. Elle comprend la cotisation CNSS (4,48%) et la cotisation AMO (2,26%).</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- D -->
+      <section id="D">
+        <h2 class="text-2xl font-bold text-brand mb-4 border-b border-gray-200 pb-2">D</h2>
+        <dl class="space-y-4">
+          <div>
+            <dt class="font-semibold text-charcoal">Déduction fiscale</dt>
+            <dd class="text-dark-gray mt-1">Montant déduit du revenu imposable avant le calcul de l'IR. Les principales déductions sont les cotisations sociales, les frais professionnels et les charges de famille.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- H -->
+      <section id="H">
+        <h2 class="text-2xl font-bold text-brand mb-4 border-b border-gray-200 pb-2">H</h2>
+        <dl class="space-y-4">
+          <div>
+            <dt class="font-semibold text-charcoal">Heures supplémentaires</dt>
+            <dd class="text-dark-gray mt-1">Heures de travail effectuées au-delà de la durée légale (44 heures/semaine ou 2 288 heures/an). Elles donnent droit à une majoration de 25% à 100% selon l'horaire et le jour (ouvrable, week-end, férié).</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- I -->
+      <section id="I">
+        <h2 class="text-2xl font-bold text-brand mb-4 border-b border-gray-200 pb-2">I</h2>
+        <dl class="space-y-4">
+          <div>
+            <dt class="font-semibold text-charcoal">Indemnité de licenciement</dt>
+            <dd class="text-dark-gray mt-1">Indemnité versée au salarié en cas de licenciement abusif ou de rupture du contrat CDI à l'initiative de l'employeur. Son montant dépend de l'ancienneté et du salaire perçu.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">IR (Impôt sur le Revenu)</dt>
+            <dd class="text-dark-gray mt-1">Impôt progressif prélevé à la source sur les salaires au Maroc. Le calcul se fait après déduction des cotisations sociales et des frais professionnels. Simulez votre IR avec notre <a href="/simulateur-ir/" class="text-brand hover:underline">simulateur IR</a>.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- P -->
+      <section id="P">
+        <h2 class="text-2xl font-bold text-brand mb-4 border-b border-gray-200 pb-2">P</h2>
+        <dl class="space-y-4">
+          <div>
+            <dt class="font-semibold text-charcoal">Période d'essai</dt>
+            <dd class="text-dark-gray mt-1">Période initiale du contrat pendant laquelle employeur et salarié peuvent rompre le contrat sans indemnité ni préavis. La durée varie selon le type de contrat et la catégorie professionnelle.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">Préavis</dt>
+            <dd class="text-dark-gray mt-1">Délai que doit respecter l'employeur ou le salarié avant de rompre un contrat CDI. La durée du préavis dépend de l'ancienneté et de la catégorie professionnelle du salarié.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">Prime d'ancienneté</dt>
+            <dd class="text-dark-gray mt-1">Majoration obligatoire du salaire accordée en fonction de l'ancienneté du salarié : 5% après 2 ans, 10% après 5 ans, 15% après 12 ans, 20% après 20 ans et 25% après 25 ans.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- R -->
+      <section id="R">
+        <h2 class="text-2xl font-bold text-brand mb-4 border-b border-gray-200 pb-2">R</h2>
+        <dl class="space-y-4">
+          <div>
+            <dt class="font-semibold text-charcoal">Revenu net imposable</dt>
+            <dd class="text-dark-gray mt-1">Montant du salaire soumis à l'IR après déduction des cotisations sociales (CNSS, AMO), des frais professionnels et des autres déductions. C'est sur ce montant que le barème IR est appliqué.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- S -->
+      <section id="S">
+        <h2 class="text-2xl font-bold text-brand mb-4 border-b border-gray-200 pb-2">S</h2>
+        <dl class="space-y-4">
+          <div>
+            <dt class="font-semibold text-charcoal">Salaire brut</dt>
+            <dd class="text-dark-gray mt-1">Rémunération totale du salarié avant déduction des cotisations sociales et de l'impôt sur le revenu. Il comprend le salaire de base, les primes, les heures supplémentaires et les avantages en nature. Convertissez avec notre <a href="/" class="text-brand hover:underline">calculateur brut vers net</a>.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">Salaire net</dt>
+            <dd class="text-dark-gray mt-1">Montant effectivement perçu par le salarié après déduction de toutes les retenues (CNSS, AMO, IR). C'est le montant viré sur le compte bancaire du salarié chaque mois. Utilisez notre <a href="/calculateur-net-vers-brut/" class="text-brand hover:underline">calculateur net vers brut</a> pour l'opération inverse.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">SMAG (Salaire Minimum Agricole Garanti)</dt>
+            <dd class="text-dark-gray mt-1">Salaire minimum légal applicable aux travailleurs du secteur agricole et forestier au Maroc. Le SMAG est fixé à un montant journalier et réévalué périodiquement par décret.</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-charcoal">SMIG (Salaire Minimum Interprofessionnel Garanti)</dt>
+            <dd class="text-dark-gray mt-1">Salaire horaire minimum légal applicable aux secteurs de l'industrie, du commerce et des professions libérales au Maroc. Consultez notre <a href="/guides/smig-maroc/" class="text-brand hover:underline">guide SMIG Maroc</a> pour les montants en vigueur.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- T -->
+      <section id="T">
+        <h2 class="text-2xl font-bold text-brand mb-4 border-b border-gray-200 pb-2">T</h2>
+        <dl class="space-y-4">
+          <div>
+            <dt class="font-semibold text-charcoal">Taux marginal</dt>
+            <dd class="text-dark-gray mt-1">Taux d'imposition appliqué à la dernière tranche du revenu imposable. Au Maroc, le taux marginal maximum est de 38% pour les revenus annuels dépassant 180 000 DH.</dd>
+          </div>
+        </dl>
+      </section>
+
+    </div>
+
+    <!-- Liens utiles -->
+    <section class="mt-12 pt-8 border-t border-gray-200">
+      <h2 class="text-xl font-bold text-charcoal mb-4">Outils et ressources salaire</h2>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <a href="/" class="group rounded-lg border border-gray-200 p-4 hover:border-brand hover:shadow-sm transition-all">
+          <h3 class="font-semibold text-charcoal group-hover:text-brand text-sm">Calculateur brut/net</h3>
+          <p class="text-xs text-medium-gray mt-1">Convertissez votre salaire en un clic</p>
+        </a>
+        <a href="/simulateur-ir/" class="group rounded-lg border border-gray-200 p-4 hover:border-brand hover:shadow-sm transition-all">
+          <h3 class="font-semibold text-charcoal group-hover:text-brand text-sm">Simulateur IR</h3>
+          <p class="text-xs text-medium-gray mt-1">Calculez votre impôt sur le revenu</p>
+        </a>
+        <a href="/calculateur-cout-employeur/" class="group rounded-lg border border-gray-200 p-4 hover:border-brand hover:shadow-sm transition-all">
+          <h3 class="font-semibold text-charcoal group-hover:text-brand text-sm">Coût employeur</h3>
+          <p class="text-xs text-medium-gray mt-1">Coût total d'un salarié pour l'entreprise</p>
+        </a>
+      </div>
+    </section>
+
+    <div class="mt-10 flex items-center gap-4 rounded-lg border border-gray-200 px-5 py-4">
+      <img src="/team/mottalib-radif.jpg" alt={AUTHOR_NAME} class="h-12 w-12 rounded-full object-cover bg-gray-200" width="48" height="48" loading="lazy" />
+      <div class="text-sm">
+        <p class="font-semibold text-charcoal">
+          Rédigé par <a href="/a-propos/" class="text-brand hover:underline">{AUTHOR_NAME}</a>
+        </p>
+        <p class="text-medium-gray">{AUTHOR_CREDENTIALS} &middot; Expert en finances personnelles</p>
+      </div>
+    </div>
+
+    <div class="mt-4 text-xs text-medium-gray">
+      Mis à jour pour l'année fiscale {CURRENT_FISCAL_YEAR} &middot;
+      Sources : <a href="https://www.tax.gov.ma" class="underline hover:text-brand" target="_blank" rel="noopener">DGI</a>,
+      <a href="https://www.cnss.ma" class="underline hover:text-brand" target="_blank" rel="noopener">CNSS</a>,
+      <a href="https://www.emploi.gov.ma" class="underline hover:text-brand" target="_blank" rel="noopener">Code du Travail</a>.
+    </div>
+  </div>
+</Layout>

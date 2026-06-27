@@ -1,20 +1,11 @@
 ---
+import { headerCalcLinks, headerGuideLinks } from '../../data/nav';
+
 const currentPath = Astro.url.pathname;
 
-const calculateurs = [
-  { href: '/calculateurs/', label: 'Tous les calculateurs' },
-  { href: '/calculateur-salaire-net/', label: 'Brut vers Net' },
-  { href: '/calculateur-net-vers-brut/', label: 'Net vers Brut' },
-  { href: '/calculateur-cout-employeur/', label: 'Coût Employeur' },
-  { href: '/simulateur-ir/', label: 'Simulateur IR' },
-];
+const calculateurs = headerCalcLinks;
 
-const guides = [
-  { href: '/guides/', label: 'Tous les guides' },
-  { href: '/guides/smig-maroc/', label: 'SMIG au Maroc' },
-  { href: '/guides/comprendre-bulletin-paie/', label: 'Comprendre son bulletin' },
-  { href: '/guides/bareme-ir-maroc/', label: 'Barème IR Maroc' },
-];
+const guides = headerGuideLinks;
 ---
 
 <header class="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur-sm">

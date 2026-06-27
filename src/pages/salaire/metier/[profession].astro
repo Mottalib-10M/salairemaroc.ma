@@ -22,7 +22,7 @@ const resultMin = calculerSalaireNet(profession.fourchette.min, 0);
 const resultMax = calculerSalaireNet(profession.fourchette.max, 0);
 
 const title = `Salaire ${profession.title} au Maroc ${CURRENT_FISCAL_YEAR} : grille et évolution`;
-const description = `Le salaire moyen d'un(e) ${profession.title.toLowerCase()} au Maroc en ${CURRENT_FISCAL_YEAR} est de ${formatDHArrondi(profession.salaireMoyen)} brut/mois (${formatDHArrondi(result.netMensuel)} net). Grille salariale, évolution de carrière et secteurs.`;
+const description = `Salaire ${profession.title.toLowerCase()} au Maroc en ${CURRENT_FISCAL_YEAR} : grille salariale détaillée avec brut et net, évolution de carrière, secteurs qui recrutent et perspectives d emploi.`;
 
 const related = PROFESSIONS.filter(p => profession.relatedSlugs.includes(p.slug));
 

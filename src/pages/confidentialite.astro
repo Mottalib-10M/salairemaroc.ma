@@ -1,0 +1,81 @@
+---
+import Layout from '../components/layout/Layout.astro';
+import { SITE_NAME, SITE_URL, CONTACT_EMAIL, AUTHOR_NAME, CURRENT_FISCAL_YEAR } from '../config';
+import { buildBreadcrumbSchema } from '../lib/seo';
+
+const title = 'Politique de Confidentialité - Salaire Maroc en 2026';
+const description = 'Politique de confidentialité de salairemaroc.ma : zéro collecte de données personnelles, calculs effectués dans votre navigateur, pas de cookies de suivi.';
+
+const schemas = [
+  buildBreadcrumbSchema([
+    { name: 'Accueil', url: '/' },
+    { name: 'Confidentialité', url: '/confidentialite/' },
+  ]),
+];
+---
+
+<Layout title={title} description={description} schema={schemas}>
+  <div class="mx-auto max-w-4xl px-4 py-12">
+    <nav class="mb-6 text-sm text-medium-gray" aria-label="Fil d'Ariane">
+      <ol class="flex items-center gap-1">
+        <li><a href="/" class="hover:text-brand">Accueil</a></li>
+        <li>/</li>
+        <li class="text-charcoal">Confidentialité</li>
+      </ol>
+    </nav>
+
+    <h1 class="mb-8 text-3xl font-bold text-charcoal">Politique de confidentialité</h1>
+
+    <div class="prose max-w-none text-dark-gray leading-relaxed">
+      <p>Chez <strong>{SITE_NAME}</strong> (salairemaroc.ma), la protection de votre vie privée est une priorité absolue. Cette page décrit en détail comment nous traitons vos données lorsque vous utilisez notre site et nos calculateurs de salaire.</p>
+
+      <h2>Principe fondamental : aucune collecte de données personnelles</h2>
+
+      <p>{SITE_NAME} ne collecte, ne stocke et ne transmet aucune donnée personnelle. Ce principe s'applique à l'ensemble de nos services :</p>
+
+      <ul>
+        <li><strong>Calculateur brut/net :</strong> les données saisies (salaire brut, situation familiale, nombre de personnes à charge) sont traitées exclusivement dans votre navigateur. Aucune information n'est envoyée à nos serveurs.</li>
+        <li><strong>Calculateur net vers brut :</strong> même principe, tout est calculé côté client.</li>
+        <li><strong>Simulateur IR :</strong> le calcul de l'impôt sur le revenu s'effectue localement dans votre navigateur.</li>
+        <li><strong>Calculateur coût employeur :</strong> aucune donnée salariale n'est transmise à un serveur distant.</li>
+      </ul>
+
+      <h2>Traitement côté client</h2>
+
+      <p>L'ensemble de nos calculateurs fonctionne grâce à du code JavaScript exécuté localement dans votre navigateur. Concrètement :</p>
+
+      <ul>
+        <li>Vos données salariales ne quittent jamais votre appareil.</li>
+        <li>Les calculs sont effectués instantanément sur votre machine.</li>
+        <li>Aucune base de données ne contient vos informations de salaire.</li>
+        <li>La fermeture de votre navigateur ou de l'onglet efface toute trace de vos saisies.</li>
+      </ul>
+
+      <h2>Cookies</h2>
+
+      <p>{SITE_NAME} n'utilise aucun cookie de suivi publicitaire ou de pistage commercial. Le site peut utiliser des cookies techniques strictement nécessaires au bon fonctionnement du site. Ces cookies ne contiennent aucune information personnelle identifiable.</p>
+
+      <h2>Outils d'analyse</h2>
+
+      <p>Le site peut utiliser des outils d'analyse d'audience anonymes (tels que Microsoft Clarity) pour comprendre comment les visiteurs utilisent le site et améliorer l'expérience utilisateur. Ces outils collectent des données agrégées et anonymisées (pages visitées, durée de visite, type d'appareil) sans permettre l'identification d'un utilisateur individuel. Aucune donnée salariale ou personnelle n'est collectée par ces outils.</p>
+
+      <h2>Liens externes</h2>
+
+      <p>Notre site contient des liens vers des sites tiers (DGI, CNSS, Ministère de l'Emploi, etc.). Nous n'avons aucun contrôle sur les politiques de confidentialité de ces sites externes et vous encourageons à les consulter directement.</p>
+
+      <h2>Droits des utilisateurs</h2>
+
+      <p>Puisque nous ne collectons aucune donnée personnelle, il n'y a aucune donnée à consulter, modifier ou supprimer. Si vous avez des questions concernant votre vie privée sur notre site, contactez-nous à : <a href={`mailto:${CONTACT_EMAIL}`} class="text-brand hover:underline">{CONTACT_EMAIL}</a>.</p>
+
+      <h2>Modifications de cette politique</h2>
+
+      <p>Nous nous réservons le droit de mettre à jour cette politique de confidentialité. Toute modification sera publiée sur cette page avec la date de mise à jour.</p>
+
+      <h2>Contact</h2>
+
+      <p>Pour toute question relative à cette politique de confidentialité, vous pouvez nous écrire à : <a href={`mailto:${CONTACT_EMAIL}`} class="text-brand hover:underline">{CONTACT_EMAIL}</a>.</p>
+
+      <p class="text-sm text-gray-500 mt-8">Dernière mise à jour : juin 2026</p>
+    </div>
+  </div>
+</Layout>
