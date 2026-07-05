@@ -61,6 +61,10 @@ export const footerExternalLinks: NavLink[] = [
   { href: 'https://www.tax.gov.ma', label: 'DGI Maroc', external: true },
   { href: 'https://www.cnss.ma', label: 'CNSS', external: true },
   { href: 'https://www.emploi.gov.ma', label: "Ministère de l'Emploi", external: true },
+  { href: 'https://cnssmaroc.ma', label: 'Simulateur CNSS Maroc', external: true },
+  { href: 'https://autoentrepreneurmaroc.ma', label: 'Guide Auto-Entrepreneur Maroc', external: true },
+  { href: 'https://banquesmaroc.ma', label: 'Comparateur Banques Maroc', external: true },
+  { href: 'https://emploipublic.ma', label: 'Concours Fonction Publique Maroc', external: true },
 ];
 
 export const footerLegalLinks: NavLink[] = [
