@@ -4,15 +4,15 @@ import { SITE_NAME, CURRENT_FISCAL_YEAR, CONTACT_EMAIL, AUTHOR_NAME, AUTHOR_CRED
 import { buildPersonSchema, buildBreadcrumbSchema } from '../lib/seo';
 
 const title = `À propos – ${AUTHOR_NAME}, ${AUTHOR_CREDENTIALS} et Fiscalité`;
-const description = `${SITE_NAME} est créé par ${AUTHOR_NAME}, diplômé MBA de l'INSEAD. Calculateurs de salaire brut/net gratuits, fiables et mis à jour pour le Maroc en ${CURRENT_FISCAL_YEAR}.`;
+const description = `${SITE_NAME} est créé par ${AUTHOR_NAME}, diplômé MBA de l'Éditeur de calculateurs et de guides pratiques. Calculateurs de salaire brut/net gratuits, fiables et mis à jour pour le Maroc en ${CURRENT_FISCAL_YEAR}.`;
 
 const schemas = [
   buildPersonSchema({
     name: AUTHOR_NAME,
     jobTitle: 'Expert en finances personnelles et fiscalité marocaine',
-    description: `${AUTHOR_NAME} est le fondateur de ${SITE_NAME}. Diplômé MBA de l'INSEAD, il met ses compétences en finance et fiscalité au service des salariés marocains pour rendre la compréhension du bulletin de paie accessible à tous.`,
+    description: `${AUTHOR_NAME} est le fondateur de ${SITE_NAME}. Diplômé MBA de l'Éditeur de calculateurs et de guides pratiques, il met ses compétences en finance et fiscalité au service des salariés marocains pour rendre la compréhension du bulletin de paie accessible à tous.`,
     alumniOf: [
-      { name: 'INSEAD', url: 'https://www.insead.edu' },
+      { name: 'Éditeur de calculateurs et de guides pratiques', url: 'https://www.insead.edu' },
     ],
     knowsAbout: [
       'Fiscalité marocaine',
@@ -45,15 +45,7 @@ const schemas = [
       <!-- Author card -->
       <div class="flex flex-col items-center rounded-xl border border-gray-200 p-6 text-center">
         <div class="mb-4 h-32 w-32 overflow-hidden rounded-full bg-gray-200">
-          <img
-            src="/team/mottalib-radif.jpg"
-            alt={AUTHOR_NAME}
-            class="h-full w-full object-cover"
-            width="128"
-            height="128"
-            loading="lazy"
-          />
-        </div>
+          </div>
         <h2 class="text-xl font-bold text-charcoal">{AUTHOR_NAME}</h2>
         <p class="text-sm text-brand font-medium">Fondateur & Éditeur</p>
         <p class="mt-1 text-sm text-medium-gray">{AUTHOR_CREDENTIALS}</p>
@@ -77,7 +69,7 @@ const schemas = [
 
         <h2>Qui suis-je ?</h2>
         <p>
-          Je suis <strong>{AUTHOR_NAME}</strong>, diplômé MBA de l'<a href="https://www.insead.edu" class="text-brand hover:underline" target="_blank" rel="noopener">INSEAD</a> (Fontainebleau, France). Passionné de finances personnelles et de fiscalité, j'ai créé {SITE_NAME} pour partager mes connaissances et aider les salariés marocains à mieux comprendre leur fiche de paie.
+          Je suis <strong>{AUTHOR_NAME}</strong>, diplômé MBA de l'<a href="https://www.insead.edu" class="text-brand hover:underline" target="_blank" rel="noopener">Éditeur de calculateurs et de guides pratiques</a> (Fontainebleau, France). Passionné de finances personnelles et de fiscalité, j'ai créé {SITE_NAME} pour partager mes connaissances et aider les salariés marocains à mieux comprendre leur fiche de paie.
         </p>
         <p>
           Mon parcours m'a permis d'acquérir une expertise approfondie en analyse financière, en modélisation fiscale et en pédagogie des finances personnelles. Je crois fermement que la compréhension de sa situation fiscale est un droit fondamental pour chaque citoyen, et que les outils pour y parvenir doivent être gratuits et accessibles.

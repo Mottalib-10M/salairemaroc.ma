@@ -14,9 +14,9 @@ export const TAGLINE_SHORT = "Du brut au net, clair et rapide." as const;
 
 export const CONTACT_EMAIL = "contact@salairemaroc.ma" as const;
 
-export const AUTHOR_NAME = "Mottalib Radif" as const;
+export const AUTHOR_NAME = "Radif Partners" as const;
 export const AUTHOR_TITLE = "Fondateur & Éditeur" as const;
-export const AUTHOR_CREDENTIALS = "MBA INSEAD" as const;
+export const AUTHOR_CREDENTIALS = "Éditeur de calculateurs et de guides pratiques" as const;
 
 /** Microsoft Clarity - leave empty until real ID is obtained */
 export const clarityProjectId = "" as const;

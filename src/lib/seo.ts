@@ -79,12 +79,10 @@ export function buildOrganizationSchema() {
       availableLanguage: ['French', 'Arabic'],
     },
     founder: {
-      '@type': 'Person',
+      '@type': 'Organization',
       name: AUTHOR_NAME,
       jobTitle: 'Expert en finances personnelles',
-      description: 'Expert en finances personnelles et fiscalité marocaine, diplômé MBA de l\'INSEAD.',
-      image: `${SITE_URL}/team/mottalib-radif.jpg`,
-      alumniOf: { '@type': 'CollegeOrUniversity', name: 'INSEAD' },
+      description: 'Expert en finances personnelles et fiscalité marocaine, diplômé MBA de l\'Éditeur de calculateurs et de guides pratiques.',
     },
   };
 }
@@ -101,11 +99,10 @@ export interface PersonSchemaProps {
 export function buildPersonSchema(props: PersonSchemaProps) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Person',
+    '@type': 'Organization',
     name: props.name,
     jobTitle: props.jobTitle,
     description: props.description,
-    image: `${SITE_URL}/team/mottalib-radif.jpg`,
     url: props.url || `${SITE_URL}/a-propos/`,
     worksFor: {
       '@type': 'Organization',
@@ -165,10 +162,9 @@ export function buildArticleSchema(
     dateModified: dateModified || now,
     inLanguage: 'fr',
     author: {
-      '@type': 'Person',
+      '@type': 'Organization',
       name: AUTHOR_NAME,
       url: `${SITE_URL}/a-propos/`,
-      image: `${SITE_URL}/team/mottalib-radif.jpg`,
     },
     publisher: {
       '@type': 'Organization',
