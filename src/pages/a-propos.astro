@@ -4,16 +4,13 @@ import { SITE_NAME, CURRENT_FISCAL_YEAR, CONTACT_EMAIL, AUTHOR_NAME, AUTHOR_CRED
 import { buildPersonSchema, buildBreadcrumbSchema } from '../lib/seo';
 
 const title = `À propos – ${AUTHOR_NAME}, ${AUTHOR_CREDENTIALS} et Fiscalité`;
-const description = `${SITE_NAME} est créé par ${AUTHOR_NAME}, diplômé MBA de l'Éditeur de calculateurs et de guides pratiques. Calculateurs de salaire brut/net gratuits, fiables et mis à jour pour le Maroc en ${CURRENT_FISCAL_YEAR}.`;
+const description = `${SITE_NAME} est créé par ${AUTHOR_NAME}. Calculateurs de salaire brut/net gratuits, fiables et mis à jour pour le Maroc en ${CURRENT_FISCAL_YEAR}.`;
 
 const schemas = [
   buildPersonSchema({
     name: AUTHOR_NAME,
-    jobTitle: 'Expert en finances personnelles et fiscalité marocaine',
-    description: `${AUTHOR_NAME} est le fondateur de ${SITE_NAME}. Diplômé MBA de l'Éditeur de calculateurs et de guides pratiques, il met ses compétences en finance et fiscalité au service des salariés marocains pour rendre la compréhension du bulletin de paie accessible à tous.`,
-    alumniOf: [
-      { name: 'Éditeur de calculateurs et de guides pratiques', url: 'https://www.insead.edu' },
-    ],
+    jobTitle: 'Éditeur de calculateurs et de guides pratiques',
+    description: `${AUTHOR_NAME} édite ${SITE_NAME}. La société publie des calculateurs de paie et de fiscalité marocaine, avec une méthode de calcul détaillée et les textes officiels cités sur chaque page.`,
     knowsAbout: [
       'Fiscalité marocaine',
       'Impôt sur le Revenu (IR)',
@@ -67,12 +64,12 @@ const schemas = [
           Chaque calculateur est conçu pour être précis, rapide et pédagogique. Nous ne nous contentons pas de donner un chiffre : nous détaillons chaque étape du calcul pour que vous compreniez exactement d'où vient votre salaire net.
         </p>
 
-        <h2>Qui suis-je ?</h2>
+        <h2>Qui édite ce site&nbsp;?</h2>
         <p>
-          Je suis <strong>{AUTHOR_NAME}</strong>, diplômé MBA de l'<a href="https://www.insead.edu" class="text-brand hover:underline" target="_blank" rel="noopener">Éditeur de calculateurs et de guides pratiques</a> (Fontainebleau, France). Passionné de finances personnelles et de fiscalité, j'ai créé {SITE_NAME} pour partager mes connaissances et aider les salariés marocains à mieux comprendre leur fiche de paie.
+          {SITE_NAME} est édité par <strong>{AUTHOR_NAME}</strong>, société spécialisée dans les calculateurs et les guides pratiques de finances personnelles. Nous avons créé ce site pour que les salariés marocains puissent comprendre leur fiche de paie sans avoir à déchiffrer les textes fiscaux.
         </p>
         <p>
-          Mon parcours m'a permis d'acquérir une expertise approfondie en analyse financière, en modélisation fiscale et en pédagogie des finances personnelles. Je crois fermement que la compréhension de sa situation fiscale est un droit fondamental pour chaque citoyen, et que les outils pour y parvenir doivent être gratuits et accessibles.
+          Notre travail repose sur trois exigences&nbsp;: reprendre les barèmes directement dans les textes officiels, publier la méthode de calcul pour que chacun puisse la vérifier, et corriger le site dès qu'un barème change. La compréhension de sa situation fiscale est un droit&nbsp;; les outils pour y parvenir doivent être gratuits et transparents.
         </p>
 
         <h2>Fiabilité des données</h2>
