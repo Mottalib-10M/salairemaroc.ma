@@ -38,25 +38,25 @@ const schemas = [
 
     <div class="mt-10 prose prose-gray max-w-none">
       <h2>Introduction</h2>
-      <p>Salaire Maroc a ete concu pour offrir aux travailleurs et employeurs marocains un outil fiable et transparent qui convertit le salaire brut en salaire net, en tenant compte de l'ensemble des retenues obligatoires prevues par la legislation fiscale et sociale marocaine. Nous comprenons que le systeme fiscal et social marocain peut paraitre complexe, avec l'interaction entre l'impot sur le revenu (IR), les cotisations a la CNSS, l'assurance maladie obligatoire (AMO), les frais professionnels et les differentes deductions applicables selon la situation familiale du salarie.</p>
+      <p>Salaire Maroc a ete concu pour offrir aux travailleurs et employeurs marocains un outil fiable et transparent qui convertit le salaire brut en salaire net, en tenant compte de l'ensemble des retenues obligatoires prevues par la legislation fiscale et sociale marocaine. Nous comprenons que le système fiscal et social marocain peut paraitre complexe, avec l'interaction entre l'impôt sur le revenu (IR), les cotisations a la CNSS, l'assurance maladie obligatoire (AMO), les frais professionnels et les differentes deductions applicables selon la situation familiale du salarie.</p>
       <p>Cette page de methodologie explique en detail comment notre calculateur fonctionne. Nous croyons que la transparence est essentielle : vous devez savoir d'ou provient chaque chiffre, comment nous appliquons le bareme de l'IR, quelles hypotheses nous formulons et a quelle frequence nous mettons a jour nos donnees. Que vous soyez un salarie verifiant votre bulletin de paie, un employeur calculant le cout total d'un collaborateur, ou un candidat evaluant une offre d'emploi, comprendre notre methodologie vous aidera a interpreter les resultats avec confiance.</p>
-      <p>Notre calculateur repose sur trois principes fondamentaux. Premierement, nous utilisons exclusivement des donnees officielles publiees par les organismes gouvernementaux marocains. Deuxiemement, tous les calculs sont executes dans votre navigateur, ce qui signifie que vos donnees salariales ne quittent jamais votre appareil. Troisiemement, nous mettons a jour les baremes, taux et plafonds des que les autorites competentes publient de nouvelles valeurs, garantissant que les parametres utilises sont toujours conformes a l'annee fiscale {CURRENT_FISCAL_YEAR}.</p>
+      <p>Notre calculateur repose sur trois principes fondamentaux. Premierement, nous utilisons exclusivement des donnees officielles publiees par les organismes gouvernementaux marocains. Deuxiemement, tous les calculs sont executes dans votre navigateur, ce qui signifie que vos donnees salariales ne quittent jamais votre appareil. Troisiemement, nous mettons a jour les baremes, taux et plafonds des que les autorites competentes publient de nouvelles valeurs, garantissant que les parametres utilises sont toujours conformes a l'année fiscale {CURRENT_FISCAL_YEAR}.</p>
 
       <h2>Sources de Donnees</h2>
-      <p>La precision de tout calculateur fiscal depend entierement de la qualite et de l'actualite des donnees sous-jacentes. Nous obtenons tous les taux, baremes, deductions et plafonds de cotisation a partir de publications officielles du Gouvernement marocain. Voici une liste complete de nos sources primaires :</p>
+      <p>La precision de tout calculateur fiscal depend entierement de la qualite et de l'actualite des donnees sous-jacentes. Nous obtenons tous les taux, baremes, deductions et plafonds de cotisation à partir de publications officielles du Gouvernement marocain. Voici une liste complete de nos sources primaires :</p>
 
-      <h3>Direction Generale des Impots (DGI)</h3>
+      <h3>Direction Générale des Impôts (DGI)</h3>
       <p>La DGI est l'organisme responsable de l'administration fiscale au Maroc. Nous utilisons les publications et textes legislatifs suivants pour construire notre moteur de calcul de l'IR :</p>
       <ul>
-        <li><strong>Code General des Impots (CGI) :</strong> Le CGI fixe le bareme progressif de l'impot sur le revenu salarial avec ses tranches de revenus, taux marginaux et sommes a deduire. C'est le pilier central de notre calcul d'IR. Le bareme actuel comporte six tranches allant de 0% (exoneration pour les revenus inferieurs a 30 000 DH/an) a 38% pour les revenus superieurs a 180 000 DH/an.</li>
-        <li><strong>Deductions pour frais professionnels :</strong> Le CGI autorise une deduction forfaitaire de 20% du salaire brut (apres cotisations sociales) au titre des frais professionnels, plafonnee a 30 000 DH par an (soit 2 500 DH par mois). Nous appliquons cette deduction automatiquement dans nos calculs.</li>
-        <li><strong>Deductions pour charges de famille :</strong> Le salarie beneficie d'une deduction de 360 DH par personne a charge (conjoint et enfants), dans la limite de 6 personnes, soit un maximum de 2 160 DH par an. Cette deduction est soustraite du montant de l'IR du.</li>
+        <li><strong>Code Général des Impôts (CGI) :</strong> Le CGI fixe le bareme progressif de l'impôt sur le revenu salarial avec ses tranches de revenus, taux marginaux et sommes a deduire. C'est le pilier central de notre calcul d'IR. Le bareme actuel comporte six tranches allant de 0% (exoneration pour les revenus inferieurs a 30 000 DH/an) a 38% pour les revenus superieurs a 180 000 DH/an.</li>
+        <li><strong>Deductions pour frais professionnels :</strong> Le CGI autorise une déduction forfaitaire de 20% du salaire brut (après cotisations sociales) au titre des frais professionnels, plafonnee a 30 000 DH par an (soit 2 500 DH par mois). Nous appliquons cette déduction automatiquement dans nos calculs.</li>
+        <li><strong>Deductions pour charges de famille :</strong> Le salarie beneficie d'une déduction de 360 DH par personne a charge (conjoint et enfants), dans la limite de 6 personnes, soit un maximum de 2 160 DH par an. Cette déduction est soustraite du montant de l'IR du.</li>
         <li><strong>Notes circulaires de la DGI :</strong> Les notes circulaires accompagnant la loi de finances clarifient l'interpretation et l'application du CGI. Nous les consultons systematiquement pour garantir la conformite de nos calculs.</li>
-        <li><strong>Loi de finances :</strong> Chaque annee, la loi de finances peut introduire des modifications au bareme de l'IR, aux deductions ou aux exonerations. Nous integrons toutes les modifications des leur publication au Bulletin Officiel.</li>
+        <li><strong>Loi de finances :</strong> Chaque année, la loi de finances peut introduire des modifications au bareme de l'IR, aux deductions ou aux exonerations. Nous integrons toutes les modifications des leur publication au Bulletin Officiel.</li>
       </ul>
 
-      <h3>Caisse Nationale de Securite Sociale (CNSS)</h3>
-      <p>La CNSS gere le regime de securite sociale des salaries du secteur prive au Maroc. Nous utilisons les references suivantes :</p>
+      <h3>Caisse Nationale de Sécurité Sociale (CNSS)</h3>
+      <p>La CNSS gere le regime de sécurité sociale des salaries du secteur prive au Maroc. Nous utilisons les references suivantes :</p>
       <ul>
         <li><strong>Taux de cotisation salariale :</strong> Les cotisations a la charge du salarie comprennent les prestations sociales (0,52%, plafonnees a 6 000 DH/mois), la retraite (3,96%, plafonnee a 6 000 DH/mois) et l'AMO (2,26%, deplafonnee). Le total des cotisations salariales est d'environ 6,74% du salaire brut (ou moins si le salaire depasse le plafond).</li>
         <li><strong>Taux de cotisation patronale :</strong> Les cotisations a la charge de l'employeur comprennent les allocations familiales (6,40%, deplafonnees), les prestations sociales (1,05%, plafonnees), l'AMO (4,11%, deplafonnee), la retraite (7,93%, plafonnee) et la taxe de formation professionnelle (1,60%, deplafonnee). Le total est d'environ 21,09%.</li>
@@ -78,29 +78,29 @@ const schemas = [
         <li><strong>Haut-Commissariat au Plan (HCP) :</strong> Les donnees statistiques sur les salaires au Maroc (moyenne, mediane, par secteur et region) sont utilisees comme references contextuelles.</li>
       </ul>
 
-      <h2>Etapes du Calcul</h2>
-      <p>Notre calculateur suit un processus systematique, etape par etape, pour convertir le salaire brut mensuel en salaire net. Voici comment chaque phase fonctionne :</p>
+      <h2>Étapes du Calcul</h2>
+      <p>Notre calculateur suit un processus systematique, étape par étape, pour convertir le salaire brut mensuel en salaire net. Voici comment chaque phase fonctionne :</p>
 
-      <h3>Etape 1 : Determiner le Salaire Brut</h3>
-      <p>L'utilisateur saisit son salaire brut mensuel (ou annuel, que nous divisons par 12). Ce montant correspond a la remuneration totale avant toute deduction, incluant le salaire de base et les primes regulieres soumises a cotisation et a imposition.</p>
+      <h3>Étape 1 : Determiner le Salaire Brut</h3>
+      <p>L'utilisateur saisit son salaire brut mensuel (ou annuel, que nous divisons par 12). Ce montant correspond a la rémunération totale avant toute déduction, incluant le salaire de base et les primes regulieres soumises a cotisation et a imposition.</p>
 
-      <h3>Etape 2 : Calculer les Cotisations CNSS (Part Salariale)</h3>
+      <h3>Étape 2 : Calculer les Cotisations CNSS (Part Salariale)</h3>
       <p>Nous calculons les cotisations salariales CNSS en appliquant les taux en vigueur. Pour chaque branche, nous verifions si le plafond de 6 000 DH/mois s'applique et limitons la base de calcul en consequence. La somme des cotisations pour les prestations sociales, la retraite et l'AMO constitue le total des retenues CNSS salariales.</p>
 
-      <h3>Etape 3 : Calculer le Salaire Brut Imposable</h3>
+      <h3>Étape 3 : Calculer le Salaire Brut Imposable</h3>
       <p>Le salaire brut imposable est obtenu en soustrayant du salaire brut le total des cotisations salariales CNSS. Ce montant sert de base pour le calcul des frais professionnels.</p>
 
-      <h3>Etape 4 : Appliquer les Frais Professionnels</h3>
+      <h3>Étape 4 : Appliquer les Frais Professionnels</h3>
       <p>Nous deduisons 20% du salaire brut imposable au titre des frais professionnels, dans la limite de 2 500 DH par mois. Le resultat est le salaire net imposable, qui constitue la base de calcul de l'IR.</p>
 
-      <h3>Etape 5 : Calculer l'Impot sur le Revenu (IR)</h3>
+      <h3>Étape 5 : Calculer l'Impôt sur le Revenu (IR)</h3>
       <p>Nous situons le salaire net imposable dans la tranche correspondante du bareme de l'IR. Nous appliquons la formule : (salaire net imposable x taux marginal) - somme a deduire = IR brut. Ensuite, nous soustrayons les deductions pour charges de famille (360 DH x nombre de personnes a charge, maximum 6). Le resultat est l'IR net mensuel.</p>
 
-      <h3>Etape 6 : Calculer le Salaire Net</h3>
+      <h3>Étape 6 : Calculer le Salaire Net</h3>
       <p>Le salaire net mensuel est obtenu en soustrayant du salaire brut les cotisations CNSS salariales et l'IR net. Nous presentons les resultats sur base mensuelle et annuelle, avec un tableau recapitulatif detaillant chaque composante : salaire brut, CNSS, frais professionnels, base imposable, IR et salaire net.</p>
 
       <h2>Precision et Limites</h2>
-      <p>Notre calculateur est concu pour produire des estimations qui se rapprochent fidelement de ce que la plupart des salaries du secteur prive verront sur leur bulletin de paie. Neanmoins, plusieurs facteurs peuvent faire que votre bulletin reel differe de notre estimation :</p>
+      <p>Notre calculateur est concu pour produire des estimations qui se rapprochent fidelement de ce que la plupart des salaries du secteur prive verront sur leur bulletin de paie. Neanmoins, plusieurs facteurs peuvent faire que votre bulletin réel differe de notre estimation :</p>
       <ul>
         <li><strong>Primes et indemnites specifiques :</strong> Certaines primes (anciennete, transport, representation, panier) peuvent etre soumises ou exonerees de cotisation et d'imposition selon leur nature et leur montant. Notre calculateur suppose un salaire brut global soumis integralement.</li>
         <li><strong>Avantages en nature :</strong> Les avantages en nature (logement de fonction, voiture, telephone) doivent en principe etre evalues et integres dans la base de cotisation et d'imposition. Notre calcul standard ne les inclut pas.</li>
@@ -108,7 +108,7 @@ const schemas = [
         <li><strong>Exonerations temporaires :</strong> La loi de finances peut prevoir des exonerations temporaires d'IR (premier emploi, zones franches, CFC). Ces regimes speciaux ne sont pas couverts par le calculateur standard.</li>
         <li><strong>Secteur public et semi-public :</strong> Les fonctionnaires et agents de l'Etat sont affilies a des regimes differents (CMR, RCAR, CNOPS). Notre calculateur utilise les parametres du regime CNSS du secteur prive.</li>
       </ul>
-      <p>Malgre ces limites, pour la majorite des salaries du secteur prive sous regime general, notre calculateur fournit une estimation fiable qui se situe generalement dans une marge de 1 a 2% par rapport au montant reel du bulletin de paie.</p>
+      <p>Malgre ces limites, pour la majorite des salaries du secteur prive sous regime général, notre calculateur fournit une estimation fiable qui se situe generalement dans une marge de 1 a 2% par rapport au montant réel du bulletin de paie.</p>
 
       <h2>Calendrier de Mises a Jour</h2>
       <p>Nous suivons un cycle rigoureux de mise a jour pour garantir l'actualite de nos donnees :</p>
@@ -116,15 +116,15 @@ const schemas = [
         <li><strong>Octobre-Novembre :</strong> Le projet de loi de finances est depose au Parlement. Nous commencons a preparer les mises a jour des que le projet est rendu public.</li>
         <li><strong>Decembre-Janvier :</strong> La loi de finances est adoptee et publiee au Bulletin Officiel. Nous integrons immediatement toute modification du bareme de l'IR ou des parametres fiscaux.</li>
         <li><strong>Janvier :</strong> Les eventuelles revalorisations du SMIG ou des taux de cotisation CNSS sont integrees des leur publication par decret.</li>
-        <li><strong>1er Janvier :</strong> Les nouveaux parametres fiscaux et sociaux entrent en vigueur dans le calculateur, refletant l'annee fiscale en cours.</li>
-        <li><strong>Tout au long de l'annee :</strong> Si des decrets ou circulaires modifient les taux en vigueur, nous mettons a jour le calculateur dans un delai d'une semaine apres la publication officielle.</li>
+        <li><strong>1er Janvier :</strong> Les nouveaux parametres fiscaux et sociaux entrent en vigueur dans le calculateur, refletant l'année fiscale en cours.</li>
+        <li><strong>Tout au long de l'année :</strong> Si des decrets ou circulaires modifient les taux en vigueur, nous mettons a jour le calculateur dans un delai d'une semaine après la publication officielle.</li>
       </ul>
       <p>Chaque mise a jour fait l'objet d'un processus de verification ou nous croisons plusieurs sources officielles et validons les calculs contre des exemples de reference.</p>
 
       <h2>Sources</h2>
       <ul>
-        <li><a href="https://www.tax.gov.ma" target="_blank" rel="noopener">Direction Generale des Impots (DGI)</a></li>
-        <li><a href="https://www.cnss.ma" target="_blank" rel="noopener">Caisse Nationale de Securite Sociale (CNSS)</a></li>
+        <li><a href="https://www.tax.gov.ma" target="_blank" rel="noopener">Direction Générale des Impôts (DGI)</a></li>
+        <li><a href="https://www.cnss.ma" target="_blank" rel="noopener">Caisse Nationale de Sécurité Sociale (CNSS)</a></li>
         <li><a href="https://www.emploi.gov.ma" target="_blank" rel="noopener">Ministere de l'Emploi et de l'Insertion Professionnelle</a></li>
         <li><a href="https://www.sgg.gov.ma/Legislation/BulletinOfficiel.aspx" target="_blank" rel="noopener">Bulletin Officiel du Royaume du Maroc</a></li>
         <li><a href="https://www.hcp.ma" target="_blank" rel="noopener">Haut-Commissariat au Plan (HCP)</a></li>
