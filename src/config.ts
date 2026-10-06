@@ -18,5 +18,3 @@ export const AUTHOR_NAME = "Radif Partners" as const;
 export const AUTHOR_TITLE = "Fondateur & Éditeur" as const;
 export const AUTHOR_CREDENTIALS = "Éditeur de calculateurs et de guides pratiques" as const;
 
-/** Microsoft Clarity - leave empty until real ID is obtained */
-export const clarityProjectId = "" as const;

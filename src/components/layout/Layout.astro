@@ -1,7 +1,7 @@
 ---
 import Header from './Header.astro';
 import Footer from './Footer.astro';
-import { SITE_NAME, SITE_URL, BRAND_COLOR, AUTHOR_NAME, clarityProjectId } from '../../config';
+import { SITE_NAME, SITE_URL, BRAND_COLOR, AUTHOR_NAME } from '../../config';
 import { buildCanonical, buildOrganizationSchema, buildWebSiteSchema } from '../../lib/seo';
 import '../../styles/global.css';
 
@@ -88,18 +88,6 @@ const schemas = isHomepage
       <script type="application/ld+json" set:html={JSON.stringify(s)} />
     ))}
 
-    <!-- Microsoft Clarity (conditional) -->
-    {clarityProjectId && (
-      <script is:inline define:vars={{ clarityProjectId }}>
-        setTimeout(function(){
-          (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-          })(window,document,"clarity","script",clarityProjectId);
-        }, 3000);
-      </script>
-    )}
   </head>
   <body class="flex min-h-screen flex-col">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-gray-900 focus:rounded focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500">Aller au contenu principal</a>

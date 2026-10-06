@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && node scripts/typo-nbsp.mjs dist",
+    "check:cookies": "python3 scripts/check-cookies.py .",
     "preview": "astro preview"
   },
   "dependencies": {

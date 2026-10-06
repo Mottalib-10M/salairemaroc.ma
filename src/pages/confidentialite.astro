@@ -4,7 +4,7 @@ import { SITE_NAME, SITE_URL, CONTACT_EMAIL, AUTHOR_NAME, CURRENT_FISCAL_YEAR } 
 import { buildBreadcrumbSchema } from '../lib/seo';
 
 const title = 'Politique de Confidentialité - Salaire Maroc en 2026';
-const description = 'Politique de confidentialité de salairemaroc.ma : zéro collecte de données personnelles, calculs effectués dans votre navigateur, pas de cookies de suivi.';
+const description = 'Confidentialité de salairemaroc.ma : aucun cookie, aucune statistique de visite, salaire calculé dans votre navigateur sans être gardé. Droits loi 09-08.';
 
 const schemas = [
   buildBreadcrumbSchema([
@@ -53,11 +53,15 @@ const schemas = [
 
       <h2>Cookies</h2>
 
-      <p>{SITE_NAME} n'utilise aucun cookie de suivi publicitaire ou de pistage commercial. Le site peut utiliser des cookies techniques strictement nécessaires au bon fonctionnement du site. Ces cookies ne contiennent aucune information personnelle identifiable.</p>
+      <p>Le site {SITE_NAME} ne place aucun cookie dans votre navigateur. Les calculateurs de salaire net, de net vers brut, de coût employeur et d'IR ne gardent aucune trace sur votre appareil : le brut mensuel, le net visé ou le nombre de personnes à charge que vous indiquez restent dans la page ouverte et s'effacent quand vous la fermez. Rien n'étant stocké ni compté, vous ne verrez pas de bandeau cookies : il n'y a aucun accord à donner.</p>
 
-      <h2>Outils d'analyse</h2>
+      <h2>Ni statistiques de visite ni traceurs</h2>
 
-      <p>Le site peut utiliser des outils d'analyse d'audience anonymes (tels que Microsoft Clarity) pour comprendre comment les visiteurs utilisent le site et améliorer l'expérience utilisateur. Ces outils collectent des données agrégées et anonymisées (pages visitées, durée de visite, type d'appareil) sans permettre l'identification d'un utilisateur individuel. Aucune donnée salariale ou personnelle n'est collectée par ces outils.</p>
+      <p>{SITE_NAME} ne charge aucun outil de mesure d'audience ni aucun traceur : aucun Google Analytics, aucune régie publicitaire, aucun bouton de partage qui suivrait votre navigation, aucun enregistrement de session. Radif Partners, qui édite le site, n'enregistre aucune donnée personnelle sur les salariés et employeurs qui simulent leur paie ici.</p>
+
+      <p><strong>Données techniques de l'hébergeur.</strong> L'hébergement est assuré par GitHub Pages (GitHub, Inc., San Francisco). Les serveurs de GitHub notent d'office, pour chaque page demandée, l'adresse IP, l'horodatage et le navigateur, afin de délivrer le site et de bloquer les abus. Nous ne lisons pas ces journaux pour reconnaître qui que ce soit ; leur durée de conservation relève de GitHub.</p>
+
+      <p><strong>Messages envoyés par courriel.</strong> Quand vous écrivez à {CONTACT_EMAIL}, votre message et votre adresse ne servent qu'à la réponse et sont supprimés une fois la demande traitée.</p>
 
       <h2>Liens externes</h2>
 
@@ -65,7 +69,7 @@ const schemas = [
 
       <h2>Droits des utilisateurs</h2>
 
-      <p>Puisque nous ne collectons aucune donnée personnelle, il n'y a aucune donnée à consulter, modifier ou supprimer. Si vous avez des questions concernant votre vie privée sur notre site, contactez-nous à : <a href={`mailto:${CONTACT_EMAIL}`} class="text-brand hover:underline">{CONTACT_EMAIL}</a>.</p>
+      <p>Au titre de la loi n° 09-08 sur la protection des données à caractère personnel, vous disposez d'un droit d'accès, de rectification et d'opposition. Le site ne conservant aucune donnée vous concernant, ces droits ne visent en pratique qu'un éventuel courriel échangé : contactez-nous à <a href={`mailto:${CONTACT_EMAIL}`} class="text-brand hover:underline">{CONTACT_EMAIL}</a>. Vous pouvez également vous adresser à la CNDP (Commission nationale de contrôle de la protection des données à caractère personnel, <a href="https://www.cndp.ma" class="text-brand hover:underline" rel="nofollow noopener" target="_blank">www.cndp.ma</a>).</p>
 
       <h2>Modifications de cette politique</h2>
 
@@ -75,7 +79,7 @@ const schemas = [
 
       <p>Pour toute question relative à cette politique de confidentialité, vous pouvez nous écrire à : <a href={`mailto:${CONTACT_EMAIL}`} class="text-brand hover:underline">{CONTACT_EMAIL}</a>.</p>
 
-      <p class="text-sm text-gray-500 mt-8">Dernière mise à jour : juin 2026</p>
+      <p class="text-sm text-gray-500 mt-8">Dernière mise à jour : octobre 2026</p>
     </div>
   </div>
 </Layout>
