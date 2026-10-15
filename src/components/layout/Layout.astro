@@ -3,6 +3,7 @@ import Header from './Header.astro';
 import Footer from './Footer.astro';
 import { SITE_NAME, SITE_URL, BRAND_COLOR, AUTHOR_NAME } from '../../config';
 import { buildCanonical, buildOrganizationSchema, buildWebSiteSchema } from '../../lib/seo';
+import { pageDate } from '../../lib/page-date';
 import '../../styles/global.css';
 
 interface Props {
@@ -13,6 +14,8 @@ interface Props {
   ogType?: 'website' | 'article';
   noindex?: boolean;
   schema?: object | object[];
+  /** Date de mise à jour affichée en pied de page (sinon : dernier commit du fichier de la page). */
+  updatedDate?: string;
 }
 
 const {
@@ -23,6 +26,7 @@ const {
   ogType = 'website',
   noindex = false,
   schema,
+  updatedDate = pageDate(Astro.url.pathname),
 } = Astro.props;
 
 const canonicalUrl = canonical || buildCanonical(Astro.url.pathname);
@@ -95,6 +99,6 @@ const schemas = isHomepage
     <main id="main-content" class="flex-1" role="main">
       <slot />
     </main>
-    <Footer />
+    <Footer date={updatedDate} />
   </body>
 </html>

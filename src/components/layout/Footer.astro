@@ -1,5 +1,8 @@
 ---
 import { SITE_NAME, CURRENT_FISCAL_YEAR, TAGLINE } from '../../config';
+import { dateLongue } from '../../lib/page-date';
+
+const { date } = Astro.props as { date?: string };
 import {
   footerCalcLinks,
   footerGuideLinks,
@@ -114,6 +117,8 @@ const legal = footerLegalLinks;
         <a href="https://www.cnss.ma" class="underline hover:text-brand" target="_blank" rel="noopener">CNSS</a>,
         <a href="https://www.emploi.gov.ma" class="underline hover:text-brand" target="_blank" rel="noopener">Code du Travail</a>.
       </p>
+      {/* Date de mise à jour en bas de chaque page, en toutes lettres (RECETTE §8.4). */}
+      {date && <p class="mt-2 text-center text-xs text-medium-gray">Dernière mise à jour : <time datetime={date}>{dateLongue(date)}</time></p>}
     </div>
   </div>
 </footer>

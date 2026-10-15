@@ -1,3 +1,4 @@
+import { pageDate } from './page-date';
 import { SITE_URL, SITE_NAME, CURRENT_FISCAL_YEAR, CONTACT_EMAIL, AUTHOR_NAME } from '../config';
 
 export function buildCanonical(path: string): string {
@@ -151,7 +152,8 @@ export function buildArticleSchema(
   datePublished?: string,
   dateModified?: string,
 ) {
-  const now = new Date().toISOString().split('T')[0];
+  // Date du dernier commit de la page, jamais celle du build (RECETTE §8.4).
+  const now = pageDate(url);
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',

@@ -2,6 +2,7 @@
 import Layout from '../components/layout/Layout.astro';
 import { CURRENT_FISCAL_YEAR } from '../config';
 import { buildWebApplicationSchema, buildBreadcrumbSchema, buildFAQSchema, type FAQItem } from '../lib/seo';
+import { pageDate, dateLongue } from '../lib/page-date';
 
 interface Props {
   title: string;
@@ -25,7 +26,7 @@ const {
   path,
   ogImage,
   faqs = [],
-  updatedDate = new Date().toISOString().split('T')[0],
+  updatedDate = pageDate(Astro.props.path),
   sources = [
     { label: 'DGI Maroc', url: 'https://www.tax.gov.ma' },
     { label: 'CNSS', url: 'https://www.cnss.ma' },
@@ -43,9 +44,12 @@ const schemas = [
   ...(faqs.length > 0 ? [buildFAQSchema(faqs)] : []),
   ...(Astro.props.extraSchemas || []),
 ];
+// Page de lecture (guide déclaré Article) : petite date sous le titre ; sur un simulateur, la date
+// reste en bas de page (RECETTE §8.4, 2026-10-15).
+const lecture = (Astro.props.extraSchemas || []).some((s) => (s as { '@type'?: string })['@type'] === 'Article');
 ---
 
-<Layout title={title} description={description} ogImage={ogImage} schema={schemas}>
+<Layout title={title} description={description} ogImage={ogImage} schema={schemas} updatedDate={updatedDate}>
   <div class="mx-auto max-w-4xl px-4 py-8">
     <nav class="mb-6 text-sm text-medium-gray" aria-label="Fil d'Ariane">
       <ol class="flex items-center gap-1">
@@ -67,6 +71,7 @@ const schemas = [
     <h1 class="mb-6 text-3xl font-bold text-charcoal md:text-4xl">
       {h1}
     </h1>
+    {lecture && <p class="-mt-4 mb-6 text-sm text-medium-gray">Mis à jour le <time datetime={updatedDate}>{dateLongue(updatedDate)}</time></p>}
 
     <slot />
 
@@ -102,7 +107,7 @@ const schemas = [
     <div class="mt-4 flex flex-wrap items-center gap-4 text-xs text-medium-gray">
       <span>Mis à jour pour l'année fiscale {CURRENT_FISCAL_YEAR}</span>
       <span>&middot;</span>
-      <span>Dernière modification : {updatedDate}</span>
+      <span>Dernière modification : <time datetime={updatedDate}>{dateLongue(updatedDate)}</time></span>
     </div>
 
     {sources.length > 0 && (
