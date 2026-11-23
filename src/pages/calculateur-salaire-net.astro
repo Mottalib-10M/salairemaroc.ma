@@ -1,4 +1,5 @@
 ---
+import Bloc2027 from '../components/ui/Bloc2027.astro';
 import CalculateurLayout from '../layouts/CalculateurLayout.astro';
 import SalaireNet from '../components/calculateurs/SalaireNet';
 import { CURRENT_FISCAL_YEAR } from '../config';
@@ -11,7 +12,7 @@ const description = `Convertissez votre salaire brut en net au Maroc. Cotisation
 const faqs = [
   {
     question: 'Comment fonctionne le calculateur brut vers net ?',
-    answer: `Notre calculateur prend votre salaire brut mensuel, déduit les cotisations CNSS (6,74%), puis calcule l'IR progressif après déduction des frais professionnels (20%, plafonnés à 30 000 DH/an). Le résultat est votre salaire net mensuel, la somme que vous recevez sur votre compte.`,
+    answer: `Notre calculateur prend votre salaire brut mensuel, déduit les cotisations CNSS (6,74%), puis calcule l'IR progressif après déduction des frais professionnels (35 % du brut jusqu'à 78 000 DH par an, sinon 25 % plafonnés à 35 000 DH). Le résultat est votre salaire net mensuel, la somme que vous recevez sur votre compte.`,
   },
   {
     question: 'Les cotisations CNSS sont-elles les mêmes pour tous les salaires ?',
@@ -23,11 +24,15 @@ const faqs = [
   },
   {
     question: 'Le calculateur tient-il compte des personnes à charge ?',
-    answer: 'Oui, vous pouvez indiquer le nombre de personnes à charge (de 0 à 6). Chaque personne à charge donne droit à une déduction de 360 DH/an sur l\'IR, soit un maximum de 2 160 DH/an pour 6 personnes à charge.',
+    answer: 'Oui, vous pouvez indiquer le nombre de personnes à charge (de 0 à 6). Chaque personne à charge donne droit à une réduction de 600 DH/an sur l\'IR, soit un maximum de 3 600 DH/an pour 6 personnes à charge.',
   },
   {
     question: 'La prime d\'ancienneté est-elle incluse dans le calcul du salaire net ?',
     answer: 'La prime d\'ancienneté est un droit du salarié marocain après 2 ans d\'ancienneté. Elle va de 5% (2-5 ans) à 25% (plus de 25 ans) du salaire de base. Cette prime s\'ajoute au brut et est soumise aux mêmes cotisations CNSS et à l\'IR. Vous pouvez l\'intégrer dans le montant brut saisi.',
+  },
+  {
+    question: 'Quels seront les chiffres du salaire net au Maroc en 2027 ?',
+    answer: 'Le barème IR en vigueur (0 % jusqu\'à 40 000 DH, taux maximal de 37 %), les frais professionnels (35 % ou 25 %, plafond 35 000 DH) et le plafond CNSS de 6 000 DH restent applicables tant que de nouveaux textes ne sont pas publiés. Le projet de loi de finances 2027, publié le 23 octobre 2026 par le ministère de l\'Économie et des Finances, est en cours d\'examen au Parlement ; la loi votée paraîtra au Bulletin officiel fin décembre 2026. Notre calculateur passera au barème 2027 dès cette publication.',
   },
 ];
 
@@ -61,7 +66,7 @@ const exemples = [5000, 8000, 12000, 20000].map(brut => ({
       Un élément important à comprendre est le <strong>plafond CNSS de 6 000 DH/mois</strong>. Les cotisations pour prestations sociales et retraite sont calculées sur un salaire plafonné à 6 000 DH mensuels. Si vous gagnez plus, ces deux cotisations cessent d'augmenter. En revanche, l'AMO est déplafonnée : elle s'applique sur l'intégralité de votre salaire, quel qu'en soit le montant.
     </p>
     <p>
-      Après déduction de la CNSS, on obtient le <strong>revenu brut imposable</strong>. Sur ce montant, on applique une déduction forfaitaire de 20% pour frais professionnels, plafonnée à 30 000 DH par an. Le résultat est le <strong>revenu net imposable</strong>, sur lequel les tranches progressives de l'IR sont appliquées.
+      Après déduction de la CNSS, on obtient le <strong>revenu brut imposable</strong>. On en retire aussi la déduction forfaitaire pour frais professionnels, calculée sur le brut : 35 % jusqu'à 78 000 DH par an, 25 % au-delà, plafonnée à 35 000 DH par an. Le résultat est le <strong>revenu net imposable</strong>, sur lequel les tranches progressives de l'IR sont appliquées.
     </p>
 
     <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Le barème de l'IR au Maroc</h3>
@@ -119,7 +124,7 @@ const exemples = [5000, 8000, 12000, 20000].map(brut => ({
 
     <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Les déductions pour charges de famille</h3>
     <p>
-      Le législateur marocain prévoit une déduction forfaitaire pour les personnes à charge du contribuable. Cette déduction est de 360 DH par an et par personne à charge, dans la limite de 6 personnes, soit un maximum de 2 160 DH par an. Les personnes à charge comprennent le conjoint et les enfants. Cette déduction est appliquée directement sur le montant de l'IR calculé.
+      Le législateur marocain prévoit une déduction forfaitaire pour les personnes à charge du contribuable. Cette réduction est de 600 DH par an et par personne à charge, dans la limite de 6 personnes, soit un maximum de 3 600 DH par an. Les personnes à charge comprennent le conjoint et les enfants. Cette déduction est appliquée directement sur le montant de l'IR calculé.
     </p>
 
     <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">L'employeur paie aussi des cotisations</h3>
@@ -138,6 +143,7 @@ const exemples = [5000, 8000, 12000, 20000].map(brut => ({
       N'hésitez pas à consulter également notre <a href="/guides/smig-maroc/" class="text-brand hover:underline">guide sur le SMIG</a> pour connaître le plancher légal, ou notre <a href="/guides/bareme-ir-maroc/" class="text-brand hover:underline">guide sur le barème IR</a> pour comprendre en détail comment l'impôt est calculé.
     </p>
   </div>
+  <Bloc2027 />
   <!-- Additional internal links -->
   <section class="mt-8">
     <h2 class="mb-4 text-xl font-bold text-charcoal">Explorer davantage</h2>

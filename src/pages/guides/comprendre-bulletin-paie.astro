@@ -140,8 +140,8 @@ const articleSchema = buildArticleSchema(title, description, '/guides/comprendre
       <li>Salaire brut mensuel : {formatDH(8000)}</li>
       <li>Moins CNSS salarié : -{formatDH(exemple.cnssMensuel)}</li>
       <li>= Revenu brut imposable mensuel : {formatDH(8000 - exemple.cnssMensuel)}</li>
-      <li>Moins frais professionnels (20%) : -{formatDH((8000 - exemple.cnssMensuel) * 0.20)}</li>
-      <li>= Revenu net imposable mensuel : {formatDH((8000 - exemple.cnssMensuel) * 0.80)}</li>
+      <li>Moins frais professionnels (25 % du brut, au-delà de 6 500 DH par mois) : -{formatDH(exemple.irDetail.fraisProfessionnels / 12)}</li>
+      <li>= Revenu net imposable mensuel : {formatDH(exemple.irDetail.revenuNetImposable / 12)}</li>
       <li>Application du barème IR sur la base annualisée, puis division par 12</li>
       <li>Moins déductions pour personnes à charge (si applicable)</li>
       <li>= IR mensuel retenu : {formatDH(exemple.irMensuel)}</li>

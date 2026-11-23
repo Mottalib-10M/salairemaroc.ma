@@ -17,16 +17,21 @@
 export const CNSS_PLAFOND_MENSUEL = 6_000;
 export const CNSS_PLAFOND_ANNUEL = CNSS_PLAFOND_MENSUEL * 12;
 
-/** SMIG 2026 */
-export const SMIG_MENSUEL = 3_111.39;
-export const SMIG_HORAIRE = 15.55;
+/** SMIG 2026 : 17,92 DH/h depuis le 1er janvier 2026 (décret n° 2-25-983, BO n° 7469), base 191 h */
+export const SMIG_HORAIRE = 17.92;
+export const SMIG_MENSUEL = 3_422.72;
 
-/** Professional expenses deduction: 20% of gross, max 30,000 DH/year */
-export const FRAIS_PRO_TAUX = 0.20;
-export const FRAIS_PRO_PLAFOND_ANNUEL = 30_000;
+/**
+ * Frais professionnels (CGI art. 59-I-A, CGI 2026) : 35 % du salaire brut annuel imposable
+ * s'il ne dépasse pas 78 000 DH, sinon 25 % plafonnés à 35 000 DH.
+ */
+export const FRAIS_PRO_SEUIL_ANNUEL = 78_000;
+export const FRAIS_PRO_TAUX_BAS = 0.35;
+export const FRAIS_PRO_TAUX = 0.25;
+export const FRAIS_PRO_PLAFOND_ANNUEL = 35_000;
 
-/** Family deduction: 360 DH/year per dependent, max 6 dependents */
-export const DEDUCTION_FAMILLE_PAR_PERSONNE = 360;
+/** Réduction pour charges de famille (CGI art. 74, LF 2026) : 600 DH/an par personne, plafond 3 600 DH */
+export const DEDUCTION_FAMILLE_PAR_PERSONNE = 600;
 export const MAX_DEPENDANTS = 6;
 
 // ── CNSS Rates ────────────────────────────────────────────────────────────
@@ -66,13 +71,14 @@ export interface TrancheIR {
   taux: number;
 }
 
+/** Barème annuel (CGI art. 73-I, loi de finances n° 60-24 pour 2025, inchangé en 2026) */
 export const TRANCHES_IR: TrancheIR[] = [
-  { min: 0,       max: 30_000,   taux: 0.00 },
-  { min: 30_000,  max: 50_000,   taux: 0.10 },
-  { min: 50_000,  max: 60_000,   taux: 0.20 },
-  { min: 60_000,  max: 80_000,   taux: 0.30 },
-  { min: 80_000,  max: 180_000,  taux: 0.34 },
-  { min: 180_000, max: Infinity,  taux: 0.38 },
+  { min: 0,       max: 40_000,   taux: 0.00 },
+  { min: 40_000,  max: 60_000,   taux: 0.10 },
+  { min: 60_000,  max: 80_000,   taux: 0.20 },
+  { min: 80_000,  max: 100_000,  taux: 0.30 },
+  { min: 100_000, max: 180_000,  taux: 0.34 },
+  { min: 180_000, max: Infinity,  taux: 0.37 },
 ];
 
 // ── Types ─────────────────────────────────────────────────────────────────
@@ -223,10 +229,12 @@ export function calculerIR(
   // Step 1: Revenu brut imposable = brut annuel - CNSS employee annuel
   const revenuBrutImposable = Math.max(0, brutAnnuel - cnssAnnuel);
 
-  // Step 2: Frais professionnels = 20% of revenuBrutImposable, capped at 30,000 DH/year
+  // Step 2: Frais professionnels calculés sur le brut annuel (CGI art. 59-I-A)
   const fraisProfessionnels = Math.min(
-    revenuBrutImposable * FRAIS_PRO_TAUX,
-    FRAIS_PRO_PLAFOND_ANNUEL,
+    brutAnnuel <= FRAIS_PRO_SEUIL_ANNUEL
+      ? brutAnnuel * FRAIS_PRO_TAUX_BAS
+      : Math.min(brutAnnuel * FRAIS_PRO_TAUX, FRAIS_PRO_PLAFOND_ANNUEL),
+    revenuBrutImposable,
   );
 
   // Step 3: Revenu net imposable
@@ -235,7 +243,7 @@ export function calculerIR(
   // Step 4: Apply progressive brackets to get IR brut
   const { irBrut, detailTranches } = calculerIRProgressif(revenuNetImposable);
 
-  // Step 5: Family deductions (360 DH per dependent, max 6)
+  // Step 5: Family deductions (600 DH per dependent, max 6 = 3 600 DH)
   const nbDependantsClamped = Math.min(Math.max(0, Math.floor(nbDependants)), MAX_DEPENDANTS);
   const deductionFamille = nbDependantsClamped * DEDUCTION_FAMILLE_PAR_PERSONNE;
 

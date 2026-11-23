@@ -173,7 +173,7 @@ export default function SimulateurIR() {
               <td className="px-4 py-2 text-right tabular-nums">{fmtDH(resultat.revenuBrutImposable)}</td>
             </tr>
             <tr className="border-b border-gray-100">
-              <td className="px-4 py-2 text-gray-600">Frais professionnels (20%, max 30 000 DH)</td>
+              <td className="px-4 py-2 text-gray-600">Frais professionnels (35 % ou 25 %, max 35 000 DH)</td>
               <td className="px-4 py-2 text-right tabular-nums text-red-600">-{fmtDH(resultat.fraisProfessionnels)}</td>
             </tr>
             <tr className="border-b border-gray-100 bg-gray-50">
@@ -225,7 +225,7 @@ export default function SimulateurIR() {
             {resultat.deductionFamille > 0 && (
               <tr className="border-t border-gray-100">
                 <td className="px-4 py-2 text-gray-600" colSpan={3}>
-                  Déductions pour charges de famille ({dependants} x 360 DH)
+                  Déductions pour charges de famille ({dependants} x 600 DH)
                 </td>
                 <td className="px-4 py-2 text-right tabular-nums text-emerald-600">-{fmtDH(resultat.deductionFamille)}</td>
               </tr>

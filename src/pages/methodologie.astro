@@ -48,9 +48,9 @@ const schemas = [
       <h3>Direction Générale des Impôts (DGI)</h3>
       <p>La DGI est l'organisme responsable de l'administration fiscale au Maroc. Nous utilisons les publications et textes legislatifs suivants pour construire notre moteur de calcul de l'IR :</p>
       <ul>
-        <li><strong>Code Général des Impôts (CGI) :</strong> Le CGI fixe le bareme progressif de l'impôt sur le revenu salarial avec ses tranches de revenus, taux marginaux et sommes a deduire. C'est le pilier central de notre calcul d'IR. Le bareme actuel comporte six tranches allant de 0% (exoneration pour les revenus inferieurs a 30 000 DH/an) a 38% pour les revenus superieurs a 180 000 DH/an.</li>
-        <li><strong>Deductions pour frais professionnels :</strong> Le CGI autorise une déduction forfaitaire de 20% du salaire brut (après cotisations sociales) au titre des frais professionnels, plafonnee a 30 000 DH par an (soit 2 500 DH par mois). Nous appliquons cette déduction automatiquement dans nos calculs.</li>
-        <li><strong>Deductions pour charges de famille :</strong> Le salarie beneficie d'une déduction de 360 DH par personne a charge (conjoint et enfants), dans la limite de 6 personnes, soit un maximum de 2 160 DH par an. Cette déduction est soustraite du montant de l'IR du.</li>
+        <li><strong>Code Général des Impôts (CGI) :</strong> Le CGI fixe le bareme progressif de l'impôt sur le revenu salarial avec ses tranches de revenus, taux marginaux et sommes a deduire. C'est le pilier central de notre calcul d'IR. Le bareme actuel comporte six tranches allant de 0% (exoneration jusqu'a 40 000 DH/an) a 37% pour les revenus superieurs a 180 000 DH/an (article 73-I, loi de finances 2025).</li>
+        <li><strong>Deductions pour frais professionnels :</strong> Le CGI (article 59-I-A) autorise une déduction forfaitaire au titre des frais professionnels de 35 % du salaire brut imposable s'il ne depasse pas 78 000 DH par an, et de 25 % au-dela, plafonnee a 35 000 DH par an. Nous appliquons cette déduction automatiquement dans nos calculs.</li>
+        <li><strong>Deductions pour charges de famille :</strong> Le salarie beneficie d'une déduction de 600 DH par personne a charge (conjoint et enfants), dans la limite de 6 personnes, soit un maximum de 3 600 DH par an (article 74, loi de finances 2026). Cette déduction est soustraite du montant de l'IR du.</li>
         <li><strong>Notes circulaires de la DGI :</strong> Les notes circulaires accompagnant la loi de finances clarifient l'interpretation et l'application du CGI. Nous les consultons systematiquement pour garantir la conformite de nos calculs.</li>
         <li><strong>Loi de finances :</strong> Chaque année, la loi de finances peut introduire des modifications au bareme de l'IR, aux deductions ou aux exonerations. Nous integrons toutes les modifications des leur publication au Bulletin Officiel.</li>
       </ul>
@@ -91,10 +91,10 @@ const schemas = [
       <p>Le salaire brut imposable est obtenu en soustrayant du salaire brut le total des cotisations salariales CNSS. Ce montant sert de base pour le calcul des frais professionnels.</p>
 
       <h3>Étape 4 : Appliquer les Frais Professionnels</h3>
-      <p>Nous deduisons 20% du salaire brut imposable au titre des frais professionnels, dans la limite de 2 500 DH par mois. Le resultat est le salaire net imposable, qui constitue la base de calcul de l'IR.</p>
+      <p>Nous deduisons les frais professionnels : 35 % du salaire brut si le brut annuel ne depasse pas 78 000 DH, sinon 25 % dans la limite de 35 000 DH par an. Le resultat est le salaire net imposable, qui constitue la base de calcul de l'IR.</p>
 
       <h3>Étape 5 : Calculer l'Impôt sur le Revenu (IR)</h3>
-      <p>Nous situons le salaire net imposable dans la tranche correspondante du bareme de l'IR. Nous appliquons la formule : (salaire net imposable x taux marginal) - somme a deduire = IR brut. Ensuite, nous soustrayons les deductions pour charges de famille (360 DH x nombre de personnes a charge, maximum 6). Le resultat est l'IR net mensuel.</p>
+      <p>Nous situons le salaire net imposable dans la tranche correspondante du bareme de l'IR. Nous appliquons la formule : (salaire net imposable x taux marginal) - somme a deduire = IR brut. Ensuite, nous soustrayons les deductions pour charges de famille (600 DH par an x nombre de personnes a charge, maximum 6). Le resultat est l'IR net mensuel.</p>
 
       <h3>Étape 6 : Calculer le Salaire Net</h3>
       <p>Le salaire net mensuel est obtenu en soustrayant du salaire brut les cotisations CNSS salariales et l'IR net. Nous presentons les resultats sur base mensuelle et annuelle, avec un tableau recapitulatif detaillant chaque composante : salaire brut, CNSS, frais professionnels, base imposable, IR et salaire net.</p>

@@ -1,4 +1,5 @@
 ---
+import Bloc2027 from '../components/ui/Bloc2027.astro';
 import CalculateurLayout from '../layouts/CalculateurLayout.astro';
 import SimulateurIR from '../components/calculateurs/SimulateurIR';
 import { CURRENT_FISCAL_YEAR } from '../config';
@@ -15,7 +16,7 @@ const faqs = [
   },
   {
     question: 'Qu\'est-ce que le revenu net imposable ?',
-    answer: 'Le revenu net imposable est obtenu en déduisant du salaire brut : (1) les cotisations CNSS du salarié (6,74%), puis (2) les frais professionnels de 20% du revenu brut imposable (plafonnés à 30 000 DH/an). C\'est sur ce revenu net imposable que les tranches de l\'IR sont appliquées.',
+    answer: 'Le revenu net imposable est obtenu en déduisant du salaire brut : (1) les cotisations CNSS du salarié (6,74%), puis (2) les frais professionnels : 35 % du salaire brut imposable s\'il ne dépasse pas 78 000 DH par an, 25 % au-delà, dans la limite de 35 000 DH par an. C\'est sur ce revenu net imposable que les tranches de l\'IR sont appliquées.',
   },
   {
     question: 'Qu\'est-ce que le taux effectif et le taux marginal ?',
@@ -23,11 +24,15 @@ const faqs = [
   },
   {
     question: 'Comment fonctionnent les déductions pour personnes à charge ?',
-    answer: 'Chaque personne à charge donne droit à une déduction de 360 DH par an, dans la limite de 6 personnes (2 160 DH/an maximum). Cette déduction est soustraite directement du montant de l\'IR calculé, ce qui réduit l\'impôt final à payer.',
+    answer: 'Chaque personne à charge donne droit à une déduction de 600 DH par an, dans la limite de 6 personnes (3 600 DH/an maximum). Cette déduction est soustraite directement du montant de l\'IR calculé, ce qui réduit l\'impôt final à payer.',
   },
   {
     question: 'Les revenus fonciers sont-ils soumis au même barème IR que les salaires ?',
     answer: 'Les revenus fonciers au Maroc sont soumis à l\'IR mais avec des règles spécifiques. Ils peuvent être imposés au taux forfaitaire de 15% ou intégrés au revenu global et soumis au barème progressif. Le choix dépend de la situation du contribuable. Ce simulateur concerne spécifiquement l\'IR salarial.',
+  },
+  {
+    question: 'Quels seront les chiffres du salaire net au Maroc en 2027 ?',
+    answer: 'Le barème IR en vigueur (0 % jusqu\'à 40 000 DH, taux maximal de 37 %), les frais professionnels (35 % ou 25 %, plafond 35 000 DH) et le plafond CNSS de 6 000 DH restent applicables tant que de nouveaux textes ne sont pas publiés. Le projet de loi de finances 2027, publié le 23 octobre 2026 par le ministère de l\'Économie et des Finances, est en cours d\'examen au Parlement ; la loi votée paraîtra au Bulletin officiel fin décembre 2026. Notre calculateur passera au barème 2027 dès cette publication.',
   },
 ];
 
@@ -60,7 +65,7 @@ const exemplesIR = [36000, 60000, 96000, 120000, 240000].map(brut => {
       L'Impôt sur le Revenu (IR) est le principal impôt direct applicable aux revenus salariaux au Maroc. C'est un impôt progressif, ce qui signifie que le taux d'imposition augmente avec le niveau de revenu. Le barème est fixé par la Direction Générale des Impôts (DGI) et s'applique au revenu net imposable annuel.
     </p>
     <p>
-      Il est important de comprendre que l'IR ne s'applique pas directement sur le salaire brut. Un processus de déductions successives permet de déterminer la base imposable. D'abord, les cotisations CNSS du salarié (6,74% du brut, avec plafond pour certaines composantes) sont déduites. Ensuite, une déduction forfaitaire de 20% pour frais professionnels est appliquée, plafonnée à 30 000 DH par an. Le résultat est le revenu net imposable sur lequel les tranches de l'IR sont appliquées.
+      Il est important de comprendre que l'IR ne s'applique pas directement sur le salaire brut. Un processus de déductions successives permet de déterminer la base imposable. D'abord, les cotisations CNSS du salarié (6,74% du brut, avec plafond pour certaines composantes) sont déduites. Ensuite, une déduction forfaitaire pour frais professionnels est appliquée : 35 % du salaire brut imposable s'il ne dépasse pas 78 000 DH par an, 25 % au-delà, dans la limite de 35 000 DH par an. Le résultat est le revenu net imposable sur lequel les tranches de l'IR sont appliquées.
     </p>
 
     <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Barème de l'IR {CURRENT_FISCAL_YEAR} - Tranches annuelles</h3>
@@ -108,11 +113,10 @@ const exemplesIR = [36000, 60000, 96000, 120000, 240000].map(brut => {
       Le système progressif signifie que votre revenu est "découpé" en tranches, et chaque tranche est imposée à son propre taux. Par exemple, pour un revenu net imposable de 70 000 DH annuels :
     </p>
     <ul class="list-disc ml-4 space-y-1">
-      <li>Les premiers 30 000 DH sont exonérés (0%)</li>
-      <li>Les 20 000 DH suivants (30 001 à 50 000) sont imposés à 10% = 2 000 DH</li>
-      <li>Les 10 000 DH suivants (50 001 à 60 000) sont imposés à 20% = 2 000 DH</li>
-      <li>Les 10 000 DH restants (60 001 à 70 000) sont imposés à 30% = 3 000 DH</li>
-      <li><strong>Total IR = 7 000 DH</strong>, soit un taux effectif de 10,0%</li>
+      <li>Les premiers 40 000 DH sont exonérés (0%)</li>
+      <li>Les 20 000 DH suivants (40 001 à 60 000) sont imposés à 10% = 2 000 DH</li>
+      <li>Les 10 000 DH restants (60 001 à 70 000) sont imposés à 20% = 2 000 DH</li>
+      <li><strong>Total IR = 4 000 DH</strong>, soit un taux effectif de 5,7%</li>
     </ul>
 
     <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Taux effectif par niveau de salaire</h3>
@@ -143,7 +147,7 @@ const exemplesIR = [36000, 60000, 96000, 120000, 240000].map(brut => {
 
     <h3 class="mt-8 mb-3 text-lg font-semibold text-charcoal">Les frais professionnels : un mécanisme de réduction</h3>
     <p>
-      La déduction pour frais professionnels est l'un des mécanismes les plus importants pour réduire l'IR. Elle s'applique au revenu brut imposable (salaire brut moins cotisations CNSS) à hauteur de 20%, avec un plafond annuel de 30 000 DH. Ce plafond est atteint lorsque le revenu brut imposable dépasse 150 000 DH/an, soit environ 13 700 DH brut mensuel.
+      La déduction pour frais professionnels est l'un des mécanismes les plus importants pour réduire l'IR. Elle se calcule sur le salaire brut imposable : 35 % s'il ne dépasse pas 78 000 DH par an (6 500 DH par mois), 25 % au-delà, avec un plafond annuel de 35 000 DH. Ce plafond est atteint à 140 000 DH de brut annuel, soit environ 11 667 DH brut mensuel (article 59-I-A du CGI).
     </p>
     <p>
       Pour les salaires moyens, cette déduction représente un avantage fiscal considérable. Par exemple, pour un salarié à 8 000 DH brut mensuel, les frais professionnels s'élèvent à environ {formatDH(calculerSalaireNet(8000, 0).irDetail.fraisProfessionnels)}/an, réduisant la base imposable d'autant.
@@ -157,6 +161,7 @@ const exemplesIR = [36000, 60000, 96000, 120000, 240000].map(brut => {
       Cette méthode de retenue à la source garantit un recouvrement efficace de l'impôt et simplifie les obligations des salariés. Cependant, en cas de revenus complémentaires (revenus fonciers, revenus professionnels), une déclaration annuelle peut être nécessaire pour régulariser la situation fiscale globale.
     </p>
   </div>
+  <Bloc2027 />
   <!-- Additional internal links -->
   <section class="mt-8">
     <h2 class="mb-4 text-xl font-bold text-charcoal">Articles liés</h2>

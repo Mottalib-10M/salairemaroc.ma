@@ -94,7 +94,7 @@ const IR_BRACKET_NAMES = [
   'deuxi\u00e8me tranche (20%)',
   'troisi\u00e8me tranche (30%)',
   'quatri\u00e8me tranche (34%)',
-  'cinqui\u00e8me tranche (38%)',
+  'cinqui\u00e8me tranche (37%)',
 ];
 
 // ── Main content functions ───────────────────────────────────────────────────
@@ -260,7 +260,7 @@ export function getTaxTips(amount: number, result: DecompositionSalaire): string
       `Votre IR mensuel de ${formatDH(irMensuel)} (total annuel : ${formatDH(irAnnuel)}) peut \u00eatre optimis\u00e9 par des dispositifs fiscaux sp\u00e9cifiques au droit marocain.`
     );
     paragraphs.push(
-      `La d\u00e9duction pour charge de famille repr\u00e9sente 360 DH/an par personne \u00e0 charge (maximum 6). Concr\u00e8tement, d\u00e9clarer 1 personne \u00e0 charge vous fait gagner ${formatDH(savings1)}/mois, et 3 personnes \u00e0 charge rapportent ${formatDH(savings3)}/mois suppl\u00e9mentaires.`
+      `La d\u00e9duction pour charge de famille repr\u00e9sente 600 DH/an par personne \u00e0 charge (maximum 6). Concr\u00e8tement, d\u00e9clarer 1 personne \u00e0 charge vous fait gagner ${formatDH(savings1)}/mois, et 3 personnes \u00e0 charge rapportent ${formatDH(savings3)}/mois suppl\u00e9mentaires.`
     );
   } else {
     paragraphs.push(

@@ -1,4 +1,5 @@
 ---
+import Bloc2027 from '../../components/ui/Bloc2027.astro';
 import CalculateurLayout from '../../layouts/CalculateurLayout.astro';
 import { buildArticleSchema } from '../../lib/seo';
 import { CURRENT_FISCAL_YEAR } from '../../config';
@@ -11,11 +12,11 @@ const description = `Barème complet de l'Impôt sur le Revenu (IR) au Maroc en 
 const faqs = [
   {
     question: `Quelles sont les tranches de l'IR au Maroc en ${CURRENT_FISCAL_YEAR} ?`,
-    answer: `L'IR au Maroc comporte 6 tranches annuelles : 0-30 000 DH à 0%, 30 001-50 000 DH à 10%, 50 001-60 000 DH à 20%, 60 001-80 000 DH à 30%, 80 001-180 000 DH à 34%, et au-delà de 180 000 DH à 38%.`,
+    answer: `L'IR au Maroc comporte 6 tranches annuelles : 0-40 000 DH à 0%, 40 001-60 000 DH à 10%, 60 001-80 000 DH à 20%, 80 001-100 000 DH à 30%, 100 001-180 000 DH à 34%, et au-delà de 180 000 DH à 37%.`,
   },
   {
     question: 'Comment se calcule le revenu net imposable ?',
-    answer: 'Le revenu net imposable = Salaire brut - Cotisations CNSS salarié - Frais professionnels (20% du revenu brut imposable, plafonnés à 30 000 DH/an). C\'est sur ce revenu net imposable que les tranches de l\'IR sont appliquées.',
+    answer: 'Le revenu net imposable = Salaire brut - Cotisations CNSS salarié - Frais professionnels (35 % du salaire brut imposable s\'il ne dépasse pas 78 000 DH par an, 25 % au-delà, dans la limite de 35 000 DH par an). C\'est sur ce revenu net imposable que les tranches de l\'IR sont appliquées.',
   },
   {
     question: 'Qu\'est-ce que le taux marginal vs le taux effectif ?',
@@ -23,11 +24,15 @@ const faqs = [
   },
   {
     question: 'Les frais professionnels s\'appliquent-ils à tous les salariés ?',
-    answer: 'Oui, la déduction de 20% pour frais professionnels est automatique et s\'applique à tous les salariés, sans justificatif. Elle est plafonnée à 30 000 DH par an, ce qui correspond à un revenu brut imposable d\'environ 150 000 DH/an.',
+    answer: 'Oui, la déduction pour frais professionnels est automatique et s\'applique à tous les salariés, sans justificatif : 35 % du brut imposable jusqu\'à 78 000 DH par an, 25 % au-delà. Elle est plafonnée à 35 000 DH par an, plafond atteint à 140 000 DH de brut annuel. Certaines professions ont des taux spécifiques.',
   },
   {
     question: 'Un salarié au SMIG paye-t-il l\'IR au Maroc ?',
-    answer: 'Un salarié au SMIG (3 111,39 DH brut/mois) paye très peu ou pas d\'IR. Son revenu net imposable annuel tombe dans la première tranche à 0% (0-30 000 DH). En pratique, seul un montant très faible d\'IR peut être dû selon le calcul exact, car une partie du revenu dépasse légèrement la tranche exonérée.',
+    answer: 'Un salarié au SMIG (3 422,72 DH brut/mois en 2026) ne paye pas d\'IR. Après la CNSS et les frais professionnels de 35 %, son revenu net imposable annuel reste sous 40 000 DH, tranche exonérée du barème.',
+  },
+  {
+    question: 'Quels seront les chiffres du salaire net au Maroc en 2027 ?',
+    answer: 'Le barème IR en vigueur (0 % jusqu\'à 40 000 DH, taux maximal de 37 %), les frais professionnels (35 % ou 25 %, plafond 35 000 DH) et le plafond CNSS de 6 000 DH restent applicables tant que de nouveaux textes ne sont pas publiés. Le projet de loi de finances 2027, publié le 23 octobre 2026 par le ministère de l\'Économie et des Finances, est en cours d\'examen au Parlement ; la loi votée paraîtra au Bulletin officiel fin décembre 2026. Notre calculateur passera au barème 2027 dès cette publication.',
   },
 ];
 
@@ -74,7 +79,7 @@ const articleSchema = buildArticleSchema(title, description, '/guides/bareme-ir-
     <!-- Definition box for featured snippets -->
     <div class="not-prose bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-lg mb-6">
       <p class="font-semibold text-teal-900">En bref</p>
-      <p class="text-teal-800">L'IR au Maroc est un impôt progressif à 6 tranches : 0% (0-30 000 DH), 10% (30-50k), 20% (50-60k), 30% (60-80k), 34% (80-180k) et 38% (au-delà de 180 000 DH). Il s'applique au revenu net imposable annuel après déduction de la CNSS et des frais professionnels de 20%.</p>
+      <p class="text-teal-800">L'IR au Maroc est un impôt progressif à 6 tranches : 0% (0-40 000 DH), 10% (40-60k), 20% (60-80k), 30% (80-100k), 34% (100-180k) et 37% (au-delà de 180 000 DH). Il s'applique au revenu net imposable annuel après déduction de la CNSS et des frais professionnels (35 % ou 25 %).</p>
     </div>    <p>
       L'Impôt sur le Revenu (IR) est le principal impôt direct au Maroc applicable aux revenus salariaux. Il est progressif, ce qui signifie que le taux d'imposition augmente par paliers en fonction du montant du revenu. Ce guide vous explique en détail le fonctionnement du barème, les déductions applicables et leur impact concret sur votre salaire net.
     </p>
@@ -109,7 +114,7 @@ const articleSchema = buildArticleSchema(title, description, '/guides/bareme-ir-
                   </td>
                   <td class="px-4 py-2 text-right font-medium">{(t.taux * 100).toFixed(0)}%</td>
                   <td class="px-4 py-2 text-right tabular-nums">
-                    {t.max === Infinity ? '38% x montant' : formatDHArrondi(impotTranche)}
+                    {t.max === Infinity ? '37% x montant' : formatDHArrondi(impotTranche)}
                   </td>
                   <td class="px-4 py-2 text-right tabular-nums font-medium">
                     {t.max === Infinity ? '-' : formatDHArrondi(cumul)}
@@ -130,11 +135,10 @@ const articleSchema = buildArticleSchema(title, description, '/guides/bareme-ir-
       Prenons un exemple concret. Pour un revenu net imposable annuel de 70 000 DH :
     </p>
     <ul>
-      <li>De 0 à 30 000 DH : 30 000 x 0% = <strong>0 DH</strong></li>
-      <li>De 30 001 à 50 000 DH : 20 000 x 10% = <strong>2 000 DH</strong></li>
-      <li>De 50 001 à 60 000 DH : 10 000 x 20% = <strong>2 000 DH</strong></li>
-      <li>De 60 001 à 70 000 DH : 10 000 x 30% = <strong>3 000 DH</strong></li>
-      <li><strong>IR total = 7 000 DH</strong> (taux effectif = 10,0%, taux marginal = 30%)</li>
+      <li>De 0 à 40 000 DH : 40 000 x 0% = <strong>0 DH</strong></li>
+      <li>De 40 001 à 60 000 DH : 20 000 x 10% = <strong>2 000 DH</strong></li>
+      <li>De 60 001 à 70 000 DH : 10 000 x 20% = <strong>2 000 DH</strong></li>
+      <li><strong>IR total = 4 000 DH</strong> (taux effectif = 5,7%, taux marginal = 20%)</li>
     </ul>
 
     <h2>Du salaire brut au revenu net imposable</h2>
@@ -143,7 +147,7 @@ const articleSchema = buildArticleSchema(title, description, '/guides/bareme-ir-
     </p>
     <ol>
       <li><strong>Cotisations CNSS salarié (6,74%) :</strong> déduites du brut pour obtenir le revenu brut imposable.</li>
-      <li><strong>Frais professionnels (20%) :</strong> déduction forfaitaire de 20% du revenu brut imposable, plafonnée à 30 000 DH/an. Cette déduction est automatique et ne nécessite aucun justificatif.</li>
+      <li><strong>Frais professionnels :</strong> déduction forfaitaire de 35 % du salaire brut imposable s'il ne dépasse pas 78 000 DH par an, 25 % au-delà, dans la limite de 35 000 DH par an. Cette déduction est automatique et ne nécessite aucun justificatif.</li>
       <li><strong>Cotisations retraite complémentaire :</strong> si le salarié cotise à un régime de retraite complémentaire (CIMR par exemple), ces cotisations sont également déductibles, dans certaines limites.</li>
     </ol>
     <p>
@@ -180,7 +184,7 @@ const articleSchema = buildArticleSchema(title, description, '/guides/bareme-ir-
 
     <h2>Déductions pour charges de famille</h2>
     <p>
-      Après le calcul de l'IR brut (en appliquant le barème), le contribuable peut bénéficier d'une déduction pour charges de famille de <strong>360 DH par personne à charge et par an</strong>, dans la limite de <strong>6 personnes à charge</strong> (soit 2 160 DH/an maximum). Les personnes à charge comprennent :
+      Après le calcul de l'IR brut (en appliquant le barème), le contribuable peut bénéficier d'une déduction pour charges de famille de <strong>600 DH par personne à charge et par an</strong>, dans la limite de <strong>6 personnes à charge</strong> (soit 3 600 DH/an maximum, article 74 du CGI). Les personnes à charge comprennent :
     </p>
     <ul>
       <li>Le conjoint (s'il n'a pas de revenus propres dépassant le seuil d'exonération)</li>
@@ -192,7 +196,7 @@ const articleSchema = buildArticleSchema(title, description, '/guides/bareme-ir-
 
     <h2>Impact du plafond des frais professionnels</h2>
     <p>
-      La déduction pour frais professionnels de 20% est plafonnée à 30 000 DH/an. Ce plafond est atteint lorsque le revenu brut imposable annuel dépasse 150 000 DH (soit environ 13 700 DH brut/mois). Au-delà de ce seuil, la déduction reste fixe à 30 000 DH et ne progresse plus avec le salaire.
+      La déduction pour frais professionnels (25 % au-delà de 78 000 DH de brut annuel) est plafonnée à 35 000 DH/an. Ce plafond est atteint à 140 000 DH de brut annuel (environ 11 667 DH brut/mois). Au-delà, la déduction reste fixe à 35 000 DH et ne progresse plus avec le salaire.
     </p>
     <p>
       Cela signifie que pour les hauts salaires, la part du revenu soumise à l'IR est proportionnellement plus importante, ce qui renforce la progressivité effective du système fiscal marocain.
@@ -219,6 +223,7 @@ const articleSchema = buildArticleSchema(title, description, '/guides/bareme-ir-
     <p>
       Pour simuler votre IR en détail, tranche par tranche, utilisez notre <a href="/simulateur-ir/" class="text-brand hover:underline">simulateur IR</a>. Pour calculer directement votre salaire net, utilisez notre <a href="/" class="text-brand hover:underline">calculateur brut/net</a>.
     </p>
+    <Bloc2027 />
     <h2>Articles liés</h2>
     <ul>
       <li><a href="/" class="text-brand hover:underline">Calculateur salaire brut vers net au Maroc</a> - Convertissez votre brut en net instantanément</li>

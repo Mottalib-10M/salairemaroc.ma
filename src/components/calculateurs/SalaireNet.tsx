@@ -98,7 +98,7 @@ export default function SalaireNet({ initialBrut = 8000 }: SalaireNetProps) {
           ))}
         </div>
         <p className="mt-1 text-xs text-gray-500">
-          Déduction de {dependants * 360} DH/an ({dependants} x 360 DH)
+          Déduction de {dependants * 600} DH/an ({dependants} x 600 DH)
         </p>
       </div>
 
