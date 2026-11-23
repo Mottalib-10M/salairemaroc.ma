@@ -46,7 +46,7 @@ export const footerGuideLinks: NavLink[] = [
   { href: '/guides/comprendre-bulletin-paie/', label: 'Bulletin de paie' },
   { href: '/guides/bareme-ir-maroc/', label: 'Barème IR' },
   { href: '/glossaire/', label: 'Glossaire' },
-  { href: '/actualites/', label: 'Actualites' },
+  { href: '/actualites/', label: 'Actualités' },
 ];
 
 export const footerSalaireLinks: NavLink[] = [
@@ -69,7 +69,7 @@ export const footerExternalLinks: NavLink[] = [
 
 export const footerLegalLinks: NavLink[] = [
   { href: '/a-propos/', label: 'À propos' },
-  { href: '/methodologie/', label: 'Methodologie' },
+  { href: '/methodologie/', label: 'Méthodologie' },
   { href: '/contact/', label: 'Contact' },
   { href: '/confidentialite/', label: 'Confidentialité' },
   { href: '/mentions-legales/', label: 'Mentions légales' },
